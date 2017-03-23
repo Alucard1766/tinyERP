@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.UI", "tinyERP\tinyERP.UI.csproj", "{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERPUnitTest", "tinyERPUnitTest\tinyERPUnitTest.csproj", "{B5892FBF-4F80-4454-963C-542FFA696B62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Dal", "tinyERP.Dal\tinyERP.Dal.csproj", "{F25E441D-D68F-4AE0-ABF2-EAC482022378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.BusinessLayer", "tinyERP.BusinessLayer\tinyERP.BusinessLayer.csproj", "{44E3E545-F58F-48EB-AC33-47A99AA46319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Service.WCF", "tinyERP.Service.WCF\tinyERP.Service.WCF.csproj", "{3DDDC9C1-5512-4E44-94C7-72BA384AEFCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Common", "tinyERP.Common\tinyERP.Common.csproj", "{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DEA10531-5FB1-4316-B6D3-3DDC1BBC0A17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5892FBF-4F80-4454-963C-542FFA696B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5892FBF-4F80-4454-963C-542FFA696B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5892FBF-4F80-4454-963C-542FFA696B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5892FBF-4F80-4454-963C-542FFA696B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDDC9C1-5512-4E44-94C7-72BA384AEFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDDC9C1-5512-4E44-94C7-72BA384AEFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDDC9C1-5512-4E44-94C7-72BA384AEFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDDC9C1-5512-4E44-94C7-72BA384AEFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
