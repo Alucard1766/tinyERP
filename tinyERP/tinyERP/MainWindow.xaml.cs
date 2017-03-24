@@ -1,11 +1,9 @@
 ﻿using System.Windows;
+using MahApps.Metro.Controls;
 
 namespace tinyERP
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
