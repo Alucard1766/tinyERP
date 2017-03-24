@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.UI", "tinyERP\tinyERP.UI.csproj", "{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}"
 EndProject
@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Common", "tinyERP.Common\tinyERP.Common.csproj", "{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DEA10531-5FB1-4316-B6D3-3DDC1BBC0A17}"
+	ProjectSection(SolutionItems) = preProject
+		App.config = App.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

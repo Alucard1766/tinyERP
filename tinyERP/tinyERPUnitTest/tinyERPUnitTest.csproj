@@ -66,6 +66,28 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tinyERP.BusinessLayer\tinyERP.BusinessLayer.csproj">
+      <Project>{44e3e545-f58f-48eb-ac33-47a99aa46319}</Project>
+      <Name>tinyERP.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tinyERP.Common\tinyERP.Common.csproj">
+      <Project>{566c7421-fd6a-46a3-a744-4bd06e2f0b2c}</Project>
+      <Name>tinyERP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tinyERP.Dal\tinyERP.Dal.csproj">
+      <Project>{f25e441d-d68f-4ae0-abf2-eac482022378}</Project>
+      <Name>tinyERP.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tinyERP.Service.WCF\tinyERP.Service.WCF.csproj">
+      <Project>{3dddc9c1-5512-4e44-94c7-72ba384aefca}</Project>
+      <Name>tinyERP.Service.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tinyERP\tinyERP.UI.csproj">
+      <Project>{c3305b6b-c7d6-464b-94c4-eb46d7926ee0}</Project>
+      <Name>tinyERP.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
