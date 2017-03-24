@@ -1,11 +1,42 @@
-﻿<Controls:MetroWindow x:Class="tinyERP.MainWindow"
+﻿<controls:MetroWindow x:Class="tinyERP.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:tinyErp="clr-namespace:tinyERP"
                       Title="MainWindow"
                       Height="600"
                       Width="800">
-    <Grid>
-        <Button Content="This is a small Buton"></Button>
-    </Grid>
-</Controls:MetroWindow>
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" Width="120">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100">
+                <iconPacks:PackIconMaterial Kind="Cash" Width="50" Height="50" />
+            </Button>
+            <Button Grid.Row="1" Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100">
+                <iconPacks:PackIconMaterial Kind="Archive" Width="50" Height="50" />
+            </Button>
+            <Button Grid.Row="2" Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100">
+                <iconPacks:PackIconMaterial Kind="AccountMultiple" Width="50" Height="50" />
+            </Button>
+            <Button Grid.Row="3" Style="{DynamicResource MetroCircleButtonStyle}" Width="100" Height="100">
+                <iconPacks:PackIconFontAwesome Kind="PencilSquareOutline" Width="50" Height="50" />
+            </Button>
+        </Grid>
+        <Border DockPanel.Dock="Left" BorderThickness="2" BorderBrush="LawnGreen"></Border>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"></ColumnDefinition></Grid.ColumnDefinitions>
+            <tinyErp:Budget Visibility="Visible"></tinyErp:Budget>
+            <tinyErp:Document Visibility="Hidden"></tinyErp:Document>
+            <tinyErp:Customer Visibility="Hidden"></tinyErp:Customer>
+            <tinyErp:Order Visibility="Hidden"></tinyErp:Order>
+        </Grid>
+
+    </DockPanel>
+
+</controls:MetroWindow>
