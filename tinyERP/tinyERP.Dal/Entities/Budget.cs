@@ -8,9 +8,17 @@ namespace tinyERP.Dal.Entities
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public int Year { get; set; }
+
         [Required]
         public double Amount { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        public ICollection<Transaction> Transactions { get; set; }
+
     }
 }
