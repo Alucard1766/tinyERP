@@ -19,7 +19,7 @@ namespace tinyERP.Dal.Entities
         public int PrivatePart { get; set; }
 
         [Required]
-        private DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string Comment { get; set; }
 
