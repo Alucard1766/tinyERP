@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +8,7 @@ namespace tinyERP.Dal.Entities
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -28,7 +28,7 @@ namespace tinyERP.Dal.Entities
 
         public int BudgetId { get; set; }
 
-        [ForeignKey("KundeId")]
+        [ForeignKey("BudgetId")]
         public Budget Budget { get; set; }
     }
 }
