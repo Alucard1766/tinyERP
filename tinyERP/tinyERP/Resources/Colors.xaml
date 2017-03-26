@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--ACCENT COLORS-->
+    <Color x:Key="HighlightColor">#ad00ad</Color>
+
+    <!--80%-->
+    <Color x:Key="AccentColor">#00AF00</Color>
+    <!--60%-->
+    <Color x:Key="AccentColor2">#4db938</Color>
+    <!--40%-->
+    <Color x:Key="AccentColor3">#44d62c</Color>
+    <!--20%-->
+    <Color x:Key="AccentColor4">#828f5b</Color>
+
+</ResourceDictionary>

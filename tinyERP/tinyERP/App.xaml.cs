@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using MahApps.Metro;
+using System.Windows;
 
 namespace tinyERP
 {

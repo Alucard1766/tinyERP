@@ -1,28 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace tinyERP
 {
     /// <summary>
-    /// Interaction logic for Budget.xaml
+    ///     Interaction logic for Budget.xaml
     /// </summary>
     public partial class Budget : UserControl
     {
         public Budget()
         {
             InitializeComponent();
+            InitalizeList();
+            DataContext = this;
         }
+
+        public ObservableCollection<BudgetView> BudgetViews { get; set; }
+
+        private void InitalizeList()
+        {
+            BudgetViews = new ObservableCollection<BudgetView>
+            {
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
+                new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0)
+            };
+        }
+    }
+
+    public class BudgetView
+    {
+        public BudgetView(double amount, string categorie, DateTime date, string description, int privatpart)
+        {
+            Amount = amount;
+            Categorie = categorie;
+            Date = date;
+            Description = description;
+            Privatpart = privatpart;
+        }
+
+        public double Amount { get; set; }
+        public string Categorie { get; set; }
+        public DateTime Date { get; set; }
+        public string Description { get; set; }
+        public int Privatpart { get; set; }
     }
 }

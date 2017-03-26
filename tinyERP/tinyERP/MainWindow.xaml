@@ -3,12 +3,23 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:tinyErp="clr-namespace:tinyERP"
+                      xmlns:local="clr-namespace:tinyERP"
                       Title="MainWindow"
+                      Width="1200"
                       Height="600"
-                      Width="800">
+                      MinHeight="600"
+                      MinWidth="1200">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <DockPanel>
-        <Grid DockPanel.Dock="Left" Width="120">
+        <Grid DockPanel.Dock="Left" Width="120" Background="{StaticResource AccentColorBrush4}">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -28,13 +39,10 @@
                 <iconPacks:PackIconFontAwesome Kind="PencilSquareOutline" Width="50" Height="50" />
             </Button>
         </Grid>
-        <Border DockPanel.Dock="Left" BorderThickness="2" BorderBrush="LawnGreen"></Border>
         <Grid>
             <Grid.ColumnDefinitions><ColumnDefinition Width="*"></ColumnDefinition></Grid.ColumnDefinitions>
-            <tinyErp:Budget Visibility="Visible"></tinyErp:Budget>
-            <tinyErp:Document Visibility="Hidden"></tinyErp:Document>
-            <tinyErp:Customer Visibility="Hidden"></tinyErp:Customer>
-            <tinyErp:Order Visibility="Hidden"></tinyErp:Order>
+            <local:Budget Visibility="Visible"></local:Budget>
+
         </Grid>
 
     </DockPanel>

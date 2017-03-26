@@ -7,6 +7,7 @@ namespace tinyERP
     {
         public MainWindow()
         {
+            DataContext = this;
             InitializeComponent();
         }
     }
