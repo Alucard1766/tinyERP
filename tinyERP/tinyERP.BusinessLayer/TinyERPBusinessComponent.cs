@@ -34,7 +34,9 @@ namespace tinyERP.BusinessLayer
         {
             using (var context = new TinyErpContext())
             {
-                return context.Budgets.Find(id);
+                return context.Budgets
+                    .Include(b => b.Transactions)
+                    .First<Budget>(b => b.Id == id);
             }
         }
 
@@ -42,7 +44,8 @@ namespace tinyERP.BusinessLayer
         {
             using (var context = new TinyErpContext())
             {
-                return context.Transactions.Find(id);
+                return context.Transactions
+                    .First(t => t.Id == id);
             }
         }
 
