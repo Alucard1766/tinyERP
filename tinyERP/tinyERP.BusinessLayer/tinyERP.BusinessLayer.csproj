@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyDataGenerator.cs" />
     <Compile Include="LocalOptimisticConcurrencyException.cs" />
     <Compile Include="TinyErpBusinessComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
