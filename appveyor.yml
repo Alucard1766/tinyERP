@@ -6,4 +6,4 @@ before_build:
 build:
   project: tinyERP.sln
   verbosity: minimal
-	
+  
