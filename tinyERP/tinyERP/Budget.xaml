@@ -8,9 +8,8 @@
              d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}">
-    </CollectionViewSource>
-            </ResourceDictionary>
+            <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid Background="White">

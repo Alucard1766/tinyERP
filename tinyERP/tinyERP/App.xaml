@@ -17,7 +17,7 @@
                 
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
-                <ResourceDictionary Source="Resources/CircleButton.xaml"/>
+                <ResourceDictionary Source="Resources/CircleButtonExtend.xaml"/>
              
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
