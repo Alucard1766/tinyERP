@@ -4,6 +4,6 @@ nuget:
 before_build:
   - cmd: nuget restore
 build:
-	project: tinyERP.sln
-	verbosity: minimal
+  project: tinyERP.sln
+  verbosity: minimal
 	
