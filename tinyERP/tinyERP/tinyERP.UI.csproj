@@ -105,6 +105,7 @@
     <Compile Include="Document.xaml.cs">
       <DependentUpon>Document.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Factories\UnitOfWorkFactory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -160,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tinyERP.Dal\tinyERP.Dal.csproj">
+      <Project>{F25E441D-D68F-4AE0-ABF2-EAC482022378}</Project>
+      <Name>tinyERP.Dal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
