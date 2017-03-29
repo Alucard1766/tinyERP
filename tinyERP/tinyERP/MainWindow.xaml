@@ -1,9 +1,9 @@
-﻿<controls:MetroWindow x:Class="tinyERP.MainWindow"
+﻿<controls:MetroWindow x:Class="tinyERP.UI.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:local="clr-namespace:tinyERP"
+                      xmlns:Views="clr-namespace:tinyERP.UI.Views"
                       Title="MainWindow"
                       Width="1200"
                       Height="600"
@@ -41,7 +41,7 @@
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions><ColumnDefinition Width="*"></ColumnDefinition></Grid.ColumnDefinitions>
-            <local:Budget Visibility="Visible"></local:Budget>
+            <Views:BudgetView x:Name="avBudgetView" DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
 
         </Grid>
 

@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 
-namespace tinyERP
+namespace tinyERP.UI.ViewModels
 {
-    /// <summary>
-    ///     Interaction logic for Budget.xaml
-    /// </summary>
-    public partial class Budget : UserControl
+    class BudgetViewModel : ViewModelBase
     {
-        public Budget()
-        {
-            InitializeComponent();
-            InitalizeList();
-            DataContext = this;
-        }
-
         public ObservableCollection<BudgetView> BudgetViews { get; set; }
 
-        private void InitalizeList()
+        public BudgetViewModel()
+        {
+        }
+        public override void Load()
         {
             BudgetViews = new ObservableCollection<BudgetView>
             {
@@ -55,7 +47,6 @@ namespace tinyERP
             };
         }
     }
-
     public class BudgetView
     {
         public BudgetView(double amount, string categorie, DateTime date, string description, int privatpart)
