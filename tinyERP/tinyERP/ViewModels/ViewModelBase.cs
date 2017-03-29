@@ -2,10 +2,8 @@
 
 namespace tinyERP.UI.ViewModels
 {
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public void Init()
         {
             // new Factory

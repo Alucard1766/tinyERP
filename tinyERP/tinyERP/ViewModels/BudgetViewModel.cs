@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using MahApps.Metro;
+using System.ComponentModel;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -9,6 +12,7 @@ namespace tinyERP.UI.ViewModels
 
         public BudgetViewModel()
         {
+
         }
         public override void Load()
         {
@@ -46,6 +50,31 @@ namespace tinyERP.UI.ViewModels
                 new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0)
             };
         }
+
+        #region New-Command
+
+        private RelayCommand newCommand;
+
+        public ICommand NewCommand
+        {
+            get
+            {
+                return newCommand ?? (newCommand = new RelayCommand(param => New(), param => CanNew()));
+            }
+        }
+
+        private void New()
+        {
+            //TODO: Add new Transaction
+        }
+
+        private bool CanNew()
+        {
+            //TODO: CanNew()
+            return true;
+        }
+
+        #endregion
     }
     public class BudgetView
     {
