@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using MahApps.Metro;
-using System.ComponentModel;
+using tinyERP.UI.Views;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -65,7 +64,8 @@ namespace tinyERP.UI.ViewModels
 
         private void New()
         {
-            //TODO: Add new Transaction
+            AddTransactionView window = new AddTransactionView();
+            window.ShowDialog();
         }
 
         private bool CanNew()

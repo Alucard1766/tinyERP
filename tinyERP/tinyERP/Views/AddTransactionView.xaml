@@ -6,9 +6,9 @@
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Add a new Transaction" Height="300" Width="300">
+        Title="Add a new Transaction" Height="320" Width="600" MinWidth="600" MinHeight="320">
 
-    <Grid Margin="5,10,5,5">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
@@ -17,9 +17,28 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <TextBox HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Width="200" Height="20" controls:TextBoxHelper.Watermark="Bezeichnung"></TextBox>
+        <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Width="200" Height="20" controls:TextBoxHelper.Watermark="Betrag"></TextBox>
+        <DatePicker HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Width="200" Height="20" Text="Wähle ein Datum"></DatePicker>
+        <TextBox HorizontalAlignment="Left" Grid.Row="3" Grid.ColumnSpan="2" Width="500" Height="40" controls:TextBoxHelper.Watermark="Bemerkungen"></TextBox>
+        <controls:SplitButton HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" DisplayMemberPath="Title" ItemsSource="{Binding Categories}" VerticalAlignment="Center"></controls:SplitButton>
+        <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="200" Height="20" controls:TextBoxHelper.Watermark="Privatanteil"></TextBox>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,72,0" HorizontalAlignment="Right">
+            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Command="{Binding NewCommand}" BorderThickness="0" Margin="0,0,30,0">
+                <iconPacks:PackIconMaterial Kind="Upload" Width="30" Height="30" />
+            </Button>
+            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Command="{Binding NewCommand}" BorderThickness="0">
+                <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
+            </Button>
+            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" Command="{Binding NewCommand}" BorderThickness="0">
+                <iconPacks:PackIconMaterial Kind="Check" Width="30" Height="30" />
+            </Button>
+        </StackPanel>
+
     </Grid>
-    
 </controls:MetroWindow>
