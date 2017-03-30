@@ -2,7 +2,7 @@
 
 namespace tinyERP.UI.Factories
 {
-    public class UnitOfWorkFactory
+    public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
         public IUnitOfWork GetUnitOfWork()
         {

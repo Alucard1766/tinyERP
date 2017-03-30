@@ -7,10 +7,10 @@ namespace tinyERP.UI.ViewModels
 {
     public abstract class ViewModelBase
     {
-        private readonly UnitOfWorkFactory _factory;
+        private readonly IUnitOfWorkFactory _factory;
         protected IUnitOfWork UnitOfWork { get; set; }
 
-        protected ViewModelBase(UnitOfWorkFactory factory)
+        protected ViewModelBase(IUnitOfWorkFactory factory)
         {
             this._factory = factory;
         }

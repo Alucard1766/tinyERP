@@ -8,7 +8,7 @@ namespace tinyERP.UI.ViewModels
 {
     internal class BudgetViewModel : ViewModelBase
     {
-        public BudgetViewModel(UnitOfWorkFactory factory) : base(factory)
+        public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
 
