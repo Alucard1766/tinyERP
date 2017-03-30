@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -17,7 +18,7 @@ namespace tinyERP.UI.ViewModels
 
         public override void Load()
         {
-            var transactions = UnitOfWork.Transactions.GetAll();
+            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
 
             var categories = UnitOfWork.Categories.GetAll();
@@ -37,6 +38,22 @@ namespace tinyERP.UI.ViewModels
         {
             var window = new AddTransactionView(this);
             window.ShowDialog();
+            if (window.AddTransaction)
+            {
+                var transaction = new Transaction();
+                transaction.Name = "Testeintrag";
+                transaction.Amount = 200;
+                transaction.Date = DateTime.Today;
+                transaction.Comment = "Testdaten";
+                transaction.PrivatePart = 50;
+                transaction.BudgetId = 1;
+                transaction.CategoryId = 1;
+                UnitOfWork.Transactions.Add(transaction);
+                if(UnitOfWork.Complete() > 0)
+                {
+                    TransactionList.Add(transaction);
+                }
+            }
       
         }
 

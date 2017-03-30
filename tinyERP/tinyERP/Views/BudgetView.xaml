@@ -6,18 +6,26 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+             d:DesignHeight="800" d:DesignWidth="1200">
     <UserControl.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}"/>
         </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid Background="White">
-        <Grid.ColumnDefinitions><ColumnDefinition></ColumnDefinition><ColumnDefinition></ColumnDefinition></Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <TextBlock FontSize="40" Margin="10" Height="auto">Budgetverwaltung</TextBlock>
         </StackPanel>
+        
         <DockPanel Grid.Column="1" Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <TextBox Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..."></TextBox>
@@ -31,13 +39,17 @@
                     <iconPacks:PackIconMaterial Kind="MinusCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" MinWidth="480px" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+            
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" IsReadOnly="True"
+                      CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn MinWidth="60" Width="*" Header="Datum" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"/>
-                    <DataGridTextColumn MinWidth="120" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="Kategorie" Binding="{Binding Categorie}"/>
-                    <DataGridTextColumn MinWidth="60" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
+                    <DataGridTextColumn MinWidth="80" Width="*" Header="Datum" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"/>
+                    <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Kategorie" Binding="{Binding Category.Name}"/>
+                    <DataGridTextColumn MinWidth="80" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
+                    <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

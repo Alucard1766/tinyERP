@@ -7,6 +7,7 @@ namespace tinyERP.UI.Views
     /// </summary>
     public partial class AddTransactionView : MetroWindow
     {
+        public bool AddTransaction { get; set; }
         public AddTransactionView()
         {
             InitializeComponent();
@@ -19,11 +20,13 @@ namespace tinyERP.UI.Views
 
         private void AddNewTransaction(object sender, System.Windows.RoutedEventArgs e)
         {
+            AddTransaction = true;
             this.Close();
         }
 
         private void RemoveTransaction(object sender, System.Windows.RoutedEventArgs e)
         {
+            AddTransaction = false;
             this.Close();
         }
     }
