@@ -7,5 +7,7 @@ namespace tinyERP.Dal.Repositories
     public interface ITransactionRepository : IRepository<Transaction>
     {
         IEnumerable<Transaction> GetTransactionsBetween(DateTime from, DateTime to);
+        IEnumerable<Transaction> GetTransactionsWithCategories();
+        IEnumerable<Transaction> GetTransactionsWithCategoriesBetween(DateTime from, DateTime to);
     }
 }
