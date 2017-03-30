@@ -31,13 +31,13 @@
                     <iconPacks:PackIconMaterial Kind="MinusCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding BudgetViews}" MinWidth="480px" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" MinWidth="480px" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn MinWidth="60" Width="*" Header="Datum" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"/>
-                    <DataGridTextColumn MinWidth="120" Width="*" Header="Bezeichnung" Binding="{Binding Description}"/>
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Kategorie" Binding="{Binding Categorie}"/>
                     <DataGridTextColumn MinWidth="60" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding Privatpart}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

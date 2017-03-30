@@ -4,7 +4,7 @@
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       xmlns:Views="clr-namespace:tinyERP.UI.Views"
-                      Title="MainWindow"
+                      Title="tinyERP"
                       Width="1200"
                       Height="600"
                       MinHeight="600"

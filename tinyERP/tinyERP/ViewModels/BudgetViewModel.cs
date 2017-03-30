@@ -12,13 +12,13 @@ namespace tinyERP.UI.ViewModels
         {
         }
 
-        public ObservableCollection<Transaction> BudgetView { get; set; }
+        public ObservableCollection<Transaction> TransactionList { get; set; }
         public ObservableCollection<Category> CategorieList { get; set; }
 
         public override void Load()
         {
             var transactions = UnitOfWork.Transactions.GetAll();
-            BudgetView = new ObservableCollection<Transaction>(transactions);
+            TransactionList = new ObservableCollection<Transaction>(transactions);
 
             var categories = UnitOfWork.Categories.GetAll();
             CategorieList = new ObservableCollection<Category>(categories);

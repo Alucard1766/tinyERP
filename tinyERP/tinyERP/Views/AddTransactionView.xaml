@@ -25,7 +25,7 @@
         <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Width="200" Height="20" controls:TextBoxHelper.Watermark="Betrag"/>
         <DatePicker HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Width="200" Height="20" Text="Wähle ein Datum"/>
         <TextBox HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" Width="500" Height="40" controls:TextBoxHelper.Watermark="Bemerkungen"/>
-        <controls:SplitButton HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" ItemsSource="{Binding CategorieList}"  DisplayMemberPath="Description" VerticalAlignment="Center" ToolTip="Kategorie auswählen" SelectedIndex="0"/>
+        <controls:SplitButton HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Width="200" ItemsSource="{Binding CategorieList}"  DisplayMemberPath="Name" VerticalAlignment="Center" ToolTip="Kategorie auswählen" SelectedIndex="0"/>
             <TextBox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Width="200" Height="20" controls:TextBoxHelper.Watermark="Privatanteil"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,22,0" HorizontalAlignment="Right">

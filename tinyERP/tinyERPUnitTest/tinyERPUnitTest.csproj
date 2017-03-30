@@ -84,7 +84,7 @@
       <Name>tinyERP.Service.WCF</Name>
     </ProjectReference>
     <ProjectReference Include="..\tinyERP.TestEnvrionment\tinyERP.TestEnvrionment.csproj">
-      <Project>{2D0B1739-5A39-4A37-8581-3640DB5A68AA}</Project>
+      <Project>{2d0b1739-5a39-4a37-8581-3640db5a68aa}</Project>
       <Name>tinyERP.TestEnvrionment</Name>
     </ProjectReference>
     <ProjectReference Include="..\tinyERP\tinyERP.UI.csproj">
