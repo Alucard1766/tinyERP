@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DEA105
 		App.config = App.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.TestEnvrionment", "tinyERP.TestEnvrionment\tinyERP.TestEnvrionment.csproj", "{2D0B1739-5A39-4A37-8581-3640DB5A68AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
