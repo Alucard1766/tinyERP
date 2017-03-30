@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="btnPrintPdf" Content="Print .pdf" HorizontalAlignment="Left" Margin="211,64,0,0" VerticalAlignment="Top" Width="75" Click="btnPrintPdf_Click"/>
-        <Button x:Name="btnPrintDocx" Content="Print .docx" HorizontalAlignment="Left" Margin="211,111,0,0" VerticalAlignment="Top" Width="75" Click="btnPrintDocx_Click" />
+        <Button x:Name="btnPrintPdf" Content="Print .pdf with Spire.PDF" HorizontalAlignment="Left" Margin="156,64,0,0" VerticalAlignment="Top" Width="178" Click="btnPrintPdf_Click"/>
+        <Button x:Name="btnOpenPdf" Content="Open .pdf in Default App" HorizontalAlignment="Left" Margin="156,111,0,0" VerticalAlignment="Top" Width="178" Click="btnOpenPdf_Click" />
+        <Button x:Name="btnPrintPdfAdobe" Content="Print .pdf with Adobe" HorizontalAlignment="Left" Margin="156,159,0,0" VerticalAlignment="Top" Width="178" Click="btnPrintPdfAdobe_Click" />
+        <Button x:Name="btnOpenDocx" Content="Open .docx in Default App" HorizontalAlignment="Left" Margin="156,201,0,0" VerticalAlignment="Top" Width="178" Click="btnOpenDocx_Click"/>
+        <Button x:Name="btnOpenUnknown" Content="Open .unknown in Default App" HorizontalAlignment="Left" Margin="156,243,0,0" VerticalAlignment="Top" Width="178" Click="btnOpenUnknown_Click"/>
 
     </Grid>
 </Window>
