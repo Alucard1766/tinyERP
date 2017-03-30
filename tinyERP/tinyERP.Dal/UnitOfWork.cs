@@ -13,22 +13,14 @@ namespace tinyERP.Dal
         }
 
         private IBudgetRepository budgets;
-        public IBudgetRepository Budgets
-        {
-            get
-            {
-                return budgets ?? (budgets = new BudgetRepository(context));
-            }
-        }
+        public IBudgetRepository Budgets => budgets ?? (budgets = new BudgetRepository(context));
 
         private ITransactionRepository transactions;
-        public ITransactionRepository Transactions
-        {
-            get
-            {
-                return transactions ?? (transactions = new TransactionRepository(context));
-            }
-        }
+        public ITransactionRepository Transactions => transactions ?? (transactions = new TransactionRepository(context));
+
+        private ICategoryRepository categories;
+
+        public ICategoryRepository Categories => categories ?? (categories = new CategoryRepository(context));
 
         public int Complete()
         {

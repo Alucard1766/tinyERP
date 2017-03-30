@@ -7,6 +7,7 @@ namespace tinyERP.Dal
     {
         IBudgetRepository Budgets { get; }
         ITransactionRepository Transactions { get; }
+        ICategoryRepository Categories { get; }
 
         int Complete();
     }
