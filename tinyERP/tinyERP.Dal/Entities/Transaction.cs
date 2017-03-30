@@ -30,5 +30,10 @@ namespace tinyERP.Dal.Entities
 
         [ForeignKey("BudgetId")]
         public Budget Budget { get; set; }
+
+        public int CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }
