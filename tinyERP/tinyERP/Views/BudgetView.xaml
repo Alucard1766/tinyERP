@@ -21,13 +21,13 @@
         <DockPanel Grid.Column="1" Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <TextBox Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..."></TextBox>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0">
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" ToolTip="Suche starten">
                         <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                     </Button>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}">
+                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}" ToolTip="Neue Buchung hinzufügen">
                         <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                     </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="MinusCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>

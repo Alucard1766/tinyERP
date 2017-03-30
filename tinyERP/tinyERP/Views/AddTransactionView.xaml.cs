@@ -11,5 +11,10 @@ namespace tinyERP.UI.Views
         {
             InitializeComponent();
         }
+        public AddTransactionView(object vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

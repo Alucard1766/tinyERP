@@ -8,6 +8,7 @@ namespace tinyERP.UI.ViewModels
     class BudgetViewModel : ViewModelBase
     {
         public ObservableCollection<BudgetView> BudgetViews { get; set; }
+        public ObservableCollection<Categories> CategorieList { get; set; }
 
         public BudgetViewModel()
         {
@@ -48,6 +49,12 @@ namespace tinyERP.UI.ViewModels
                 new BudgetView(100.00, "Drucker", new DateTime(2017, 03, 10), "Büromaterial", 50),
                 new BudgetView(100.00, "Schreibmaterial", new DateTime(2017, 03, 12), "Büromaterial", 0)
             };
+            CategorieList = new ObservableCollection<Categories>
+            {
+                new Categories("Büromaterial"),
+                new Categories("Wohnung"),
+                new Categories("Mobilität")
+            };
         }
 
         #region New-Command
@@ -64,7 +71,7 @@ namespace tinyERP.UI.ViewModels
 
         private void New()
         {
-            AddTransactionView window = new AddTransactionView();
+            AddTransactionView window = new AddTransactionView(this);
             window.ShowDialog();
         }
 
@@ -92,5 +99,15 @@ namespace tinyERP.UI.ViewModels
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public int Privatpart { get; set; }
+    }
+
+    public class Categories
+    {
+        public string Description { get; set; }
+
+        public Categories(string description)
+        {
+            Description = description;
+        }
     }
 }
