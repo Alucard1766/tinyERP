@@ -24,10 +24,10 @@
                     <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" ToolTip="Suche starten">
                         <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                     </Button>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}" ToolTip="Neue Buchung hinzufügen">
+                    <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}" ToolTip="Neue Buchung hinzufügen">
                         <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                     </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="Buchung löschen">
+                <Button x:Name="DeleteTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="MinusCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>

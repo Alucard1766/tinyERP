@@ -6,18 +6,17 @@ namespace tinyERP.UI.ViewModels
 {
     class MainWindowViewModel
     {
-        public readonly BudgetViewModel Budgetviewmodel;
+        public BudgetViewModel BudgetViewModel { get; }
         private readonly UnitOfWorkFactory _factory;
 
         public MainWindowViewModel()
         {
             _factory = new UnitOfWorkFactory();
-            Budgetviewmodel = new BudgetViewModel(_factory);
+            BudgetViewModel = new BudgetViewModel(_factory);
         }
         public void Init()
         {
-            Budgetviewmodel.Init();
+            BudgetViewModel.Init();
         }
-
     }
 }

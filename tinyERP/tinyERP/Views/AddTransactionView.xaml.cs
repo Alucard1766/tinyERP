@@ -16,5 +16,15 @@ namespace tinyERP.UI.Views
             InitializeComponent();
             DataContext = vm;
         }
+
+        private void AddNewTransaction(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void RemoveTransaction(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

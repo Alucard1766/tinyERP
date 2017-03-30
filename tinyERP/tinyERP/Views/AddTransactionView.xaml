@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:viewmodels="clr-namespace:tinyERP.UI.ViewModels" x:Class="tinyERP.UI.Views.AddTransactionView"
+        x:Class="tinyERP.UI.Views.AddTransactionView"
         mc:Ignorable="d"
         Title="Neue Buchung erfassen" Height="320" Width="550" MinWidth="550" MinHeight="320">
 
@@ -32,10 +32,10 @@
             <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" Margin="0,0,30,0" ToolTip="Beleg hinzufügen">
                 <iconPacks:PackIconMaterial Kind="Upload" Width="25" Height="25" />
             </Button>
-            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung hinzufügen">
+            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung hinzufügen" Click="AddNewTransaction">
                 <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
             </Button>
-            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen">
+            <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen" Click="RemoveTransaction">
                 <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
             </Button>
         </StackPanel>

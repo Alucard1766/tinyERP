@@ -37,6 +37,7 @@ namespace tinyERP.UI.ViewModels
         {
             var window = new AddTransactionView(this);
             window.ShowDialog();
+      
         }
 
         private bool CanNew()
