@@ -76,9 +76,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Category> Categories =>
            new List<Category>
            {
-                        new Category {Id = 1, Name = "Büro", Comment = "Bleistifte!!"},
+                        new Category {Id = 1, Name = "Büro", Comment = "Bleistifte!!", ParentCategoryId = 3},
                         new Category {Id = 2, Name = "Aufrag"},
-                        new Category {Id = 3, Name = "Mitarbeiter"}
+                        new Category {Id = 3, Name = "Assets"}
            };
 
         private static string GetTableName<T>(this DbContext context)

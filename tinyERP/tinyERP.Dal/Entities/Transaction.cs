@@ -29,11 +29,11 @@ namespace tinyERP.Dal.Entities
         public int BudgetId { get; set; }
 
         [ForeignKey("BudgetId")]
-        public Budget Budget { get; set; }
+        public virtual Budget Budget { get; set; }
 
         public int CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
     }
 }
