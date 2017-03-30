@@ -26,11 +26,11 @@ namespace tinyERP.UI.ViewModels
 
         #region New-Command
 
-        private RelayCommand newCommand;
+        private RelayCommand _newCommand;
 
         public ICommand NewCommand
         {
-            get { return newCommand ?? (newCommand = new RelayCommand(param => New(), param => CanNew())); }
+            get { return _newCommand ?? (_newCommand = new RelayCommand(param => New(), param => CanNew())); }
         }
 
         private void New()

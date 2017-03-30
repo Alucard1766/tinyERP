@@ -13,7 +13,7 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
-        public void TestDBConnection()
+        public void TestDbConnection()
         {
             Assert.IsTrue(true);
         }

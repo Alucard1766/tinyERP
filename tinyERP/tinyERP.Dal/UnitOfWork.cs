@@ -1,35 +1,33 @@
-﻿using System;
-using tinyERP.Dal.Repositories;
+﻿using tinyERP.Dal.Repositories;
 
 namespace tinyERP.Dal
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly TinyErpContext context;
+        private readonly TinyErpContext _context;
 
         public UnitOfWork(TinyErpContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        private IBudgetRepository budgets;
-        public IBudgetRepository Budgets => budgets ?? (budgets = new BudgetRepository(context));
+        private IBudgetRepository _budgets;
+        public IBudgetRepository Budgets => _budgets ?? (_budgets = new BudgetRepository(_context));
 
-        private ITransactionRepository transactions;
-        public ITransactionRepository Transactions => transactions ?? (transactions = new TransactionRepository(context));
+        private ITransactionRepository _transactions;
+        public ITransactionRepository Transactions => _transactions ?? (_transactions = new TransactionRepository(_context));
 
-        private ICategoryRepository categories;
-
-        public ICategoryRepository Categories => categories ?? (categories = new CategoryRepository(context));
+        private ICategoryRepository _categories;
+        public ICategoryRepository Categories => _categories ?? (_categories = new CategoryRepository(_context));
 
         public int Complete()
         {
-            return context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            _context.Dispose();
         }
     }
 }

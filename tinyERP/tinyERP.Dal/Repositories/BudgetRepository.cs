@@ -4,7 +4,7 @@ namespace tinyERP.Dal.Repositories
 {
     public class BudgetRepository : Repository<Budget>, IBudgetRepository
     {
-        private TinyErpContext tinyErpContext => context as TinyErpContext;
+        private TinyErpContext TinyErpContext => Context as TinyErpContext;
 
         public BudgetRepository(TinyErpContext context) : base(context)
         {

@@ -2,7 +2,7 @@
 using MahApps.Metro;
 using System.Windows;
 
-namespace tinyERP
+namespace tinyERP.UI
 {
     /// <summary>
     /// Interaction logic for App.xaml

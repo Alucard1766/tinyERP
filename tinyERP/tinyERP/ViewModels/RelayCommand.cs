@@ -19,8 +19,8 @@ namespace tinyERP.UI.ViewModels
     {
         #region Fields
 
-        readonly Action<object> execute;
-        readonly Predicate<object> canExecute;
+        readonly Action<object> _execute;
+        readonly Predicate<object> _canExecute;
 
         #endregion
 
@@ -47,8 +47,8 @@ namespace tinyERP.UI.ViewModels
                 throw new ArgumentNullException(nameof(execute));
             }
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            this._execute = execute;
+            this._canExecute = canExecute;
         }
 
         #endregion // Constructors
@@ -57,7 +57,7 @@ namespace tinyERP.UI.ViewModels
 
         public bool CanExecute(object parameter)
         {
-            return canExecute == null || canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -72,7 +72,7 @@ namespace tinyERP.UI.ViewModels
             {
                 return;
             }
-            execute(parameter);
+            _execute(parameter);
         }
 
         #endregion
