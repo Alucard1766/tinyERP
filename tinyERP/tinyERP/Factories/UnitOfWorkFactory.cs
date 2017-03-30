@@ -1,10 +1,10 @@
 ﻿using tinyERP.Dal;
 
-namespace tinyERP.Factories
+namespace tinyERP.UI.Factories
 {
-    public static class UnitOfWorkFactory
+    public class UnitOfWorkFactory
     {
-        public static IUnitOfWork GetUnitOfWork()
+        public IUnitOfWork GetUnitOfWork()
         {
             return new UnitOfWork(new TinyErpContext());
         }

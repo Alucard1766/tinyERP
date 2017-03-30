@@ -1,22 +1,23 @@
 ﻿using System.Windows;
+using System.Windows.Navigation;
+using tinyERP.UI.Factories;
 
 namespace tinyERP.UI.ViewModels
 {
     class MainWindowViewModel
     {
-        private readonly BudgetViewModel budgetviewmodel;
+        public readonly BudgetViewModel Budgetviewmodel;
+        private readonly UnitOfWorkFactory _factory;
 
         public MainWindowViewModel()
         {
-            this.budgetviewmodel = new BudgetViewModel();
+            _factory = new UnitOfWorkFactory();
+            Budgetviewmodel = new BudgetViewModel(_factory);
         }
         public void Init()
         {
-            budgetviewmodel.Init();
+            Budgetviewmodel.Init();
         }
-        public BudgetViewModel BudgetViewModel
-        {
-            get { return budgetviewmodel; }
-        }
+
     }
 }
