@@ -126,6 +126,36 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void UpdateBudgetTest()
+        {
+            var budget = _unitOfWork.Budgets.Get(1);
+            budget.Amount = 1500.0;
+            _unitOfWork.Complete();
+            var changed = _unitOfWork.Budgets.Get(1);
+            Assert.AreEqual(1500.0, changed.Amount);
+        }
+
+        [TestMethod]
+        public void UpdateCategoryTest()
+        {
+            var category = _unitOfWork.Categories.Get(1);
+            category.Name = "ChangedName";
+            _unitOfWork.Complete();
+            var changed = _unitOfWork.Categories.Get(1);
+            Assert.AreEqual("ChangedName", changed.Name);
+        }
+
+        [TestMethod]
+        public void UpdateTransactionTest()
+        {
+            var transaction = _unitOfWork.Transactions.Get(1);
+            transaction.Amount = 42.0;
+            _unitOfWork.Complete();
+            var changed = _unitOfWork.Transactions.Get(1);
+            Assert.AreEqual(42.0, changed.Amount);
+        }
+
+        [TestMethod]
         public void DeleteBudgetTest()
         {
             _unitOfWork.Budgets.Remove(_unitOfWork.Budgets.Get(1));
