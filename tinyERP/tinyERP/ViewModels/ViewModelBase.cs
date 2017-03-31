@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using tinyERP.Dal;
+﻿using tinyERP.Dal;
 using tinyERP.UI.Factories;
 
 namespace tinyERP.UI.ViewModels
@@ -25,6 +23,7 @@ namespace tinyERP.UI.ViewModels
             UnitOfWork = _factory.GetUnitOfWork();
             Load();
         }
+
         public abstract void Load();
     }
 }

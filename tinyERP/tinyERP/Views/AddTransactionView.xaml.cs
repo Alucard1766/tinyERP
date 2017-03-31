@@ -8,10 +8,12 @@ namespace tinyERP.UI.Views
     public partial class AddTransactionView : MetroWindow
     {
         public bool AddTransaction { get; set; }
+
         public AddTransactionView()
         {
             InitializeComponent();
         }
+
         public AddTransactionView(object vm)
         {
             InitializeComponent();

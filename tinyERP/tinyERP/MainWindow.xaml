@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                      xmlns:Views="clr-namespace:tinyERP.UI.Views"
+                      xmlns:views="clr-namespace:tinyERP.UI.Views"
                       Title="tinyERP"
                       Width="1400"
                       Height="800"
@@ -17,7 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <DockPanel>
         <Grid DockPanel.Dock="Left" Width="120" Background="{StaticResource AccentColorBrush2}">
             <Grid.RowDefinitions>
@@ -40,25 +40,23 @@
             </Button>
         </Grid>
         <Grid>
-            <Grid.ColumnDefinitions><ColumnDefinition Width="*"></ColumnDefinition></Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <TabControl Grid.Column="0" Grid.Row="0" x:Name="MainTabControl">
                 <TabItem>
-                    <Views:BudgetView x:Name="avBudgetView" DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
+                    <views:BudgetView x:Name="AvBudgetView" DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <Views:DocumentView x:Name="avDocumentView" DataContext="{Binding Path=DocumentViewModel, Mode=OneWay}"/>
+                    <views:DocumentView x:Name="AvDocumentView" DataContext="{Binding Path=DocumentViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <Views:CustomerView x:Name="avCustomerView" DataContext="{Binding Path=CustomerViewModel, Mode=OneWay}"/>
+                    <views:CustomerView x:Name="AvCustomerView" DataContext="{Binding Path=CustomerViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <Views:OrderView x:Name="avOrderView" DataContext="{Binding Path=OrderViewModel, Mode=OneWay}"/>
+                    <views:OrderView x:Name="AvOrderView" DataContext="{Binding Path=OrderViewModel, Mode=OneWay}"/>
                 </TabItem>
             </TabControl>
-           
-
         </Grid>
-
     </DockPanel>
-
 </controls:MetroWindow>

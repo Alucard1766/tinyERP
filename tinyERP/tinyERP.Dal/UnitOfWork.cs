@@ -6,11 +6,6 @@ namespace tinyERP.Dal
     {
         private readonly TinyErpContext _context;
 
-        public UnitOfWork(TinyErpContext context)
-        {
-            _context = context;
-        }
-
         private IBudgetRepository _budgets;
         public IBudgetRepository Budgets => _budgets ?? (_budgets = new BudgetRepository(_context));
 
@@ -19,6 +14,11 @@ namespace tinyERP.Dal
 
         private ICategoryRepository _categories;
         public ICategoryRepository Categories => _categories ?? (_categories = new CategoryRepository(_context));
+
+        public UnitOfWork(TinyErpContext context)
+        {
+            _context = context;
+        }
 
         public int Complete()
         {

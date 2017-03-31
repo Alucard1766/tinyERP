@@ -19,5 +19,4 @@
     <Color x:Key="PopupWindowBackgroundColor">Aliceblue</Color>
     <Color x:Key="DataGridBackgroundColor">#E6E6E6</Color>
 
-
 </ResourceDictionary>

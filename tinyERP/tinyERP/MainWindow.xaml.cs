@@ -18,9 +18,9 @@ namespace tinyERP.UI
 
         private void TabHandler(object sender, RoutedEventArgs e)
         {
-            TabControl handler = ((TabControl)FindName("MainTabControl"));
+            TabControl handler = ((TabControl) FindName("MainTabControl"));
             Button button = sender as Button;
-            int index = Int32.Parse((string)button.Tag);
+            int index = Int32.Parse((string) button.Tag);
             handler.SelectedIndex = index;
         }
     }

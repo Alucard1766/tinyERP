@@ -9,12 +9,12 @@ namespace tinyERP.UI.ViewModels
 {
     internal class BudgetViewModel : ViewModelBase
     {
+        public ObservableCollection<Transaction> TransactionList { get; set; }
+        public ObservableCollection<Category> CategoryList { get; set; }
+
         public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
-
-        public ObservableCollection<Transaction> TransactionList { get; set; }
-        public ObservableCollection<Category> CategorieList { get; set; }
 
         public override void Load()
         {
@@ -22,7 +22,7 @@ namespace tinyERP.UI.ViewModels
             TransactionList = new ObservableCollection<Transaction>(transactions);
 
             var categories = UnitOfWork.Categories.GetAll();
-            CategorieList = new ObservableCollection<Category>(categories);
+            CategoryList = new ObservableCollection<Category>(categories);
         }
 
         #region New-Command
@@ -49,12 +49,12 @@ namespace tinyERP.UI.ViewModels
                 transaction.BudgetId = 1;
                 transaction.CategoryId = 1;
                 UnitOfWork.Transactions.Add(transaction);
-                if(UnitOfWork.Complete() > 0)
+
+                if (UnitOfWork.Complete() > 0)
                 {
                     TransactionList.Add(transaction);
                 }
             }
-      
         }
 
         private bool CanNew()

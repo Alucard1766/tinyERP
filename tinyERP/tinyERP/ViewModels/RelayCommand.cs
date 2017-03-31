@@ -32,7 +32,6 @@ namespace tinyERP.UI.ViewModels
         /// <param name="execute">The execution logic.</param>
         public RelayCommand(Action<object> execute) : this(execute, null)
         {
-
         }
 
         /// <summary>

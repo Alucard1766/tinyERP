@@ -8,7 +8,7 @@
         x:Class="tinyERP.UI.Views.AddTransactionView"
         mc:Ignorable="d"
         Title="Neue Buchung erfassen" Height="320" Width="550" MinWidth="550" MinHeight="320" MaxHeight="320">
-
+    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -35,7 +35,7 @@
             <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Betrag" Margin="10"/>
             <DatePicker HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Height="20" Text="Wähle ein Datum" Margin="10" />
             <TextBox HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" controls:TextBoxHelper.Watermark="Bemerkungen" Margin="10,10,10,0"/>
-            <controls:SplitButton HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ItemsSource="{Binding CategorieList}"  DisplayMemberPath="Name" VerticalAlignment="Center" ToolTip="Kategorie auswählen" SelectedIndex="0" Margin="10"/>
+            <controls:SplitButton HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" ItemsSource="{Binding CategoryList}"  DisplayMemberPath="Name" VerticalAlignment="Center" ToolTip="Kategorie auswählen" SelectedIndex="0" Margin="10"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Height="20" controls:TextBoxHelper.Watermark="Privatanteil" Margin="10"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,10,10,-10" HorizontalAlignment="Right">
@@ -49,8 +49,6 @@
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
                 </Button>
             </StackPanel>
-
         </Grid>
     </DockPanel>
-
 </controls:MetroWindow>

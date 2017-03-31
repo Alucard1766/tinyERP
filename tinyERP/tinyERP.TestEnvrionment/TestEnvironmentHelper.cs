@@ -18,16 +18,17 @@ namespace tinyERP.TestEnvrionment
             {
                 var budget = context.Budgets.Add(new Budget { Year = 2017, Amount = 1000.0 });
                 var category = context.Categories.Add(new Category { Name = "Aufrag" });
-                var transaction = context.Transactions.Add(new Transaction
-                {
-                    Name = "First Transaction 2017",
-                    Amount = 200.0,
-                    PrivatePart = 50,
-                    Date = new DateTime(2017, 2, 3),
-                    Comment = "Comment",
-                    BudgetId = budget.Id,
-                    CategoryId = category.Id
-                });
+                var transaction = context.Transactions.Add(
+                    new Transaction
+                    {
+                        Name = "First Transaction 2017",
+                        Amount = 200.0,
+                        PrivatePart = 50,
+                        Date = new DateTime(2017, 2, 3),
+                        Comment = "Comment",
+                        BudgetId = budget.Id,
+                        CategoryId = category.Id
+                    });
 
                 context.SaveChanges();
             }
@@ -56,8 +57,6 @@ namespace tinyERP.TestEnvrionment
                     context.Categories.AddRange(Categories);
                     context.Transactions.AddRange(Transactions);
                     context.SaveChanges();
-
-
                 }
                 catch (Exception e)
                 {
@@ -138,6 +137,7 @@ namespace tinyERP.TestEnvrionment
         {
             context.Database.ExecuteSqlCommand($"DELETE FROM {table}");
         }
+
         private static void ResetEntitySeed(this DbContext context, string table)
         {
             if (context.TableHasIdentityColumn(table))
