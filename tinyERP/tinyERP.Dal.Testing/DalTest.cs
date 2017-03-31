@@ -12,6 +12,12 @@ namespace tinyERP.Dal.Testing
     public class DalTest
     {
         private UnitOfWork _unitOfWork;
+
+        [ClassCleanup]
+        public static void CleanUpAfterAllTests()
+        {
+            TestEnvironmentHelper.InitializeTestData();
+        }
         
         [TestInitialize]
         public void InitializeTestData()
@@ -23,7 +29,6 @@ namespace tinyERP.Dal.Testing
         [TestCleanup]
         public void CleanupTestData()
         {
-            TestEnvironmentHelper.InitializeTestData();
             _unitOfWork?.Dispose();
         }
 
