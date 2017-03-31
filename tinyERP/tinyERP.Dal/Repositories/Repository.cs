@@ -23,24 +23,24 @@ namespace tinyERP.Dal.Repositories
             return Context.Set<TEntity>().ToList();
         }
 
-        public void Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
-            Context.Set<TEntity>().Add(entity);
+            return Context.Set<TEntity>().Add(entity);
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> entities)
         {
-            Context.Set<TEntity>().AddRange(entities);
+            return Context.Set<TEntity>().AddRange(entities);
         }
 
-        public void Remove(TEntity entity)
+        public TEntity Remove(TEntity entity)
         {
-            Context.Set<TEntity>().Remove(entity);
+            return Context.Set<TEntity>().Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entities)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            return Context.Set<TEntity>().RemoveRange(entities);
         }
     }
 }

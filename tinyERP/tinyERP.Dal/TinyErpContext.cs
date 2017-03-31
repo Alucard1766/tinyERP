@@ -8,7 +8,7 @@ namespace tinyERP.Dal
     {
         public TinyErpContext() : base("tinyERP")
         {
-            Database.Initialize(true);
+            Database.Initialize(false);
             Configuration.LazyLoadingEnabled = false;
 
             //Real CodeFirst

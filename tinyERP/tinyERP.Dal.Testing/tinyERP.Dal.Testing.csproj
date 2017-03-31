@@ -63,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\tinyERP.Dal\tinyERP.Dal.csproj">
+      <Project>{F25E441D-D68F-4AE0-ABF2-EAC482022378}</Project>
+      <Name>tinyERP.Dal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\tinyERP.TestEnvrionment\tinyERP.TestEnvrionment.csproj">
       <Project>{2D0B1739-5A39-4A37-8581-3640DB5A68AA}</Project>
       <Name>tinyERP.TestEnvrionment</Name>

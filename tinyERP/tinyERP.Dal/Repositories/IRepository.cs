@@ -7,10 +7,10 @@ namespace tinyERP.Dal.Repositories
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
 
-        void Add(TEntity entity);
-        void AddRange(IEnumerable<TEntity> entities);
+        TEntity Add(TEntity entity);
+        IEnumerable<TEntity> AddRange(IEnumerable<TEntity> entities);
 
-        void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities);
+        TEntity Remove(TEntity entity);
+        IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entities);
     }
 }
