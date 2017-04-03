@@ -79,7 +79,6 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Views\AddTransactionView.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\BudgetView.xaml">
       <SubType>Designer</SubType>
@@ -179,6 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tinyERP_Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

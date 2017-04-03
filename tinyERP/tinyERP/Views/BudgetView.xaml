@@ -37,7 +37,7 @@
                         <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                     </Button>
                 <Button x:Name="DeleteTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="Buchung löschen">
-                    <iconPacks:PackIconMaterial Kind="MinusCircle" Width="40" Height="40" />
+                    <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
             

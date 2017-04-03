@@ -7,6 +7,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         x:Class="tinyERP.UI.Views.AddTransactionView"
         mc:Ignorable="d"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
         Title="Neue Buchung erfassen" Height="320" Width="550" MinWidth="550" MinHeight="320" MaxHeight="320">
     
     <Window.Resources>
@@ -17,7 +19,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <DockPanel Background="{StaticResource PopupWindowBrush}">
+    <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -43,7 +45,7 @@
                     <iconPacks:PackIconMaterial Kind="Upload" Width="25" Height="25" />
                 </Button>
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung hinzufügen" Click="AddNewTransaction">
-                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
+                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen" Click="RemoveTransaction">
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
