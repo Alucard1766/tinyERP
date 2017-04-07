@@ -25,11 +25,5 @@ namespace tinyERP.UI.Views
             AddTransaction = true;
             this.Close();
         }
-
-        private void RemoveTransaction(object sender, System.Windows.RoutedEventArgs e)
-        {
-            AddTransaction = false;
-            this.Close();
-        }
     }
 }
