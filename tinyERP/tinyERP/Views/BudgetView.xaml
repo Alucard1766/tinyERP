@@ -36,12 +36,12 @@
                     <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}" ToolTip="Neue Buchung hinzufügen">
                         <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                     </Button>
-                <Button x:Name="DeleteTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" ToolTip="Buchung löschen">
+                <Button x:Name="DeleteTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
             
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" IsReadOnly="True"
+            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" IsReadOnly="True"
                       CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
                 <DataGrid.Columns>

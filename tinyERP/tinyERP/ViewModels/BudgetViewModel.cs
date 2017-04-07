@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -59,7 +63,38 @@ namespace tinyERP.UI.ViewModels
 
         private bool CanNew()
         {
-            //TODO: CanNew()
+            return true;
+        }
+
+        #endregion
+
+        #region Delete-Command
+
+        private RelayCommand _deleteCommand;
+
+        public ICommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, param => CanDelete())); }
+        }
+
+        private void Delete(object items)
+        {
+            List<Transaction> selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
+            if (selectedItems?.Count > 0 &&
+                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedItems.Count}) wirklich löschen?", "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                UnitOfWork.Transactions.RemoveRange(selectedItems);
+                UnitOfWork.Complete();
+
+                foreach (Transaction t in selectedItems)
+                {
+                    TransactionList.Remove(t);
+                }
+            }
+        }
+
+        private bool CanDelete()
+        {
             return true;
         }
 
