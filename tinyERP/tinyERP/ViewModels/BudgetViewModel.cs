@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -13,20 +11,16 @@ namespace tinyERP.UI.ViewModels
 {
     internal class BudgetViewModel : ViewModelBase
     {
-        public ObservableCollection<Transaction> TransactionList { get; set; }
-        public ObservableCollection<Category> CategoryList { get; set; }
-
         public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
+
+        public ObservableCollection<Transaction> TransactionList { get; set; }
 
         public override void Load()
         {
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
-
-            var categories = UnitOfWork.Categories.GetAll();
-            CategoryList = new ObservableCollection<Category>(categories);
         }
 
         #region New-Command
@@ -40,24 +34,25 @@ namespace tinyERP.UI.ViewModels
 
         private void New()
         {
-            var window = new AddTransactionView(this);
+            var vm = new AddTransactionViewModel(new UnitOfWorkFactory());
+            vm.Init();
+            var window = new AddTransactionView(vm);
             window.ShowDialog();
-            if (window.AddTransaction)
+
+            if (vm.CreateTransaction)
             {
                 var transaction = new Transaction();
-                transaction.Name = "Testeintrag";
-                transaction.Amount = 200;
-                transaction.Date = DateTime.Today;
-                transaction.Comment = "Testdaten";
-                transaction.PrivatePart = 50;
+                transaction.Name = vm.Name;
+                transaction.Amount = vm.Amount;
+                transaction.Date = vm.Date;
+                transaction.Comment = vm.Comment;
+                transaction.PrivatePart = vm.PrivatPart;
                 transaction.BudgetId = 1;
-                transaction.CategoryId = 1;
+                transaction.CategoryId = vm.SelectedCategory.Id;
                 UnitOfWork.Transactions.Add(transaction);
 
                 if (UnitOfWork.Complete() > 0)
-                {
                     TransactionList.Add(transaction);
-                }
             }
         }
 
@@ -79,17 +74,16 @@ namespace tinyERP.UI.ViewModels
 
         private void Delete(object items)
         {
-            List<Transaction> selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
+            var selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
             if (selectedItems?.Count > 0 &&
-                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedItems.Count}) wirklich löschen?", "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedItems.Count}) wirklich löschen?",
+                    "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 UnitOfWork.Transactions.RemoveRange(selectedItems);
                 UnitOfWork.Complete();
 
-                foreach (Transaction t in selectedItems)
-                {
+                foreach (var t in selectedItems)
                     TransactionList.Remove(t);
-                }
             }
         }
 

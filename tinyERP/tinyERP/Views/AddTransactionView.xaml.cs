@@ -1,29 +1,22 @@
 ﻿using MahApps.Metro.Controls;
+using tinyERP.UI.ViewModels;
 
 namespace tinyERP.UI.Views
 {
     /// <summary>
-    /// Interaction logic for AddTransactionView.xaml
+    ///     Interaction logic for AddTransactionView.xaml
     /// </summary>
     public partial class AddTransactionView : MetroWindow
     {
-        public bool AddTransaction { get; set; }
-
         public AddTransactionView()
         {
             InitializeComponent();
         }
 
-        public AddTransactionView(object vm)
+        public AddTransactionView(ViewModelBase vm)
         {
-            InitializeComponent();
             DataContext = vm;
-        }
-
-        private void AddNewTransaction(object sender, System.Windows.RoutedEventArgs e)
-        {
-            AddTransaction = true;
-            this.Close();
+            InitializeComponent();
         }
     }
 }
