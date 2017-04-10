@@ -17,10 +17,45 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Transaction> TransactionList { get; set; }
 
+        public Budget Budget { get; set; }
+
+        public double AllExpensesTotal
+        {
+            get
+            {
+                double result = 0.0;
+                foreach (var transaction in TransactionList)
+                {
+                    if (!transaction.IsEarning)
+                    {
+                        result += transaction.Amount;
+                    }
+                }
+                return result;
+            }
+        }
+
+        public double AllEarningsTotal
+        {
+            get
+            {
+                double result = 0.0;
+                foreach (var transaction in TransactionList)
+                {
+                    if (transaction.IsEarning)
+                    {
+                        result += transaction.Amount;
+                    }
+                }
+                return result;
+            }
+        }
+
         public override void Load()
         {
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
+            Budget = UnitOfWork.Budgets.Get(1); //TODO: Find Budget by selected year
         }
 
         #region New-Command

@@ -10,7 +10,8 @@
                       MinHeight="800"
                       MinWidth="1600"
                       BorderBrush="{DynamicResource AccentColorBrush}"
-                      BorderThickness="1">
+                      BorderThickness="1"
+                      Language="de-CH">
 
     <Window.Resources>
         <ResourceDictionary>

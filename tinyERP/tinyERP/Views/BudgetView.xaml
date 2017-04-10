@@ -25,6 +25,11 @@
         
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <TextBlock FontSize="40" Margin="10" Height="auto">Budgetverwaltung</TextBlock>
+            <TextBlock Text="{Binding Budget.Year, StringFormat=Ausgewählte Periode: {0}}"/>
+            <TextBlock Text="{Binding Budget.Amount, StringFormat=Gesamtbudget: {0:C}}" />
+            <TextBlock Text="{Binding AllExpensesTotal, StringFormat=Ausgaben: {0:C}}" />
+            <TextBlock Text="{Binding AllEarningsTotal, StringFormat=Einnahmen: {0:C}}" />
+            
         </StackPanel>
         
         <DockPanel Grid.Column="1" Margin="10">
