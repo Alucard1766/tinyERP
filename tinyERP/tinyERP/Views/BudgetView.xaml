@@ -49,6 +49,7 @@
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
                     <DataGridTextColumn MinWidth="120" Width="*" Header="Kategorie" Binding="{Binding Category.Name}"/>
                     <DataGridTextColumn MinWidth="80" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
+                    <DataGridTextColumn MinWidth="160" Width="*" Header="Einnahme/Ausgabe" Binding="{Binding IsEarning}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
                 </DataGrid.Columns>

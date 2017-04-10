@@ -8,7 +8,7 @@
                       Width="1400"
                       Height="800"
                       MinHeight="800"
-                      MinWidth="1400"
+                      MinWidth="1600"
                       BorderBrush="{DynamicResource AccentColorBrush}"
                       BorderThickness="1">
 
