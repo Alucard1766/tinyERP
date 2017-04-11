@@ -49,6 +49,10 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.1.7.1\lib\net45\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmValidation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=113792d2053ac461, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmValidation.3.0.0\lib\netstandard1.0\MvvmValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -73,6 +77,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\Converter.cs" />
     <Compile Include="ViewModels\AddTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

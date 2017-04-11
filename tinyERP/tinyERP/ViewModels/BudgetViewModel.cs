@@ -78,7 +78,7 @@ namespace tinyERP.UI.ViewModels
             {
                 var transaction = new Transaction();
                 transaction.Name = vm.Name;
-                transaction.Amount = vm.Amount;
+                transaction.Amount = vm.Amount ?? 0;
                 transaction.Date = vm.Date;
                 transaction.Comment = vm.Comment;
                 transaction.PrivatePart = vm.PrivatPart;

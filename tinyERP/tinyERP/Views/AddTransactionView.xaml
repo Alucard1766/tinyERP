@@ -35,9 +35,9 @@
             </Grid.ColumnDefinitions>
 
             <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Bezeichnung" Margin="10" ToolTip="Bezeichnung"
-                     Text="{Binding Name,Mode=TwoWay}"/>
+                     Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=LostFocus, ValidatesOnNotifyDataErrors=True}"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Betrag" Margin="10" ToolTip="Betrag"
-                     Text="{Binding Amount,Mode=TwoWay}"/>
+                     Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus,Converter={StaticResource MyStringToDoubleConverter}}"/>
             <DatePicker HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Height="20" Text="Wähle ein Datum" Margin="10" 
                         SelectedDate="{Binding Date,Mode=TwoWay}"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" controls:TextBoxHelper.Watermark="Bemerkungen" ToolTip="Bemerkung" Margin="10,10,10,0" 
@@ -46,7 +46,7 @@
                                   ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="Name"
                                   VerticalAlignment="Center" ToolTip="Kategorie auswählen" Margin="10" SelectedIndex="0"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" Height="20" controls:TextBoxHelper.Watermark="Privatanteil" Margin="10" 
-                     Text="{Binding PrivatPart,Mode=TwoWay}"/>
+                     Text="{Binding PrivatPart,Mode=TwoWay,UpdateSourceTrigger=LostFocus,ValidatesOnNotifyDataErrors=True}"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,10,10,-10" HorizontalAlignment="Right">
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" Margin="0,0,30,0" ToolTip="Beleg hinzufügen">
