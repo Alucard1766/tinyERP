@@ -16,7 +16,7 @@ namespace tinyERP.TestEnvrionment
         {
             using (TinyErpContext context = new TinyErpContext())
             {
-                var budget = context.Budgets.Add(new Budget { Year = 2017, Amount = 1000.0 });
+                var budget = context.Budgets.Add(new Budget { Year = 2017, Expenses = 1000.0, Revenue = 1200.0});
                 var category = context.Categories.Add(new Category { Name = "Aufrag" });
                 var transaction = context.Transactions.Add(
                     new Transaction
@@ -76,9 +76,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Budget> Budgets =>
            new List<Budget>
            {
-                new Budget {Id = 1, Year = 2017, Amount = 1000.0},
-                new Budget {Id = 2, Year = 2016, Amount = 2000.0},
-                new Budget {Id = 3, Year = 2015, Amount = 3000.0},
+                new Budget {Id = 1, Year = 2017, Expenses = 1000.0, Revenue = 1500.0},
+                new Budget {Id = 2, Year = 2016, Expenses = 2000.0, Revenue = 2400.0},
+                new Budget {Id = 3, Year = 2015, Expenses = 3000.0, Revenue = 3800.0},
            };
 
         private static List<Transaction> Transactions =>

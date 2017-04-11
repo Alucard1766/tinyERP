@@ -12,7 +12,10 @@ namespace tinyERP.Dal.Entities
         public int Year { get; set; }
 
         [Required]
-        public double Amount { get; set; }
+        public double Expenses { get; set; }
+
+        [Required]
+        public double Revenue { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

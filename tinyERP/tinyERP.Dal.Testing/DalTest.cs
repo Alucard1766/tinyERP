@@ -96,10 +96,10 @@ namespace tinyERP.Dal.Testing
         [TestMethod]
         public void InsertBudgetTest()
         {
-            var budget = new Budget {Amount = 1337.0, Year = 2042};
+            var budget = new Budget {Expenses = 1337.0, Year = 2042, Revenue = 1400.0};
             var returned = _unitOfWork.Budgets.Add(budget);
             _unitOfWork.Complete();
-            Assert.AreEqual(budget.Amount, returned.Amount);
+            Assert.AreEqual(budget.Expenses, returned.Expenses);
         }
 
         [TestMethod]
@@ -132,10 +132,10 @@ namespace tinyERP.Dal.Testing
         public void UpdateBudgetTest()
         {
             var budget = _unitOfWork.Budgets.Get(1);
-            budget.Amount = 1500.0;
+            budget.Expenses = 1500.0;
             _unitOfWork.Complete();
             var changed = _unitOfWork.Budgets.Get(1);
-            Assert.AreEqual(1500.0, changed.Amount);
+            Assert.AreEqual(1500.0, changed.Expenses);
         }
 
         [TestMethod]
