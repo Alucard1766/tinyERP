@@ -22,7 +22,7 @@ namespace tinyERP.UI.ViewModels
             set
             {
                 _name = value;
-                OnPropertyChanged(this,nameof(Name));
+                OnPropertyChanged(nameof(Name));
                 Validator.Validate(nameof(Name));
             }
         }
@@ -34,7 +34,7 @@ namespace tinyERP.UI.ViewModels
             set
             {
                 _amount = value;
-                OnPropertyChanged(this, nameof(Amount));
+                OnPropertyChanged(nameof(Amount));
                 Validator.Validate(nameof(Amount));
             }
         }
@@ -47,7 +47,7 @@ namespace tinyERP.UI.ViewModels
             set
             {
                 _privatPart = value;
-                OnPropertyChanged(this,nameof(PrivatPart));
+                OnPropertyChanged(nameof(PrivatPart));
                 Validator.Validate(nameof(PrivatPart));
             } }
         public Category SelectedCategory { get; set; }

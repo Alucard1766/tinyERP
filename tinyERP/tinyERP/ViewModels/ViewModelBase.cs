@@ -26,12 +26,25 @@ namespace tinyERP.UI.ViewModels
 
         private void OnErrorChanged(object sender, DataErrorsChangedEventArgs e)
         {
-            OnPropertyChanged(sender, e.PropertyName);
+            OnPropertyChanged(e.PropertyName);
         }
 
-        public void OnPropertyChanged(object sender, string name)
+        public void OnPropertyChanged(string name = null)
         {
-            PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public bool SetProperty<T>(ref T field, T value, string name, params string[] otherNames)
+        {
+            if (Equals(field, value))
+                return false;
+            field = value;
+            OnPropertyChanged(name);
+            foreach (var s in otherNames)
+            {
+                OnPropertyChanged(s);
+            }
+            return true;
         }
 
         public IEnumerable GetErrors(string propertyName)

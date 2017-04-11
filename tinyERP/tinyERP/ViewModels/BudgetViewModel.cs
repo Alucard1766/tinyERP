@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -17,14 +18,25 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Transaction> TransactionList { get; set; }
 
-        public Budget Budget { get; set; }
+        public ObservableCollection<Budget> BudgetList { get; set; }
+
+        private Budget _budget;
+
+        public Budget Budget
+        {
+            get { return _budget; }
+            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenueTotal)); }
+        }
+
 
         public double AllExpensesTotal
         {
             get
             {
                 double result = 0.0;
-                foreach (var transaction in TransactionList)
+                var expenses = UnitOfWork.Transactions.GetTransactionsBetween(new DateTime(Budget.Year, 1, 1),
+                    new DateTime(Budget.Year, 12, 31));
+                foreach (var transaction in expenses)
                 {
                     if (!transaction.IsEarning)
                     {
@@ -35,12 +47,14 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public double AllEarningsTotal
+        public double AllRevenueTotal
         {
             get
             {
                 double result = 0.0;
-                foreach (var transaction in TransactionList)
+                var expenses = UnitOfWork.Transactions.GetTransactionsBetween(new DateTime(Budget.Year, 1, 1),
+                    new DateTime(Budget.Year, 12, 31));
+                foreach (var transaction in expenses)
                 {
                     if (transaction.IsEarning)
                     {
@@ -55,7 +69,9 @@ namespace tinyERP.UI.ViewModels
         {
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
-            Budget = UnitOfWork.Budgets.Get(1); //TODO: Find Budget by selected year
+            var budgets = UnitOfWork.Budgets.GetAll();
+            BudgetList = new ObservableCollection<Budget>(budgets);
+            Budget = BudgetList[0];
         }
 
         #region New-Command
