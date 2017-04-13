@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace tinyERP.Dal.Entities
@@ -20,6 +20,6 @@ namespace tinyERP.Dal.Entities
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

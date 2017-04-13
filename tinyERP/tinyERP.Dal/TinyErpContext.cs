@@ -14,6 +14,7 @@ namespace tinyERP.Dal
         {
             Database.Initialize(false);
             Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
 
             //Real CodeFirst
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TinyErpContext, Configuration>());
