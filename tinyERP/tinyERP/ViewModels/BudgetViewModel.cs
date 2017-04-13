@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -65,13 +66,20 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(AllRevenueTotal));
+            OnPropertyChanged(nameof(AllExpensesTotal));
+        }
+
         public override void Load()
         {
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
+            TransactionList.CollectionChanged += ContentCollectionChanged;
             var budgets = UnitOfWork.Budgets.GetAll();
             BudgetList = new ObservableCollection<Budget>(budgets);
-            Budget = BudgetList[0];
+            Budget = BudgetList[0]; //TODO: What if DB empty?
         }
 
         #region New-Command

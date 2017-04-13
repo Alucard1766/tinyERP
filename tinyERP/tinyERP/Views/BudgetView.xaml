@@ -16,12 +16,13 @@
             <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}"/>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Border BorderThickness="0 0 1 0" BorderBrush="Black"/>
         
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <TextBlock FontSize="40" Margin="10" Height="auto">Budgetverwaltung</TextBlock>
@@ -31,6 +32,15 @@
             <TextBlock Text="{Binding Budget.Revenue, StringFormat=Budgetierte Einnahmen: {0:C}}" />
             <TextBlock Text="{Binding AllExpensesTotal, StringFormat=Ausgaben: {0:C}}" />
             <TextBlock Text="{Binding AllRevenueTotal, StringFormat=Einnahmen: {0:C}}" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button x:Name="AddBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCommand}" ToolTip="Neue Buchung hinzufügen">
+                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
+                </Button>
+                <Button x:Name="EditBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
+                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                </Button>
+            </StackPanel>
 
 
         </StackPanel>
