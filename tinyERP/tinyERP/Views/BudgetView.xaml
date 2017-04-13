@@ -54,7 +54,7 @@
                     <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
                         <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                     </Button>
-                <Button x:Name="DeleteTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
+                <Button x:Name="DeleteTransactions" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>

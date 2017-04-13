@@ -29,7 +29,6 @@ namespace tinyERP.UI.ViewModels
             set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenueTotal)); }
         }
 
-
         public double AllExpensesTotal
         {
             get
@@ -112,16 +111,16 @@ namespace tinyERP.UI.ViewModels
 
         #endregion
 
-        #region Delete-Transaction-Command
+        #region Delete-Transactions-Command
 
-        private RelayCommand _deleteTransactionCommand;
+        private RelayCommand _deleteTransactionsCommand;
 
-        public ICommand DeleteTransactionCommand
+        public ICommand DeleteTransactionsCommand
         {
-            get { return _deleteTransactionCommand ?? (_deleteTransactionCommand = new RelayCommand(DeleteTransaction, param => CanDeleteTransaction())); }
+            get { return _deleteTransactionsCommand ?? (_deleteTransactionsCommand = new RelayCommand(DeleteTransactions, param => CanDeleteTransactions())); }
         }
 
-        private void DeleteTransaction(object items)
+        private void DeleteTransactions(object items)
         {
             var selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
             if (selectedItems?.Count > 0 &&
@@ -136,7 +135,7 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanDeleteTransaction()
+        private bool CanDeleteTransactions()
         {
             return true;
         }
