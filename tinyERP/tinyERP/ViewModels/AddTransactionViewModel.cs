@@ -131,6 +131,7 @@ namespace tinyERP.UI.ViewModels
                 transaction.PrivatePart = _privatPart.GetValueOrDefault();
                 transaction.BudgetId = _budget.Id;
                 transaction.CategoryId = SelectedCategory.Id;
+                transaction.IsEarning = IsEarning;
                 UnitOfWork.Transactions.Add(transaction);
 
                 if (UnitOfWork.Complete() > 0)

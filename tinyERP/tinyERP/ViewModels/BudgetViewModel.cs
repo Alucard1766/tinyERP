@@ -101,6 +101,7 @@ namespace tinyERP.UI.ViewModels
             {
                 TransactionList.Add(vm.NewTransaction);
             }
+            //TODO: Clean ViewModel after closing window?
         }
 
         private bool CanNew()
