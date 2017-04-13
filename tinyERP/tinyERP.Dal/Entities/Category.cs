@@ -17,7 +17,7 @@ namespace tinyERP.Dal.Entities
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
 
         public int? ParentCategoryId { get; set; }
 

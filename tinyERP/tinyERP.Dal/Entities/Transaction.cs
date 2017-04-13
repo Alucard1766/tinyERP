@@ -29,11 +29,13 @@ namespace tinyERP.Dal.Entities
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
+        [Required]
         public int BudgetId { get; set; }
 
         [ForeignKey("BudgetId")]
         public virtual Budget Budget { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
