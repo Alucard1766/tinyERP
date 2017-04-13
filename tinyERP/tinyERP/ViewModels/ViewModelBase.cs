@@ -54,15 +54,10 @@ namespace tinyERP.UI.ViewModels
 
         public bool HasErrors => NotifyDataErrorInfoAdapter.HasErrors;
    
-
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged
         {
             add { NotifyDataErrorInfoAdapter.ErrorsChanged += value; }
             remove { NotifyDataErrorInfoAdapter.ErrorsChanged -= value; }
-        }
-        ~ViewModelBase()
-        {
-            UnitOfWork?.Dispose();
         }
 
         public void Init()

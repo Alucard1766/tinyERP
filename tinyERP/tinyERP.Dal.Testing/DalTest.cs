@@ -24,12 +24,6 @@ namespace tinyERP.Dal.Testing
             _unitOfWork = new UnitOfWork(new TinyErpContext());
         }
 
-        [TestCleanup]
-        public void CleanupTestData()
-        {
-            _unitOfWork?.Dispose();
-        }
-
         [TestMethod]
         public void GetBudgetsTest()
         {
