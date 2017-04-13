@@ -38,7 +38,7 @@ namespace tinyERP.UI.ViewModels
                     new DateTime(Budget.Year, 12, 31));
                 foreach (var transaction in expenses)
                 {
-                    if (!transaction.IsEarning)
+                    if (!transaction.IsRevenue)
                     {
                         result += transaction.Amount;
                     }
@@ -56,7 +56,7 @@ namespace tinyERP.UI.ViewModels
                     new DateTime(Budget.Year, 12, 31));
                 foreach (var transaction in expenses)
                 {
-                    if (transaction.IsEarning)
+                    if (transaction.IsRevenue)
                     {
                         result += transaction.Amount;
                     }

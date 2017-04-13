@@ -49,7 +49,7 @@
                      Text="{Binding PrivatPart,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
 
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10">
-                <RadioButton  GroupName="Mode" Content="Einnahme" IsChecked="{Binding IsEarning}"/>
+                <RadioButton  GroupName="Mode" Content="Einnahme" IsChecked="{Binding IsRevenue}"/>
                 <RadioButton GroupName="Mode" Content="Ausgabe" Margin="40,0"/>
             </StackPanel>
 

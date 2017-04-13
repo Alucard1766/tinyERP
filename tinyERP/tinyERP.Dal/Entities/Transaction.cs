@@ -16,7 +16,7 @@ namespace tinyERP.Dal.Entities
         public double Amount { get; set; }
 
         [Required]
-        public bool IsEarning { get; set; }
+        public bool IsRevenue { get; set; }
 
         [Required]
         public int PrivatePart { get; set; }

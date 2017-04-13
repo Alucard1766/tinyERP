@@ -16,8 +16,8 @@ namespace tinyERP.UI.Resources
             {
                 return null;
             }
-            bool isEarning = (bool) value;
-            return isEarning ? "Einnahme" : "Ausgabe";
+            bool isRevenue = (bool) value;
+            return isRevenue ? "Einnahme" : "Ausgabe";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

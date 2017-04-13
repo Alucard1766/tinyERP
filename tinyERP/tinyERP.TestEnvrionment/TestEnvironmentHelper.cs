@@ -23,7 +23,7 @@ namespace tinyERP.TestEnvrionment
                     {
                         Name = "First Transaction 2017",
                         Amount = 200.0,
-                        IsEarning = true,
+                        IsRevenue = true,
                         PrivatePart = 50,
                         Date = new DateTime(2017, 2, 3),
                         Comment = "Comment",
@@ -84,11 +84,11 @@ namespace tinyERP.TestEnvrionment
         private static List<Transaction> Transactions =>
            new List<Transaction>
            {
-                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, IsEarning = true, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
-                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, IsEarning = false, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
-                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, IsEarning = true, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
-                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, IsEarning = true, PrivatePart = 10, Date = new DateTime(2016, 7, 3), Comment = "...", BudgetId = 2, CategoryId = 2},
-                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, IsEarning = false, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
+                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, IsRevenue = true, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
+                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, IsRevenue = false, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
+                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, IsRevenue = true, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
+                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, IsRevenue = true, PrivatePart = 10, Date = new DateTime(2016, 7, 3), Comment = "...", BudgetId = 2, CategoryId = 2},
+                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, IsRevenue = false, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
            };
 
         private static List<Category> Categories =>

@@ -78,7 +78,7 @@ namespace tinyERP.UI.ViewModels
 
         public Category SelectedCategory { get; set; }
         public Transaction NewTransaction { get; set; }
-        public bool IsEarning { get; set; } = true;
+        public bool IsRevenue { get; set; } = true;
 
         public override void Load()
         {
@@ -131,7 +131,7 @@ namespace tinyERP.UI.ViewModels
                 transaction.PrivatePart = _privatPart.GetValueOrDefault();
                 transaction.BudgetId = _budget.Id;
                 transaction.CategoryId = SelectedCategory.Id;
-                transaction.IsEarning = IsEarning;
+                transaction.IsRevenue = IsRevenue;
                 NewTransaction = UnitOfWork.Transactions.Add(transaction);
 
                 if (UnitOfWork.Complete() > 0)
