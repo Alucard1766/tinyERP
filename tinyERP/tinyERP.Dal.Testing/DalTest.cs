@@ -181,5 +181,12 @@ namespace tinyERP.Dal.Testing
             _unitOfWork.Complete();
             Assert.AreEqual(4, _unitOfWork.Transactions.GetAll().Count());
         }
+
+        [TestMethod]
+        public void GetBudgetByYearTest()
+        {
+            var budget = _unitOfWork.Budgets.GetBudgetByYear(new DateTime(2017, 04, 01));
+            Assert.AreEqual(1, budget.Id);
+        }
     }
 }

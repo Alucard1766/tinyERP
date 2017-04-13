@@ -89,21 +89,9 @@ namespace tinyERP.UI.ViewModels
             vm.Init();
             var window = new AddTransactionView(vm);
             window.ShowDialog();
-
-            if (vm.CreateTransaction)
+            if (vm.NewTransaction != null)
             {
-                var transaction = new Transaction();
-                transaction.Name = vm.Name;
-                transaction.Amount = vm.Amount ?? 0;
-                transaction.Date = vm.Date;
-                transaction.Comment = vm.Comment;
-                transaction.PrivatePart = vm.PrivatPart;
-                transaction.BudgetId = 1;
-                transaction.CategoryId = vm.SelectedCategory.Id;
-                UnitOfWork.Transactions.Add(transaction);
-
-                if (UnitOfWork.Complete() > 0)
-                    TransactionList.Add(transaction);
+                TransactionList.Add(vm.NewTransaction);
             }
         }
 

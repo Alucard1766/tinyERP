@@ -1,8 +1,6 @@
 ﻿<Application x:Class="tinyERP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:tinyERP"
-             xmlns:converter="clr-namespace:tinyERP.UI.Resources"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -19,10 +17,6 @@
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/CircleButtonExtend.xaml"/>
-                <ResourceDictionary>
-                    <converter:StringToDoubleConverter x:Key="MyStringToDoubleConverter" />
-                </ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
