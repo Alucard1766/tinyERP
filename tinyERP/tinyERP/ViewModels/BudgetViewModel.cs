@@ -82,16 +82,16 @@ namespace tinyERP.UI.ViewModels
             Budget = BudgetList[0]; //TODO: What if DB empty?
         }
 
-        #region New-Command
+        #region New-Transaction-Command
 
-        private RelayCommand _newCommand;
+        private RelayCommand _newTransactionCommand;
 
-        public ICommand NewCommand
+        public ICommand NewTransactionCommand
         {
-            get { return _newCommand ?? (_newCommand = new RelayCommand(param => New(), param => CanNew())); }
+            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction(), param => CanNewTransaction())); }
         }
 
-        private void New()
+        private void NewTransaction()
         {
             var vm = new AddTransactionViewModel(new UnitOfWorkFactory());
             vm.Init();
@@ -100,27 +100,28 @@ namespace tinyERP.UI.ViewModels
             if (vm.NewTransaction != null)
             {
                 TransactionList.Add(vm.NewTransaction);
+                
             }
             //TODO: Clean ViewModel after closing window?
         }
 
-        private bool CanNew()
+        private bool CanNewTransaction()
         {
             return true;
         }
 
         #endregion
 
-        #region Delete-Command
+        #region Delete-Transaction-Command
 
-        private RelayCommand _deleteCommand;
+        private RelayCommand _deleteTransactionCommand;
 
-        public ICommand DeleteCommand
+        public ICommand DeleteTransactionCommand
         {
-            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(Delete, param => CanDelete())); }
+            get { return _deleteTransactionCommand ?? (_deleteTransactionCommand = new RelayCommand(DeleteTransaction, param => CanDeleteTransaction())); }
         }
 
-        private void Delete(object items)
+        private void DeleteTransaction(object items)
         {
             var selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
             if (selectedItems?.Count > 0 &&
@@ -135,7 +136,38 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanDelete()
+        private bool CanDeleteTransaction()
+        {
+            return true;
+        }
+
+        #endregion
+
+
+        #region New-Budget-Command
+
+        private RelayCommand _newBudgetCommand;
+
+        public ICommand NewBudgetCommand
+        {
+            get { return _newBudgetCommand ?? (_newBudgetCommand = new RelayCommand(param => NewBudget(), param => CanNewBudget())); }
+        }
+
+        private void NewBudget()
+        {
+            var vm = new DetailedBudgetViewModel(new UnitOfWorkFactory());
+            vm.Init();
+            var window = new DetailedBudgetView(vm);
+            window.ShowDialog();
+            if (vm.NewBudget != null)
+            {
+                BudgetList.Add(vm.NewBudget);
+                Budget = vm.NewBudget;
+            }
+            //TODO: Clean ViewModel after closing window?
+        }
+
+        private bool CanNewBudget()
         {
             return true;
         }

@@ -132,11 +132,11 @@ namespace tinyERP.UI.ViewModels
                 transaction.BudgetId = _budget.Id;
                 transaction.CategoryId = SelectedCategory.Id;
                 transaction.IsEarning = IsEarning;
-                UnitOfWork.Transactions.Add(transaction);
+                NewTransaction = UnitOfWork.Transactions.Add(transaction);
 
                 if (UnitOfWork.Complete() > 0)
                 {
-                    NewTransaction = transaction;
+                    
                     ((Window) window).Close();
                 }
                 else
