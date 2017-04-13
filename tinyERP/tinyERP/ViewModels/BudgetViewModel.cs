@@ -172,5 +172,44 @@ namespace tinyERP.UI.ViewModels
         }
 
         #endregion
+
+        #region Delete-Budget-Command
+
+        private RelayCommand _deleteBudgetCommand;
+
+        public ICommand DeleteBudgetCommand
+        {
+            get { return _deleteBudgetCommand ?? (_deleteBudgetCommand = new RelayCommand(param => DeleteBudget(), param => CanDeleteBudget())); }
+        }
+
+        private void DeleteBudget()
+        {
+            if (Budget.Transactions?.Count > 0 &&
+                MessageBox.Show(
+                    $"Wenn sie das Budget von {Budget.Year} löschen, werden alle zugehörigen Buchungen ({Budget.Transactions.Count}) ebenfalls gelöscht. " +
+                    $"Wollen sie das Budget trotzdem löschen?",
+                    "Budget löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                var deletedBudget = Budget;
+                var deletedTransactions = Budget.Transactions.ToList();
+                
+                UnitOfWork.Transactions.RemoveRange(deletedTransactions);
+                UnitOfWork.Budgets.Remove(deletedBudget);
+                UnitOfWork.Complete();
+
+                foreach (var t in deletedTransactions)
+                    TransactionList.Remove(t);
+
+                Budget = BudgetList[0]; //TODO: What if DB/List empty?
+                BudgetList.Remove(deletedBudget);
+            }
+        }
+
+        private bool CanDeleteBudget()
+        {
+            return Budget != null;
+        }
+
+        #endregion
     }
 }
