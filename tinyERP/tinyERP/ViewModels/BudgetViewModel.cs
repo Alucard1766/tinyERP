@@ -155,7 +155,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand DeleteTransactionsCommand
         {
-            get { return _deleteTransactionsCommand ?? (_deleteTransactionsCommand = new RelayCommand(DeleteTransactions, param => CanDeleteTransactions())); }
+            get { return _deleteTransactionsCommand ?? (_deleteTransactionsCommand = new RelayCommand(DeleteTransactions, CanDeleteTransactions)); }
         }
 
         private void DeleteTransactions(object selectedItems)
@@ -173,9 +173,9 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanDeleteTransactions()
+        private bool CanDeleteTransactions(object selectedItems)
         {
-            return true;
+            return (selectedItems as ICollection)?.Count > 0;
         }
 
         #endregion
