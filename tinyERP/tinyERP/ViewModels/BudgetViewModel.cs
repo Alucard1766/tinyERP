@@ -26,7 +26,7 @@ namespace tinyERP.UI.ViewModels
         public Budget Budget
         {
             get { return _budget; }
-            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenueTotal)); }
+            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal)); }
         }
 
         public double AllExpensesTotal
@@ -47,7 +47,7 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public double AllRevenueTotal
+        public double AllRevenuesTotal
         {
             get
             {
@@ -67,7 +67,7 @@ namespace tinyERP.UI.ViewModels
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(AllRevenueTotal));
+            OnPropertyChanged(nameof(AllRevenuesTotal));
             OnPropertyChanged(nameof(AllExpensesTotal));
         }
 

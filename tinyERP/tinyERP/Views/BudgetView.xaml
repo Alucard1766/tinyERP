@@ -31,7 +31,7 @@
             <TextBlock Text="{Binding Budget.Expenses, StringFormat=Budgetierte Ausgaben: {0:C}}" />
             <TextBlock Text="{Binding Budget.Revenue, StringFormat=Budgetierte Einnahmen: {0:C}}" />
             <TextBlock Text="{Binding AllExpensesTotal, StringFormat=Ausgaben: {0:C}}" />
-            <TextBlock Text="{Binding AllRevenueTotal, StringFormat=Einnahmen: {0:C}}" />
+            <TextBlock Text="{Binding AllRevenuesTotal, StringFormat=Einnahmen: {0:C}}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button x:Name="AddBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
