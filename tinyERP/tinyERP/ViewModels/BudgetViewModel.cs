@@ -37,9 +37,7 @@ namespace tinyERP.UI.ViewModels
             get
             {
                 double result = 0.0;
-                var expenses = UnitOfWork.Transactions.GetTransactionsBetween(new DateTime(Budget.Year, 1, 1),
-                    new DateTime(Budget.Year, 12, 31));
-                foreach (var transaction in expenses)
+                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
                 {
                     if (!transaction.IsRevenue)
                     {
@@ -55,9 +53,7 @@ namespace tinyERP.UI.ViewModels
             get
             {
                 double result = 0.0;
-                var expenses = UnitOfWork.Transactions.GetTransactionsBetween(new DateTime(Budget.Year, 1, 1),
-                    new DateTime(Budget.Year, 12, 31));
-                foreach (var transaction in expenses)
+                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
                 {
                     if (transaction.IsRevenue)
                     {
