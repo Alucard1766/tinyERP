@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
@@ -8,30 +9,20 @@ using tinyERP.UI.Factories;
 
 namespace tinyERP.UI.ViewModels
 {
-    internal class AddTransactionViewModel : ViewModelBase
+    internal class EditTransactionViewModel : ViewModelBase
     {
-        private double? _amount;
-        private Budget _budget;
         private string _name;
-        private int? _privatPart;
-
-        public AddTransactionViewModel(IUnitOfWorkFactory factory) : base(factory)
-        {
-        }
-
-        public ObservableCollection<Category> CategoryList { get; set; }
-
         public string Name
         {
             get { return _name; }
             set
             {
                 _name = value;
-                OnPropertyChanged(nameof(Name));
                 Validator.Validate(nameof(Name));
             }
         }
 
+        private double? _amount;
         public string Amount
         {
             get { return _amount.ToString(); }
@@ -48,14 +39,14 @@ namespace tinyERP.UI.ViewModels
                     _amount = local;
                 }
 
-                OnPropertyChanged(nameof(Amount));
                 Validator.Validate(nameof(Amount));
             }
         }
 
-        public DateTime Date { get; set; } = DateTime.Now;
-        public string Comment { get; set; }
+        public bool IsRevenue { get; set; }
+        public bool IsExpense => !IsRevenue;
 
+        private int? _privatPart;
         public string PrivatPart
         {
             get { return _privatPart.ToString(); }
@@ -71,14 +62,34 @@ namespace tinyERP.UI.ViewModels
                     int.TryParse(value, out local);
                     _privatPart = local;
                 }
-                OnPropertyChanged(nameof(PrivatPart));
+
                 Validator.Validate(nameof(PrivatPart));
             }
         }
 
+        public DateTime Date { get; set; }
+
+        public string Comment { get; set; }
+
+        private Budget _budget;
+
+        public ObservableCollection<Category> CategoryList { get; set; }
         public Category SelectedCategory { get; set; }
-        public Transaction NewTransaction { get; set; }
-        public bool IsRevenue { get; set; } = true;
+
+        private Transaction _transaction;
+
+        public EditTransactionViewModel(IUnitOfWorkFactory factory, Transaction transaction) : base(factory)
+        {
+            _transaction = transaction;
+            Name = _transaction.Name;
+            Amount = _transaction.Amount.ToString(CultureInfo.InvariantCulture);
+            IsRevenue = _transaction.IsRevenue;
+            PrivatPart = _transaction.PrivatePart.ToString();
+            Date = _transaction.Date;
+            Comment = _transaction.Comment;
+            _budget = _transaction.Budget;
+            SelectedCategory = _transaction.Category;
+        }
 
         public override void Load()
         {
@@ -109,45 +120,40 @@ namespace tinyERP.UI.ViewModels
                     "Es wurde keine Kategorie ausgewählt - Erstellen Sie zuerst eine passende Kategorie"));
         }
 
-        #region New-Command
+        #region Save-Command
 
-        private RelayCommand _newCommand;
+        private RelayCommand _saveCommand;
 
-        public ICommand NewCommand
+        public ICommand SaveCommand
         {
-            get { return _newCommand ?? (_newCommand = new RelayCommand(New, param => CanNew())); }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, param => CanSave())); }
         }
 
-        private void New(object window)
+        private void Save(object window)
         {
             var validationResult = Validator.ValidateAll();
             if (validationResult.IsValid)
             {
-                var transaction = new Transaction();
-                transaction.Name = Name;
-                transaction.Amount = _amount.GetValueOrDefault();
-                transaction.Date = Date;
-                transaction.Comment = Comment;
-                transaction.PrivatePart = _privatPart.GetValueOrDefault();
-                transaction.BudgetId = _budget.Id;
-                transaction.CategoryId = SelectedCategory.Id;
-                transaction.IsRevenue = IsRevenue;
-                NewTransaction = UnitOfWork.Transactions.Add(transaction);
+                _transaction.Name = Name;
+                _transaction.Amount = _amount.GetValueOrDefault();
+                _transaction.IsRevenue = IsRevenue;
+                _transaction.PrivatePart = _privatPart.GetValueOrDefault();
+                _transaction.Date = Date;
+                _transaction.Comment = Comment;
+                _transaction.BudgetId = _budget.Id;
+                _transaction.CategoryId = SelectedCategory.Id;
+
+                if (_transaction.Id == 0)
+                    _transaction = UnitOfWork.Transactions.Add(_transaction);
 
                 if (UnitOfWork.Complete() > 0)
-                {
-                    
-                    ((Window) window).Close();
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Die Buchung konnte nicht erfasst werden, versuchen Sie es später nocheinmal oder kontaktieren Sie unseren Support für weitere Unterstützung");
-                }
+                    ((Window) window).DialogResult = true;
+
+                ((Window) window).Close();
             }
         }
 
-        private bool CanNew()
+        private bool CanSave()
         {
             return true;
         }

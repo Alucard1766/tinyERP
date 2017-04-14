@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        x:Class="tinyERP.UI.Views.AddTransactionView"
+        x:Class="tinyERP.UI.Views.EditTransactionView"
         mc:Ignorable="d"
         BorderBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
         x:Name="TransactionView"
-        Title="Neue Buchung erfassen" Height="320" Width="550" MinWidth="550" MinHeight="320" MaxHeight="320">
+        Title="Buchung bearbeiten" Height="320" Width="550" MinWidth="550" MinHeight="320" MaxHeight="320">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -50,13 +50,13 @@
 
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="10">
                 <RadioButton  GroupName="Mode" Content="Einnahme" IsChecked="{Binding IsRevenue}"/>
-                <RadioButton GroupName="Mode" Content="Ausgabe" Margin="40,0"/>
+                <RadioButton GroupName="Mode" Content="Ausgabe" Margin="40,0" IsChecked="{Binding IsExpense, Mode=OneWay}"/>
             </StackPanel>
 
 
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,10,10,-10" HorizontalAlignment="Right">
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" 
-                        Command="{Binding NewCommand}" CommandParameter="{Binding ElementName=TransactionView}" ToolTip="Buchung hinzufügen">
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=TransactionView}" ToolTip="Buchung hinzufügen">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen" IsCancel="True">

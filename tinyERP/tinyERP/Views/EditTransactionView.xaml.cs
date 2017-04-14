@@ -4,16 +4,16 @@ using tinyERP.UI.ViewModels;
 namespace tinyERP.UI.Views
 {
     /// <summary>
-    ///     Interaction logic for AddTransactionView.xaml
+    ///     Interaction logic for EditTransactionView.xaml
     /// </summary>
-    public partial class AddTransactionView : MetroWindow
+    public partial class EditTransactionView : MetroWindow
     {
-        public AddTransactionView()
+        public EditTransactionView()
         {
             InitializeComponent();
         }
 
-        public AddTransactionView(ViewModelBase vm)
+        public EditTransactionView(ViewModelBase vm)
         {
             DataContext = vm;
             InitializeComponent();

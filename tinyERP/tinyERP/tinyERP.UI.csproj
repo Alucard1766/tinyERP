@@ -78,13 +78,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Resources\Converter.cs" />
-    <Compile Include="ViewModels\AddTransactionViewModel.cs" />
+    <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
     <Compile Include="ViewModels\DetailedBudgetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Page Include="Views\AddTransactionView.xaml">
+    <Page Include="Views\EditTransactionView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\BudgetView.xaml">
@@ -111,8 +111,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\AddTransactionView.xaml.cs">
-      <DependentUpon>AddTransactionView.xaml</DependentUpon>
+    <Compile Include="Views\EditTransactionView.xaml.cs">
+      <DependentUpon>EditTransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BudgetView.xaml.cs">
       <DependentUpon>BudgetView.xaml</DependentUpon>

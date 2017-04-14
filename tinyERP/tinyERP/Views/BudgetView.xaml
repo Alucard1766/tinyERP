@@ -62,7 +62,7 @@
                 </Button>
             </StackPanel>
             
-            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" IsReadOnly="True"
+            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" SelectedItem="{Binding SelectedTransaction}" IsReadOnly="True"
                       CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                       ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
                 <DataGrid.Columns>
@@ -74,6 +74,14 @@
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
                 </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick"
+                                  Command="{Binding EditTransactionCommand}"
+                                  CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                    <KeyBinding Key="Enter"
+                                Command="{Binding EditTransactionCommand}"
+                                CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                </DataGrid.InputBindings>
             </DataGrid>
         </DockPanel>
     </Grid>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -16,6 +17,8 @@ namespace tinyERP.UI.ViewModels
         public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
+
+        public Transaction SelectedTransaction { get; set; }
 
         public ObservableCollection<Transaction> TransactionList { get; set; }
 
@@ -92,14 +95,18 @@ namespace tinyERP.UI.ViewModels
 
         private void NewTransaction()
         {
-            var vm = new AddTransactionViewModel(new UnitOfWorkFactory());
-            vm.Init();
-            var window = new AddTransactionView(vm);
-            window.ShowDialog();
-            if (vm.NewTransaction != null)
+            var transaction = new Transaction()
             {
-                TransactionList.Add(vm.NewTransaction);
-                
+                IsRevenue = true,
+                Date = DateTime.Today
+            };
+            var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), transaction);
+            vm.Init();
+            var window = new EditTransactionView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
+                TransactionList.Add(transaction);
             }
             //TODO: Clean ViewModel after closing window?
         }
@@ -107,6 +114,37 @@ namespace tinyERP.UI.ViewModels
         private bool CanNewTransaction()
         {
             return true;
+        }
+
+        #endregion
+
+        #region Edit-Transaction-Command
+
+        private RelayCommand _editTransactionCommand;
+
+        public ICommand EditTransactionCommand
+        {
+            get { return _editTransactionCommand ?? (_editTransactionCommand = new RelayCommand(EditTransaction, param => CanEditTransaction())); }
+        }
+
+        private void EditTransaction(object dataGrid)
+        {
+            var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), SelectedTransaction);
+            vm.Init();
+            var window = new EditTransactionView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
+                (dataGrid as DataGrid)?.Items.Refresh();
+                OnPropertyChanged(nameof(AllRevenuesTotal));
+                OnPropertyChanged(nameof(AllExpensesTotal));
+            }
+            //TODO: Clean ViewModel after closing window?
+        }
+
+        private bool CanEditTransaction()
+        {
+            return SelectedTransaction != null;
         }
 
         #endregion
@@ -120,17 +158,17 @@ namespace tinyERP.UI.ViewModels
             get { return _deleteTransactionsCommand ?? (_deleteTransactionsCommand = new RelayCommand(DeleteTransactions, param => CanDeleteTransactions())); }
         }
 
-        private void DeleteTransactions(object items)
+        private void DeleteTransactions(object selectedItems)
         {
-            var selectedItems = (items as IEnumerable)?.Cast<Transaction>().ToList();
-            if (selectedItems?.Count > 0 &&
-                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedItems.Count}) wirklich löschen?",
+            var selectedTransactions = (selectedItems as IEnumerable)?.Cast<Transaction>().ToList();
+            if (selectedTransactions?.Count > 0 &&
+                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedTransactions.Count}) wirklich löschen?",
                     "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                UnitOfWork.Transactions.RemoveRange(selectedItems);
+                UnitOfWork.Transactions.RemoveRange(selectedTransactions);
                 UnitOfWork.Complete();
 
-                foreach (var t in selectedItems)
+                foreach (var t in selectedTransactions)
                     TransactionList.Remove(t);
             }
         }
