@@ -20,7 +20,7 @@
                 <ResourceDictionary Source="Resources/CircleButtonExtend.xaml"/>
                 
                 <ResourceDictionary>
-                    <converter:BooleanToEarningConverter x:Key="MyBooleanToEarningConverter"/>
+                    <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

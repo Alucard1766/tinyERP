@@ -10,7 +10,7 @@ namespace tinyERP.UI.ViewModels
 {
     internal class DetailedBudgetViewModel : ViewModelBase
     {
-        private double? _earning;
+        private double? _revenue;
         private double? _expense;
         private int? _year;
 
@@ -39,24 +39,24 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public string Earning
+        public string Revenue
         {
-            get { return _earning.ToString(); }
+            get { return _revenue.ToString(); }
             set
             {
                 if (value == null)
                 {
-                    _earning = null;
+                    _revenue = null;
                 }
                 else
                 {
                     double local;
                     double.TryParse(value, out local);
-                    _earning = local;
+                    _revenue = local;
                 }
 
-                OnPropertyChanged(nameof(Earning));
-                Validator.Validate(nameof(Earning));
+                OnPropertyChanged(nameof(Revenue));
+                Validator.Validate(nameof(Revenue));
             }
         }
 
@@ -91,8 +91,8 @@ namespace tinyERP.UI.ViewModels
         private void AddRules()
         {
             Validator.AddRule(nameof(Year), () => RuleResult.Assert(_year != null && _year > 1900, "Das Jahr muss grösser sein als 1900"));
-            Validator.AddRule(nameof(Earning),
-                () => RuleResult.Assert(_earning != null && _earning > 0, "Die Einnahmen müssen positiv sein"));
+            Validator.AddRule(nameof(Revenue),
+                () => RuleResult.Assert(_revenue != null && _revenue > 0, "Die Einnahmen müssen positiv sein"));
             Validator.AddRule(nameof(Expense),
                 () => RuleResult.Assert(_expense != null && _expense > 0, "Die Ausgaben müssen positiv sein"));
             Validator.AddRule(nameof(Year), 
@@ -118,7 +118,7 @@ namespace tinyERP.UI.ViewModels
                 var budget = new Budget();
                 budget.Year = _year.GetValueOrDefault();
                 budget.Expenses = _expense.GetValueOrDefault();
-                budget.Revenue = _earning.GetValueOrDefault();
+                budget.Revenue = _revenue.GetValueOrDefault();
                 UnitOfWork.Budgets.Add(budget);
 
                 if (UnitOfWork.Complete() > 0)

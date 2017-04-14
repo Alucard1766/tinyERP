@@ -36,7 +36,7 @@
             <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Jahr" Margin="10"
                      Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Einnahmen" Margin="10"
-                     Text="{Binding Earning,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+                     Text="{Binding Revenue,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
             <TextBox HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Ausgaben" Margin="10" 
                      Text="{Binding Expense,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
 

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace tinyERP.UI.Resources
 {
-    class BooleanToEarningConverter : IValueConverter
+    class BooleanToRevenueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -26,8 +26,8 @@ namespace tinyERP.UI.Resources
             {
                 return null;
             }
-            string earning = (string) value;
-            return earning == "Einnahme";
+            string revenue = (string) value;
+            return revenue == "Einnahme";
         }
     }
 }
