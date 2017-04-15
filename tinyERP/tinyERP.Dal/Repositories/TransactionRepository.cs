@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using tinyERP.Dal.Entities;
 
@@ -34,6 +35,15 @@ namespace tinyERP.Dal.Repositories
                     select t)
                     .Include(t => t.Category)
                     .ToList();
+        }
+
+        public IEnumerable<Transaction> GetTransactionsWithCategoriesFilteredBy(string searchTerm)
+        {
+            return (from t in TinyErpContext.Transactions
+                    where t.Name.Contains(searchTerm) || t.Category.Name.Contains(searchTerm)
+                    select t)
+                .Include(t => t.Category)
+                .ToList();
         }
     }
 }

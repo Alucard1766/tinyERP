@@ -176,6 +176,34 @@ namespace tinyERP.UI.ViewModels
 
         #endregion
 
+        #region Search-Transactions-Command
+
+        private string _searchText;
+        public string SearchText {
+            get { return _searchText; }
+            set { SetProperty(ref _searchText, value, nameof(SearchText)); }
+        }
+
+        private RelayCommand _searchTransactionsCommand;
+
+        public ICommand SearchTransactionsCommand {
+            get { return _searchTransactionsCommand ?? (_searchTransactionsCommand = new RelayCommand(SearchTransactions)); }
+        }
+
+        private void SearchTransactions(object searchTerm)
+        {
+            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(searchTerm as string);
+            TransactionList.Clear();
+            foreach (var item in transactions) { TransactionList.Add(item); }
+            SelectedTransaction = TransactionList.FirstOrDefault();
+        }
+
+        private bool CanSearchTransactions(object searchTerm)
+        {
+            return (searchTerm as string)?.Length > 0;
+        }
+
+        #endregion
 
         #region New-Budget-Command
 
