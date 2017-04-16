@@ -23,5 +23,7 @@ namespace tinyERP.Dal.Entities
 
         [ForeignKey("ParentCategoryId")]
         public virtual Category ParentCategory { get; set; }
+
+        public virtual ICollection<Category> SubCategories { get; set; }
     }
 }
