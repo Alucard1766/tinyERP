@@ -1,4 +1,7 @@
-﻿using tinyERP.Dal.Entities;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using tinyERP.Dal.Entities;
 
 namespace tinyERP.Dal.Repositories
 {
@@ -8,6 +11,11 @@ namespace tinyERP.Dal.Repositories
 
         public CategoryRepository(TinyErpContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Category> GetCategories()
+        {
+            return TinyErpContext.Categories/*.Include(c => c.Transactions)*/.ToList();
         }
     }
 }

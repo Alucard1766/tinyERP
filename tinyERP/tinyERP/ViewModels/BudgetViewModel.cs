@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using LiveCharts;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Views;
@@ -29,7 +31,35 @@ namespace tinyERP.UI.ViewModels
         public Budget Budget
         {
             get { return _budget; }
-            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal)); }
+            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues)); }
+        }
+
+        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+
+        private ChartValues<double> _budgetChartValues;
+        public ChartValues<double> BudgetChartValues
+        {
+            get
+            {
+                _budgetChartValues.Clear();
+                _budgetChartValues.AddRange(CalculateCategorySum(CategoryList, Budget));
+                return _budgetChartValues;
+            }
+            set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
+        }
+
+
+        public string[] Labels
+        {
+            get
+            {
+                List<string> categoryNames = new List<string>();
+                foreach (var category in CategoryList)
+                {
+                    categoryNames.Add(category.Name);
+                }
+                return categoryNames.ToArray();
+            }
         }
 
         public double AllExpensesTotal
@@ -78,6 +108,28 @@ namespace tinyERP.UI.ViewModels
             var budgets = UnitOfWork.Budgets.GetAll();
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList[0]; //TODO: What if DB empty?
+            BudgetChartValues = new ChartValues<double>();
+        }
+
+        //TODO: Move method CalculateCategorySum to BusinessLayer. I was unable to because of invalid namespace.
+        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
+        {
+            List<double> sums = new List<double>();
+
+            foreach (var category in categories)
+            {
+                var sum = 0.0;
+                foreach (var transaction in category.Transactions)
+                {
+                    if (transaction.Budget.Id == budget.Id)
+                    {
+                        sum += (transaction.IsRevenue)? transaction.Amount : -transaction.Amount;
+                    }
+                }
+                sums.Add(sum);
+            }
+
+            return sums.ToArray();
         }
 
         #region New-Transaction-Command
