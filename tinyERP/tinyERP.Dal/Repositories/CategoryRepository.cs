@@ -15,7 +15,7 @@ namespace tinyERP.Dal.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            return TinyErpContext.Categories/*.Include(c => c.Transactions)*/.ToList();
+            return TinyErpContext.Categories.Include(c => c.Transactions).ToList();
         }
     }
 }

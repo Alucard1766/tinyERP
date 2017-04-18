@@ -31,10 +31,35 @@ namespace tinyERP.UI.ViewModels
         public Budget Budget
         {
             get { return _budget; }
-            set { SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues)); }
+            set
+            {
+                SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues));
+                SetDatePickersToSelectedYear();
+            }
+        }
+
+        //TODO: Replace Magic Numbers?
+        private void SetDatePickersToSelectedYear()
+        {
+            FromDate = new DateTime(Budget.Year, 1, 1);
+            ToDate = new DateTime(Budget.Year, 12, 31);
         }
 
         private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+
+        private DateTime _fromDate;
+        public DateTime FromDate
+        {
+            get { return _fromDate; }
+            set { SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues)); }
+        }
+
+        private DateTime _toDate;
+        public DateTime ToDate
+        {
+            get { return _toDate; }
+            set { SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues)); }
+        }
 
         private ChartValues<double> _budgetChartValues;
         public ChartValues<double> BudgetChartValues
@@ -48,6 +73,26 @@ namespace tinyERP.UI.ViewModels
             set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
         }
 
+        //TODO: Move method to BusinessLayer?
+        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
+        {
+            List<double> sums = new List<double>();
+
+            foreach (var category in categories)
+            {
+                var sum = 0.0;
+                foreach (var transaction in category.Transactions)
+                {
+                    if (transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
+                    {
+                        sum += (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount;
+                    }
+                }
+                sums.Add(sum);
+            }
+
+            return sums.ToArray();
+        }
 
         public string[] Labels
         {
@@ -109,27 +154,6 @@ namespace tinyERP.UI.ViewModels
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList[0]; //TODO: What if DB empty?
             BudgetChartValues = new ChartValues<double>();
-        }
-
-        //TODO: Move method CalculateCategorySum to BusinessLayer. I was unable to because of invalid namespace.
-        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
-        {
-            List<double> sums = new List<double>();
-
-            foreach (var category in categories)
-            {
-                var sum = 0.0;
-                foreach (var transaction in category.Transactions)
-                {
-                    if (transaction.Budget.Id == budget.Id)
-                    {
-                        sum += (transaction.IsRevenue)? transaction.Amount : -transaction.Amount;
-                    }
-                }
-                sums.Add(sum);
-            }
-
-            return sums.ToArray();
         }
 
         #region New-Transaction-Command
@@ -248,11 +272,6 @@ namespace tinyERP.UI.ViewModels
             TransactionList.Clear();
             foreach (var item in transactions) { TransactionList.Add(item); }
             SelectedTransaction = TransactionList.FirstOrDefault();
-        }
-
-        private bool CanSearchTransactions(object searchTerm)
-        {
-            return (searchTerm as string)?.Length > 0;
         }
 
         #endregion
