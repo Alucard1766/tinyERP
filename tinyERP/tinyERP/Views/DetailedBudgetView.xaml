@@ -1,0 +1,55 @@
+﻿<controls:MetroWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    x:Class="tinyERP.UI.Views.DetailedBudgetView"
+    mc:Ignorable="d"
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    x:Name="DetailedBudget"
+    Title="Budget ändern/hinzufügen" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
+
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+
+    <DockPanel>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Jahr" Margin="10"
+                     Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+            <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Einnahmen" Margin="10"
+                     Text="{Binding Revenue,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+            <TextBox HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Ausgaben" Margin="10" 
+                     Text="{Binding Expense,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+
+
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Margin="0,10,10,-10" HorizontalAlignment="Right">
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" 
+                        Command="{Binding NewCommand}" CommandParameter="{Binding ElementName=DetailedBudget}" ToolTip="Akzeptieren">
+                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
+                </Button>
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Verwerfen" IsCancel="True">
+                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</controls:MetroWindow>

@@ -16,13 +16,14 @@ namespace tinyERP.TestEnvrionment
         {
             using (TinyErpContext context = new TinyErpContext())
             {
-                var budget = context.Budgets.Add(new Budget { Year = 2017, Amount = 1000.0 });
+                var budget = context.Budgets.Add(new Budget { Year = 2017, Expenses = 1000.0, Revenue = 1200.0});
                 var category = context.Categories.Add(new Category { Name = "Aufrag" });
                 var transaction = context.Transactions.Add(
                     new Transaction
                     {
                         Name = "First Transaction 2017",
                         Amount = 200.0,
+                        IsRevenue = true,
                         PrivatePart = 50,
                         Date = new DateTime(2017, 2, 3),
                         Comment = "Comment",
@@ -75,19 +76,19 @@ namespace tinyERP.TestEnvrionment
         private static List<Budget> Budgets =>
            new List<Budget>
            {
-                new Budget {Id = 1, Year = 2017, Amount = 1000.0},
-                new Budget {Id = 2, Year = 2016, Amount = 2000.0},
-                new Budget {Id = 3, Year = 2015, Amount = 3000.0},
+                new Budget {Id = 1, Year = 2017, Expenses = 1000.0, Revenue = 1500.0},
+                new Budget {Id = 2, Year = 2016, Expenses = 2000.0, Revenue = 2400.0},
+                new Budget {Id = 3, Year = 2015, Expenses = 3000.0, Revenue = 3800.0},
            };
 
         private static List<Transaction> Transactions =>
            new List<Transaction>
            {
-                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
-                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
-                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
-                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, PrivatePart = 10, Date = new DateTime(2016, 7, 3), BudgetId = 2, CategoryId = 2},
-                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
+                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, IsRevenue = true, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
+                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, IsRevenue = false, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
+                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, IsRevenue = true, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
+                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, IsRevenue = true, PrivatePart = 10, Date = new DateTime(2016, 7, 3), Comment = "...", BudgetId = 2, CategoryId = 2},
+                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, IsRevenue = false, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
            };
 
         private static List<Category> Categories =>

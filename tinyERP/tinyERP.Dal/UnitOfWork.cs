@@ -24,10 +24,5 @@ namespace tinyERP.Dal
         {
             return _context.SaveChanges();
         }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
     }
 }

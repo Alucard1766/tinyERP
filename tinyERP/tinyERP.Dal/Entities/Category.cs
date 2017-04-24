@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace tinyERP.Dal.Entities
 {
@@ -17,11 +17,13 @@ namespace tinyERP.Dal.Entities
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
 
         public int? ParentCategoryId { get; set; }
 
         [ForeignKey("ParentCategoryId")]
         public virtual Category ParentCategory { get; set; }
+
+        public virtual ICollection<Category> SubCategories { get; set; }
     }
 }
