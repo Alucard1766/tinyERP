@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace tinyERP.UI.ViewModels
@@ -19,8 +15,8 @@ namespace tinyERP.UI.ViewModels
     {
         #region Fields
 
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        private readonly Action<object> execute;
+        private readonly Predicate<object> canExecute;
 
         #endregion
 
@@ -46,24 +42,13 @@ namespace tinyERP.UI.ViewModels
                 throw new ArgumentNullException(nameof(execute));
             }
 
-            this._execute = execute;
-            this._canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
-        #endregion // Constructors
+        #endregion
 
         #region ICommand Members
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
 
         public void Execute(object parameter)
         {
@@ -71,7 +56,18 @@ namespace tinyERP.UI.ViewModels
             {
                 return;
             }
-            _execute(parameter);
+            execute(parameter);
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return canExecute == null || canExecute(parameter);
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         #endregion

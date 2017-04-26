@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using tinyERP.Dal.Entities;
 
@@ -16,8 +15,9 @@ namespace tinyERP.Dal.Repositories
         public Budget GetBudgetByYear(DateTime date)
         {
             return (from t in TinyErpContext.Budgets
-                where t.Year == date.Year
-                    select t).SingleOrDefault();
+                    where t.Year == date.Year
+                    select t)
+                    .SingleOrDefault();
         }
     }
 }

@@ -11,7 +11,26 @@ namespace tinyERP.UI.ViewModels
 {
     internal class EditTransactionViewModel : ViewModelBase
     {
+        private Budget budget;
+        private Transaction transaction;
+
         private string _name;
+        private double? _amount;
+        private int? _privatPart;
+
+        public EditTransactionViewModel(IUnitOfWorkFactory factory, Transaction transaction) : base(factory)
+        {
+            this.transaction = transaction;
+            Name = this.transaction.Name;
+            Amount = this.transaction.Amount.ToString(CultureInfo.InvariantCulture);
+            IsRevenue = this.transaction.IsRevenue;
+            PrivatPart = this.transaction.PrivatePart.ToString();
+            Date = this.transaction.Date;
+            Comment = this.transaction.Comment;
+            budget = this.transaction.Budget;
+            SelectedCategory = this.transaction.Category;
+        }
+        
         public string Name
         {
             get { return _name; }
@@ -21,8 +40,7 @@ namespace tinyERP.UI.ViewModels
                 Validator.Validate(nameof(Name));
             }
         }
-
-        private double? _amount;
+        
         public string Amount
         {
             get { return _amount.ToString(); }
@@ -44,9 +62,9 @@ namespace tinyERP.UI.ViewModels
         }
 
         public bool IsRevenue { get; set; }
+
         public bool IsExpense => !IsRevenue;
 
-        private int? _privatPart;
         public string PrivatPart
         {
             get { return _privatPart.ToString(); }
@@ -71,25 +89,9 @@ namespace tinyERP.UI.ViewModels
 
         public string Comment { get; set; }
 
-        private Budget _budget;
-
         public ObservableCollection<Category> CategoryList { get; set; }
+
         public Category SelectedCategory { get; set; }
-
-        private Transaction _transaction;
-
-        public EditTransactionViewModel(IUnitOfWorkFactory factory, Transaction transaction) : base(factory)
-        {
-            _transaction = transaction;
-            Name = _transaction.Name;
-            Amount = _transaction.Amount.ToString(CultureInfo.InvariantCulture);
-            IsRevenue = _transaction.IsRevenue;
-            PrivatPart = _transaction.PrivatePart.ToString();
-            Date = _transaction.Date;
-            Comment = _transaction.Comment;
-            _budget = _transaction.Budget;
-            SelectedCategory = _transaction.Category;
-        }
 
         public override void Load()
         {
@@ -108,8 +110,8 @@ namespace tinyERP.UI.ViewModels
                 () => RuleResult.Assert(_amount > 0, "Betrag muss grösser als 0 sein"));
             Validator.AddRule(nameof(Date), () =>
             {
-                _budget = UnitOfWork.Budgets.GetBudgetByYear(Date);
-                return RuleResult.Assert(_budget != null,
+                budget = UnitOfWork.Budgets.GetBudgetByYear(Date);
+                return RuleResult.Assert(budget != null,
                     $"Budget wurde nicht gefunden - Erstellen Sie zuerst das Budget für das Jahr {Date.Year}");
             });
             Validator.AddRule(nameof(Date), () =>
@@ -134,17 +136,17 @@ namespace tinyERP.UI.ViewModels
             var validationResult = Validator.ValidateAll();
             if (validationResult.IsValid)
             {
-                _transaction.Name = Name;
-                _transaction.Amount = _amount.GetValueOrDefault();
-                _transaction.IsRevenue = IsRevenue;
-                _transaction.PrivatePart = _privatPart.GetValueOrDefault();
-                _transaction.Date = Date;
-                _transaction.Comment = Comment;
-                _transaction.BudgetId = _budget.Id;
-                _transaction.CategoryId = SelectedCategory.Id;
+                transaction.Name = Name;
+                transaction.Amount = _amount.GetValueOrDefault();
+                transaction.IsRevenue = IsRevenue;
+                transaction.PrivatePart = _privatPart.GetValueOrDefault();
+                transaction.Date = Date;
+                transaction.Comment = Comment;
+                transaction.BudgetId = budget.Id;
+                transaction.CategoryId = SelectedCategory.Id;
 
-                if (_transaction.Id == 0)
-                    _transaction = UnitOfWork.Transactions.Add(_transaction);
+                if (transaction.Id == 0)
+                    transaction = UnitOfWork.Transactions.Add(transaction);
 
                 if (UnitOfWork.Complete() > 0)
                     ((Window) window).DialogResult = true;

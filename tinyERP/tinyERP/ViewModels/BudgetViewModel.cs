@@ -16,6 +16,11 @@ namespace tinyERP.UI.ViewModels
 {
     internal class BudgetViewModel : ViewModelBase
     {
+        private Budget _budget;
+        private DateTime _fromDate;
+        private DateTime _toDate;
+        private ChartValues<double> _budgetChartValues;
+
         public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
@@ -23,10 +28,6 @@ namespace tinyERP.UI.ViewModels
         public Transaction SelectedTransaction { get; set; }
 
         public ObservableCollection<Transaction> TransactionList { get; set; }
-
-        public ObservableCollection<Budget> BudgetList { get; set; }
-
-        private Budget _budget;
 
         public Budget Budget
         {
@@ -38,30 +39,22 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        //TODO: Replace Magic Numbers?
-        private void SetDatePickersToSelectedYear()
-        {
-            FromDate = new DateTime(Budget.Year, 1, 1);
-            ToDate = new DateTime(Budget.Year, 12, 31);
-        }
+        public ObservableCollection<Budget> BudgetList { get; set; }
 
         private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
-
-        private DateTime _fromDate;
+        
         public DateTime FromDate
         {
             get { return _fromDate; }
             set { SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues)); }
         }
-
-        private DateTime _toDate;
+        
         public DateTime ToDate
         {
             get { return _toDate; }
             set { SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues)); }
         }
-
-        private ChartValues<double> _budgetChartValues;
+        
         public ChartValues<double> BudgetChartValues
         {
             get
@@ -71,27 +64,6 @@ namespace tinyERP.UI.ViewModels
                 return _budgetChartValues;
             }
             set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
-        }
-
-        //TODO: Move method to BusinessLayer?
-        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
-        {
-            List<double> sums = new List<double>();
-
-            foreach (var category in categories)
-            {
-                var sum = 0.0;
-                foreach (var transaction in category.Transactions)
-                {
-                    if (transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
-                    {
-                        sum += (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount;
-                    }
-                }
-                sums.Add(sum);
-            }
-
-            return sums.ToArray();
         }
 
         public string[] Labels
@@ -139,12 +111,6 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(AllRevenuesTotal));
-            OnPropertyChanged(nameof(AllExpensesTotal));
-        }
-
         public override void Load()
         {
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
@@ -154,6 +120,40 @@ namespace tinyERP.UI.ViewModels
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList[0]; //TODO: What if DB empty?
             BudgetChartValues = new ChartValues<double>();
+        }
+
+        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(AllRevenuesTotal));
+            OnPropertyChanged(nameof(AllExpensesTotal));
+        }
+
+        //TODO: Replace Magic Numbers?
+        private void SetDatePickersToSelectedYear()
+        {
+            FromDate = new DateTime(Budget.Year, 1, 1);
+            ToDate = new DateTime(Budget.Year, 12, 31);
+        }
+
+        //TODO: Move method to BusinessLayer?
+        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
+        {
+            List<double> sums = new List<double>();
+
+            foreach (var category in categories)
+            {
+                var sum = 0.0;
+                foreach (var transaction in category.Transactions)
+                {
+                    if (transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
+                    {
+                        sum += (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount;
+                    }
+                }
+                sums.Add(sum);
+            }
+
+            return sums.ToArray();
         }
 
         #region New-Transaction-Command

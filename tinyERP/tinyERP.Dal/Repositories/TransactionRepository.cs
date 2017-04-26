@@ -41,8 +41,8 @@ namespace tinyERP.Dal.Repositories
             return (from t in TinyErpContext.Transactions
                     where t.Name.Contains(searchTerm) || t.Category.Name.Contains(searchTerm)
                     select t)
-                .Include(t => t.Category)
-                .ToList();
+                    .Include(t => t.Category)
+                    .ToList();
         }
     }
 }

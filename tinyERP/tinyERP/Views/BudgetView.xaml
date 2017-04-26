@@ -52,12 +52,12 @@
                     <lvc:Axis Title="Saldo"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
-            <TextBlock x:Name="datePickerTitle" Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
+            <TextBlock x:Name="DatePickerTitle" Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
             <Grid Height="39">
                 <DatePicker SelectedDate="{Binding FromDate}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
-                <TextBlock x:Name="dateDescriptorFrom" TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
+                <TextBlock x:Name="DateDescriptorFrom" TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
                 <DatePicker SelectedDate="{Binding ToDate}" HorizontalAlignment="Left" Margin="290,0,0,0" VerticalAlignment="Center" Height="28"/>
-                <TextBlock x:Name="dateDescriptorTo" Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,0,13" HorizontalAlignment="Left" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="DateDescriptorTo" Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,0,13" HorizontalAlignment="Left" TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">

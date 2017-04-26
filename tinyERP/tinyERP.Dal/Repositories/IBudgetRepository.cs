@@ -7,6 +7,4 @@ namespace tinyERP.Dal.Repositories
     {
         Budget GetBudgetByYear(DateTime date);
     }
-
-
 }

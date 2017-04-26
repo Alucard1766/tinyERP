@@ -1,5 +1,4 @@
-﻿using System;
-using tinyERP.Dal.Repositories;
+﻿using tinyERP.Dal.Repositories;
 
 namespace tinyERP.Dal
 {

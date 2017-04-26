@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
@@ -10,14 +9,13 @@ namespace tinyERP.UI.ViewModels
 {
     internal class DetailedBudgetViewModel : ViewModelBase
     {
+        private int? _year;
         private double? _revenue;
         private double? _expense;
-        private int? _year;
 
         public DetailedBudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
-
 
         public string Year
         {
@@ -98,7 +96,6 @@ namespace tinyERP.UI.ViewModels
             Validator.AddRule(nameof(Year), 
                 () => RuleResult.Assert(UnitOfWork.Budgets.GetBudgetByYear(new DateTime(_year.GetValueOrDefault(), 1, 1)) == null, 
                 "Zu dem ausgewählten Jahr existiert bereits ein Budget"));
-
         }
 
         #region New-Command

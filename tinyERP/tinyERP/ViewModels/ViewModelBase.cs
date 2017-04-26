@@ -9,20 +9,22 @@ namespace tinyERP.UI.ViewModels
 {
     public abstract class ViewModelBase : INotifyDataErrorInfo, INotifyPropertyChanged
     {
-        private readonly IUnitOfWorkFactory _factory;
-        protected IUnitOfWork UnitOfWork { get; set; }
-        protected ValidationHelper Validator { get;}
-        private NotifyDataErrorInfoAdapter NotifyDataErrorInfoAdapter { get;}
-
+        private readonly IUnitOfWorkFactory factory;
 
         protected ViewModelBase(IUnitOfWorkFactory factory)
         {
-            this._factory = factory;
+            this.factory = factory;
 
             Validator = new ValidationHelper();
             NotifyDataErrorInfoAdapter = new NotifyDataErrorInfoAdapter(Validator);
             NotifyDataErrorInfoAdapter.ErrorsChanged += OnErrorChanged;
         }
+
+        protected IUnitOfWork UnitOfWork { get; set; }
+
+        protected ValidationHelper Validator { get; }
+
+        private NotifyDataErrorInfoAdapter NotifyDataErrorInfoAdapter { get; }
 
         private void OnErrorChanged(object sender, DataErrorsChangedEventArgs e)
         {
@@ -62,12 +64,12 @@ namespace tinyERP.UI.ViewModels
 
         public void Init()
         {
-            UnitOfWork = _factory.GetUnitOfWork();
+            UnitOfWork = factory.GetUnitOfWork();
             Load();
         }
 
         public abstract void Load();
+
         public event PropertyChangedEventHandler PropertyChanged;
-        
     }
 }
