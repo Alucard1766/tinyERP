@@ -1,9 +1,8 @@
-﻿using System;
-using tinyERP.Dal.Repositories;
+﻿using tinyERP.Dal.Repositories;
 
 namespace tinyERP.Dal
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
         IBudgetRepository Budgets { get; }
         ITransactionRepository Transactions { get; }

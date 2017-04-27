@@ -8,6 +8,7 @@ namespace tinyERP.Dal.Repositories
     {
         IEnumerable<Transaction> GetTransactionsBetween(DateTime from, DateTime to);
         IEnumerable<Transaction> GetTransactionsWithCategories();
+        IEnumerable<Transaction> GetTransactionsWithCategoriesFilteredBy(string searchTerm);
         IEnumerable<Transaction> GetTransactionsWithCategoriesBetween(DateTime from, DateTime to);
     }
 }

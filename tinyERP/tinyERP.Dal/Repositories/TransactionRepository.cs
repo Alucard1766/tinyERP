@@ -35,5 +35,14 @@ namespace tinyERP.Dal.Repositories
                     .Include(t => t.Category)
                     .ToList();
         }
+
+        public IEnumerable<Transaction> GetTransactionsWithCategoriesFilteredBy(string searchTerm)
+        {
+            return (from t in TinyErpContext.Transactions
+                    where t.Name.Contains(searchTerm) || t.Category.Name.Contains(searchTerm)
+                    select t)
+                    .Include(t => t.Category)
+                    .ToList();
+        }
     }
 }
