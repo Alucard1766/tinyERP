@@ -14,7 +14,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}"/>
             <Style TargetType="DatePickerTextBox">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Padding" Value="2" />
@@ -67,7 +66,7 @@
                 <Button x:Name="EditBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
                     <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
                 </Button>
-                <Button x:Name="DeleteBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Buchung löschen">
+                <Button x:Name="DeleteBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
