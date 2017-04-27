@@ -4,16 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
-    
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Vertical">
-            <TextBlock FontSize="40" Margin="10" Height="auto">Kundenverwaltung</TextBlock>
-        </StackPanel>
-    </Grid>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel Background="White">
+        <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Kundenverwaltung</TextBlock>
+
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button x:Name="AddCustomer" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen">
+                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
+                </Button>
+            </StackPanel>
+
+            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
+                      CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Firma" Binding="{Binding Company}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Vorname" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Nachname" Binding="{Binding LastName}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Strasse" Binding="{Binding Street}"/>
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Postleitzahl" Binding="{Binding Zip}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Stadt" Binding="{Binding City}"/>
+                    <DataGridTextColumn MinWidth="100" Width="*" Header="Email" Binding="{Binding Email}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </DockPanel>
 </UserControl>
