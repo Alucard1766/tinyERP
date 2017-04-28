@@ -39,24 +39,29 @@ namespace tinyERP.TestEnvrionment
                 var budgetTableName = context.GetTableName<Budget>();
                 var transactionTableName = context.GetTableName<Transaction>();
                 var categoryTableName = context.GetTableName<Category>();
+                var documentTableName = context.GetTableName<Document>();
 
                 try
                 {
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
+                    context.DeleteAllRecords(documentTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
                     context.SetAutoIncrementOnTable(categoryTableName, true);
+                    context.SetAutoIncrementOnTable(documentTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
                     context.ResetEntitySeed(categoryTableName);
+                    context.ResetEntitySeed(documentTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
                     context.Transactions.AddRange(Transactions);
+                    context.Documents.AddRange(Documents);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -68,6 +73,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(budgetTableName, false);
                     context.SetAutoIncrementOnTable(transactionTableName, false);
                     context.SetAutoIncrementOnTable(categoryTableName, false);
+                    context.SetAutoIncrementOnTable(documentTableName, false);
                 }
 
             }
@@ -98,6 +104,12 @@ namespace tinyERP.TestEnvrionment
                 new Category {Id = 2, Name = "Aufrag"},
                 new Category {Id = 3, Name = "Auftragserstellung", ParentCategoryId = 2}
            };
+
+        private static List<Document> Documents =>
+            new List<Document>
+            {
+                new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
+            };
 
         private static string GetTableName<T>(this DbContext context)
         {

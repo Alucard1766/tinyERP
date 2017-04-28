@@ -39,6 +39,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetDocumentsTest()
+        {
+            var documents = unitOfWork.Documents.GetAll();
+            Assert.AreEqual(1, documents.Count());
+        }
+
+        [TestMethod]
         public void GetTransactionsTest()
         {
             var transactions = unitOfWork.Transactions.GetAll();
@@ -106,6 +113,15 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void InsertDocumentTest()
+        {
+            var document = new Document { Name = "TestDoc", RelativePath = "cake", IssueDate = new DateTime(2017,4,2)};
+            var returned = unitOfWork.Documents.Add(document);
+            unitOfWork.Complete();
+            Assert.AreEqual(document.Name, returned.Name);
+        }
+
+        [TestMethod]
         public void InsertTransactionTest()
         {
             var transaction = new Transaction
@@ -143,6 +159,16 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void UpdateDocumentTest()
+        {
+            var document = unitOfWork.Documents.Get(1);
+            document.Name = "ChangedName";
+            unitOfWork.Complete();
+            var changed = unitOfWork.Documents.Get(1);
+            Assert.AreEqual("ChangedName", changed.Name);
+        }
+
+        [TestMethod]
         public void UpdateTransactionTest()
         {
             var transaction = unitOfWork.Transactions.Get(1);
@@ -169,6 +195,14 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void DeleteDocumentTest()
+        {
+            unitOfWork.Documents.Remove(unitOfWork.Documents.Get(1));
+            unitOfWork.Complete();
+            Assert.AreEqual(0, unitOfWork.Documents.GetAll().Count());
+        }
+
+        [TestMethod]
         public void DeleteTransactionTest()
         {
             unitOfWork.Transactions.Remove(unitOfWork.Transactions.Get(1));
@@ -181,6 +215,13 @@ namespace tinyERP.Dal.Testing
         {
             var budget = unitOfWork.Budgets.GetBudgetByYear(new DateTime(2017, 04, 01));
             Assert.AreEqual(1, budget.Id);
+        }
+
+        [TestMethod]
+        public void TransactionHasNoDocumentTest()
+        {
+            var transactions = unitOfWork.Transactions.GetAll();
+            Assert.IsNull(transactions.First().Document);
         }
     }
 }
