@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
+using tinyERP.UI.Views;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -32,19 +33,18 @@ namespace tinyERP.UI.ViewModels
 
         private void NewCustomer()
         {
-            //var transaction = new Transaction()
-            //{
-            //    IsRevenue = true,
-            //    Date = DateTime.Today
-            //};
-            //var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), transaction);
-            //vm.Init();
-            //var window = new EditTransactionView(vm);
+            var customer = new Customer()
+            {
+                
+            };
+            var vm = new EditCustomerViewModel(new UnitOfWorkFactory(), customer);
+            vm.Init();
+            var window = new EditCustomerView(vm);
 
-            //if (window.ShowDialog() ?? false)
-            //{
-            //    CustomerList.Add(customer);
-            //}
+            if (window.ShowDialog() ?? false)
+            {
+                CustomerList.Add(customer);
+            }
         }
 
         private bool CanNewCustomer()

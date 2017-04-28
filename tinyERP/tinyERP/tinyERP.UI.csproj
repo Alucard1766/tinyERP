@@ -87,12 +87,16 @@
     </ApplicationDefinition>
     <Compile Include="Resources\Converter.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
     <Compile Include="ViewModels\DetailedBudgetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Views\EditCustomerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EditTransactionView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -119,6 +123,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\EditCustomerView.xaml.cs">
+      <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditTransactionView.xaml.cs">
       <DependentUpon>EditTransactionView.xaml</DependentUpon>
