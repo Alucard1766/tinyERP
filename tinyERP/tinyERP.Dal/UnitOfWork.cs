@@ -8,6 +8,7 @@ namespace tinyERP.Dal
 
         private IBudgetRepository _budgets;
         private ICategoryRepository _categories;
+        private IOrderRepository _orders;
         private ITransactionRepository _transactions;
 
         public UnitOfWork(TinyErpContext context)
@@ -18,6 +19,8 @@ namespace tinyERP.Dal
         public IBudgetRepository Budgets => _budgets ?? (_budgets = new BudgetRepository(context));
 
         public ICategoryRepository Categories => _categories ?? (_categories = new CategoryRepository(context));
+
+        public IOrderRepository Orders => _orders ?? (_orders = new OrderRepository(context));
 
         public ITransactionRepository Transactions => _transactions ?? (_transactions = new TransactionRepository(context));
 

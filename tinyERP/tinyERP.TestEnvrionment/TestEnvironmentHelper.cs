@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using tinyERP.Dal;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 
 namespace tinyERP.TestEnvrionment
 {
@@ -18,6 +19,7 @@ namespace tinyERP.TestEnvrionment
             {
                 var budget = context.Budgets.Add(new Budget { Year = 2017, Expenses = 1000.0, Revenue = 1200.0});
                 var category = context.Categories.Add(new Category { Name = "Aufrag" });
+                var order = context.Orders.Add(new Order());
                 var transaction = context.Transactions.Add(
                     new Transaction
                     {
@@ -39,24 +41,30 @@ namespace tinyERP.TestEnvrionment
                 var budgetTableName = context.GetTableName<Budget>();
                 var transactionTableName = context.GetTableName<Transaction>();
                 var categoryTableName = context.GetTableName<Category>();
+                var orderTableName = context.GetTableName<Order>();
 
                 try
                 {
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
+                    context.DeleteAllRecords(orderTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
                     context.SetAutoIncrementOnTable(categoryTableName, true);
+                    context.SetAutoIncrementOnTable(orderTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
                     context.ResetEntitySeed(categoryTableName);
+                    context.ResetEntitySeed(orderTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
                     context.Transactions.AddRange(Transactions);
+                    context.Orders.AddRange(Orders);
+
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -69,7 +77,6 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(transactionTableName, false);
                     context.SetAutoIncrementOnTable(categoryTableName, false);
                 }
-
             }
         }
 
@@ -98,6 +105,14 @@ namespace tinyERP.TestEnvrionment
                 new Category {Id = 2, Name = "Aufrag"},
                 new Category {Id = 3, Name = "Auftragserstellung", ParentCategoryId = 2}
            };
+
+        private static List<Order> Orders =>
+            new List<Order>
+            {
+                new Order {Id = 1, State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3)},
+                new Order {Id = 2, State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
+                new Order {Id = 3, State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20)},
+            };
 
         private static string GetTableName<T>(this DbContext context)
         {

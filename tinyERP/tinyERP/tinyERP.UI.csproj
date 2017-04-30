@@ -85,13 +85,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\EnumToDescriptionConverter.cs" />
     <Compile Include="Resources\Converter.cs" />
+    <Compile Include="ViewModels\EditOrderViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
     <Compile Include="ViewModels\DetailedBudgetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Views\EditOrderView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EditTransactionView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -118,6 +124,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\EditOrderView.xaml.cs">
+      <DependentUpon>EditOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditTransactionView.xaml.cs">
       <DependentUpon>EditTransactionView.xaml</DependentUpon>
