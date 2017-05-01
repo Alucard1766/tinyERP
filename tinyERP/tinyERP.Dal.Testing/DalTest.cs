@@ -75,6 +75,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetDocumentByIdTest()
+        {
+            var document = unitOfWork.Documents.Get(1);
+            Assert.AreEqual("Quittung 1", document.Name);
+        }
+
+        [TestMethod]
         public void GetOrderByIdTest()
         {
             var order = unitOfWork.Orders.Get(1);
@@ -100,6 +107,13 @@ namespace tinyERP.Dal.Testing
         {
             var category = unitOfWork.Categories.Get(10);
             Assert.IsNull(category);
+        }
+
+        [TestMethod]
+        public void GetDocumentByNonexistingIdTest()
+        {
+            var document = unitOfWork.Documents.Get(10);
+            Assert.IsNull(document);
         }
 
         [TestMethod]
