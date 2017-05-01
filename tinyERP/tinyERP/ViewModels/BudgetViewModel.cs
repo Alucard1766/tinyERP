@@ -41,7 +41,7 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Budget> BudgetList { get; set; }
 
-        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
         
         public DateTime FromDate
         {
