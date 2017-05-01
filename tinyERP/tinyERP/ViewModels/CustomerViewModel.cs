@@ -33,10 +33,7 @@ namespace tinyERP.UI.ViewModels
 
         private void NewCustomer()
         {
-            var customer = new Customer()
-            {
-                
-            };
+            var customer = new Customer();
             var vm = new EditCustomerViewModel(new UnitOfWorkFactory(), customer);
             vm.Init();
             var window = new EditCustomerView(vm);

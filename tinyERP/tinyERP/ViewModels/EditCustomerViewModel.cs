@@ -16,7 +16,7 @@ namespace tinyERP.UI.ViewModels
         private string _lastName;
         private string _street;
         private string _city;
-        private string _firma;
+        private string _company;
         private string _email;
         private int? _zip;
 
@@ -56,13 +56,13 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public string Firma
+        public string Company
         {
-            get { return _firma; }
+            get { return _company; }
             set
             {
-                _firma = value;
-                Validator.Validate(nameof(Firma));
+                _company = value;
+                Validator.Validate(nameof(Company));
             }
         }
 
@@ -105,6 +105,7 @@ namespace tinyERP.UI.ViewModels
                 Validator.Validate(nameof(Email));
             }
         }
+
         public override void Load()
         {
             AddRules();
@@ -112,15 +113,24 @@ namespace tinyERP.UI.ViewModels
 
         private void AddRules()
         {
-            Validator.AddRequiredRule(() => FirstName, "Vorname ist notwendig");
-            Validator.AddRequiredRule(() => LastName, "Nachname ist notwendig");
-            Validator.AddRequiredRule(() => Street, "Strasse ist notwendig");
-            Validator.AddRequiredRule(() => Zip, "Postleitzahl ist notwendig");
-            Validator.AddRequiredRule(() => City, "Ort ist notwendig");
-            Validator.AddRule(nameof(Email), 
-                () => RuleResult.Assert(Regex.IsMatch(Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-                RegexOptions.IgnoreCase),
-                "Email Adresse nicht gültig"));
+            Validator.AddRequiredRule(() => FirstName, "Vorname ist ein Pflichtfeld");
+            Validator.AddRequiredRule(() => LastName, "Nachname ist ein Pflichtfeld");
+            Validator.AddRequiredRule(() => Street, "Strasse ist ein Pflichtfeld");
+            Validator.AddRequiredRule(() => Zip, "Postleitzahl ist ein Pflichtfeld");
+            Validator.AddRequiredRule(() => City, "Ort ist ein Pflichtfeld");
+            Validator.AddRule(nameof(Email),
+                () =>
+                {
+                    if (!string.IsNullOrEmpty(Email))
+                    {
+                        return RuleResult.Assert(Regex.IsMatch(Email,
+                                @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                                RegexOptions.IgnoreCase),
+                            "Email Adresse nicht gültig");
+                    }
+
+                    return RuleResult.Valid();
+                });
         }
 
         #region Save-Command
@@ -142,6 +152,8 @@ namespace tinyERP.UI.ViewModels
                 customer.Street = Street;
                 customer.Zip = _zip.GetValueOrDefault();
                 customer.City = City;
+                customer.Email = Email;
+                customer.Company = Company;
 
                 if (customer.Id == 0)
                     customer = UnitOfWork.Customers.Add(customer);
