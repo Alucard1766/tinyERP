@@ -20,6 +20,8 @@ namespace tinyERP.Dal
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Document> Documents { get; set; }
+
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Transaction> Transactions { get; set; }

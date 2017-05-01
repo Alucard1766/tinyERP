@@ -41,7 +41,7 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Budget> BudgetList { get; set; }
 
-        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
         
         public DateTime FromDate
         {
@@ -253,12 +253,6 @@ namespace tinyERP.UI.ViewModels
 
         #region Search-Transactions-Command
 
-        private string _searchText;
-        public string SearchText {
-            get { return _searchText; }
-            set { SetProperty(ref _searchText, value, nameof(SearchText)); }
-        }
-
         private RelayCommand _searchTransactionsCommand;
 
         public ICommand SearchTransactionsCommand {
@@ -270,7 +264,6 @@ namespace tinyERP.UI.ViewModels
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(searchTerm as string);
             TransactionList.Clear();
             foreach (var item in transactions) { TransactionList.Add(item); }
-            SelectedTransaction = TransactionList.FirstOrDefault();
         }
 
         #endregion
