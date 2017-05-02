@@ -229,8 +229,9 @@ namespace tinyERP.Dal.Testing
                 CustomerId = 1
             };
             var returned = unitOfWork.CustomerHistories.Add(history);
+            var customer = unitOfWork.Customers.Get(1);
             unitOfWork.Complete();
-            Assert.AreEqual(history.Text, returned.Text);
+            Assert.AreEqual(customer, returned.Customer);
         }
 
         [TestMethod]

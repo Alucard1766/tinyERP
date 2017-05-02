@@ -27,7 +27,7 @@
 
             <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
                       CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Firma" Binding="{Binding Company}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Vorname" Binding="{Binding FirstName}"/>
@@ -35,7 +35,7 @@
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Strasse" Binding="{Binding Street}"/>
                     <DataGridTextColumn MinWidth="120" Width="*" Header="Postleitzahl" Binding="{Binding Zip}"/>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Stadt" Binding="{Binding City}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="Email" Binding="{Binding Email}"/>
+                    <DataGridTextColumn MinWidth="140" Width="*" Header="Email" Binding="{Binding Email}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
