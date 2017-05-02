@@ -41,7 +41,7 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Budget> BudgetList { get; set; }
 
-        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
         
         public DateTime FromDate
         {
@@ -233,9 +233,8 @@ namespace tinyERP.UI.ViewModels
         private void DeleteTransactions(object selectedItems)
         {
             var selectedTransactions = (selectedItems as IEnumerable)?.Cast<Transaction>().ToList();
-            if (selectedTransactions?.Count > 0 &&
-                MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedTransactions.Count}) wirklich löschen?",
-                    "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedTransactions.Count}) wirklich löschen?",
+                "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 UnitOfWork.Transactions.RemoveRange(selectedTransactions);
                 UnitOfWork.Complete();
@@ -254,12 +253,6 @@ namespace tinyERP.UI.ViewModels
 
         #region Search-Transactions-Command
 
-        private string _searchText;
-        public string SearchText {
-            get { return _searchText; }
-            set { SetProperty(ref _searchText, value, nameof(SearchText)); }
-        }
-
         private RelayCommand _searchTransactionsCommand;
 
         public ICommand SearchTransactionsCommand {
@@ -271,7 +264,6 @@ namespace tinyERP.UI.ViewModels
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(searchTerm as string);
             TransactionList.Clear();
             foreach (var item in transactions) { TransactionList.Add(item); }
-            SelectedTransaction = TransactionList.FirstOrDefault();
         }
 
         #endregion
@@ -317,14 +309,23 @@ namespace tinyERP.UI.ViewModels
 
         private void DeleteBudget()
         {
-            if (Budget.Transactions?.Count > 0 &&
-                MessageBox.Show(
+            string message;
+
+            if (Budget.Transactions?.Count > 0)
+            {
+                message =
                     $"Wenn sie das Budget von {Budget.Year} löschen, werden alle zugehörigen Buchungen ({Budget.Transactions.Count}) ebenfalls gelöscht. " +
-                    $"Wollen sie das Budget trotzdem löschen?",
-                    "Budget löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    "Wollen sie das Budget trotzdem löschen?";
+            }
+            else
+            {
+                message = $"Wollen sie das Budget von {Budget.Year} wirklich löschen?";
+            }
+
+            if (MessageBox.Show(message, "Budget löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 var deletedBudget = Budget;
-                var deletedTransactions = Budget.Transactions.ToList();
+                var deletedTransactions = Budget.Transactions?.ToList() ?? new List<Transaction>();
                 
                 UnitOfWork.Transactions.RemoveRange(deletedTransactions);
                 UnitOfWork.Budgets.Remove(deletedBudget);

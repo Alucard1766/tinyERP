@@ -14,7 +14,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <CollectionViewSource x:Key="SortedBudgets" Source="{Binding BudgetViews}"/>
             <Style TargetType="DatePickerTextBox">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Padding" Value="2" />
@@ -67,7 +66,7 @@
                 <Button x:Name="EditBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
                     <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
                 </Button>
-                <Button x:Name="DeleteBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Buchung löschen">
+                <Button x:Name="DeleteBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
@@ -77,8 +76,12 @@
 
         <DockPanel Grid.Column="1" Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBox Width="200" Height="20" Text="{Binding SearchText}" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..."></TextBox>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding SearchText}" ToolTip="Suche starten">
+                <TextBox x:Name="SearchBox" Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..." ToolTip="Suche nach Bezeichnung oder Kategorie">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
                     <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                 </Button>
                 <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">

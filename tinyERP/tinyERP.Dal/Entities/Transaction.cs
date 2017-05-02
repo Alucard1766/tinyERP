@@ -40,5 +40,10 @@ namespace tinyERP.Dal.Entities
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        public int? DocumentId { get; set; }
+
+        [ForeignKey("DocumentId")]
+        public virtual Document Document{ get; set; }
     }
 }

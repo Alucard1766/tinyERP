@@ -47,7 +47,7 @@ namespace tinyERP.TestEnvrionment
                         Text = "Kunde via Internet gefunden.",
                         Date = new DateTime(2017,2,3),
                         CustomerId = customer.Id
-                        
+
                     });
                 context.SaveChanges();
             }
@@ -59,6 +59,7 @@ namespace tinyERP.TestEnvrionment
                 var categoryTableName = context.GetTableName<Category>();
                 var customerTableName = context.GetTableName<Customer>();
                 var customerHistoryTableName = context.GetTableName<CustomerHistory>();
+                var documentTableName = context.GetTableName<Document>();
 
                 try
                 {
@@ -67,10 +68,12 @@ namespace tinyERP.TestEnvrionment
                     context.DeleteAllRecords(categoryTableName);
                     context.DeleteAllRecords(customerTableName);
                     context.DeleteAllRecords(customerHistoryTableName);
+                    context.DeleteAllRecords(documentTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
                     context.SetAutoIncrementOnTable(categoryTableName, true);
+                    context.SetAutoIncrementOnTable(documentTableName, true);
                     context.SetAutoIncrementOnTable(customerTableName,true);
                     context.SetAutoIncrementOnTable(customerHistoryTableName, true);
 
@@ -79,10 +82,12 @@ namespace tinyERP.TestEnvrionment
                     context.ResetEntitySeed(categoryTableName);
                     context.ResetEntitySeed(customerTableName);
                     context.ResetEntitySeed(customerHistoryTableName);
+                    context.ResetEntitySeed(documentTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
                     context.Transactions.AddRange(Transactions);
+                    context.Documents.AddRange(Documents);
                     context.Customers.AddRange(Customers);
                     context.CustomerHistories.AddRange(CustomerHistories);
                     context.SaveChanges();
@@ -98,6 +103,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(categoryTableName, false);
                     context.SetAutoIncrementOnTable(customerTableName,false);
                     context.SetAutoIncrementOnTable(customerHistoryTableName,false);
+                    context.SetAutoIncrementOnTable(documentTableName, false);
                 }
 
             }
@@ -142,6 +148,12 @@ namespace tinyERP.TestEnvrionment
                 new CustomerHistory{Text = "Kunde via Internet gefunden.", Date = new DateTime(2017,2,3), CustomerId = 1},
                 new CustomerHistory{Text = "Kunde hat Rechnung zuspät bezahlt", Date = new DateTime(2017,3,3), CustomerId = 1},
                 new CustomerHistory{Text = "Kunde wurde durch Max vermittelt", Date = new DateTime(2017,2,3), CustomerId = 2}
+            };
+
+        private static List<Document> Documents =>
+            new List<Document>
+            {
+                new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
             };
 
         private static string GetTableName<T>(this DbContext context)

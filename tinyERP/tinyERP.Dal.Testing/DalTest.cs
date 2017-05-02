@@ -39,6 +39,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetDocumentsTest()
+        {
+            var documents = unitOfWork.Documents.GetAll();
+            Assert.AreEqual(1, documents.Count());
+        }
+
+        [TestMethod]
         public void GetTransactionsTest()
         {
             var transactions = unitOfWork.Transactions.GetAll();
@@ -60,6 +67,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetDocumentByIdTest()
+        {
+            var document = unitOfWork.Documents.Get(1);
+            Assert.AreEqual("Quittung 1", document.Name);
+        }
+
+        [TestMethod]
         public void GetTransactionByIdTest()
         {
             var transaction = unitOfWork.Transactions.Get(1);
@@ -78,6 +92,13 @@ namespace tinyERP.Dal.Testing
         {
             var category = unitOfWork.Categories.Get(10);
             Assert.IsNull(category);
+        }
+
+        [TestMethod]
+        public void GetDocumentByNonexistingIdTest()
+        {
+            var document = unitOfWork.Documents.Get(10);
+            Assert.IsNull(document);
         }
 
         [TestMethod]
@@ -103,6 +124,15 @@ namespace tinyERP.Dal.Testing
             var returned = unitOfWork.Categories.Add(category);
             unitOfWork.Complete();
             Assert.AreEqual(category.Name, returned.Name);
+        }
+
+        [TestMethod]
+        public void InsertDocumentTest()
+        {
+            var document = new Document { Name = "TestDoc", RelativePath = "cake", IssueDate = new DateTime(2017,4,2)};
+            var returned = unitOfWork.Documents.Add(document);
+            unitOfWork.Complete();
+            Assert.AreEqual(document.Name, returned.Name);
         }
 
         [TestMethod]
@@ -143,6 +173,16 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void UpdateDocumentTest()
+        {
+            var document = unitOfWork.Documents.Get(1);
+            document.Name = "ChangedName";
+            unitOfWork.Complete();
+            var changed = unitOfWork.Documents.Get(1);
+            Assert.AreEqual("ChangedName", changed.Name);
+        }
+
+        [TestMethod]
         public void UpdateTransactionTest()
         {
             var transaction = unitOfWork.Transactions.Get(1);
@@ -166,6 +206,14 @@ namespace tinyERP.Dal.Testing
             unitOfWork.Categories.Remove(unitOfWork.Categories.Get(1));
             unitOfWork.Complete();
             Assert.AreEqual(2, unitOfWork.Categories.GetAll().Count());
+        }
+
+        [TestMethod]
+        public void DeleteDocumentTest()
+        {
+            unitOfWork.Documents.Remove(unitOfWork.Documents.Get(1));
+            unitOfWork.Complete();
+            Assert.AreEqual(0, unitOfWork.Documents.GetAll().Count());
         }
 
         [TestMethod]
