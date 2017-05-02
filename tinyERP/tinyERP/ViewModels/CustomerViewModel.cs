@@ -28,7 +28,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewCustomerCommand
         {
-            get { return _newCustomerCommand ?? (_newCustomerCommand = new RelayCommand(param => NewCustomer(), param => CanNewCustomer())); }
+            get { return _newCustomerCommand ?? (_newCustomerCommand = new RelayCommand(param => NewCustomer())); }
         }
 
         private void NewCustomer()
@@ -42,11 +42,6 @@ namespace tinyERP.UI.ViewModels
             {
                 CustomerList.Add(customer);
             }
-        }
-
-        private bool CanNewCustomer()
-        {
-            return true;
         }
 
         #endregion

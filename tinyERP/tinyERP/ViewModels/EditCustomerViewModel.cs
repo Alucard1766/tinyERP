@@ -138,7 +138,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, param => CanSave())); }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save)); }
         }
 
         private void Save(object window)
@@ -162,11 +162,6 @@ namespace tinyERP.UI.ViewModels
 
                 ((Window) window).Close();
             }
-        }
-
-        private bool CanSave()
-        {
-            return true;
         }
 
         #endregion
