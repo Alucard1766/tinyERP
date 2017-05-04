@@ -9,7 +9,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LiveCharts;
-using MvvmValidation;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Views;
@@ -50,8 +49,7 @@ namespace tinyERP.UI.ViewModels
             get { return _fromDate; }
             set
             {
-                SetDate(ref _fromDate, value, nameof(FromDate));
-                Validator.Validate(nameof(FromDate));
+                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues));
             }
         }
         
@@ -60,11 +58,14 @@ namespace tinyERP.UI.ViewModels
             get { return _toDate; }
             set
             {
-                SetDate(ref _toDate, value, nameof(ToDate));
-                Validator.Validate(nameof(ToDate));
+                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues));
             }
         }
-        
+
+        public DateTime YearStart { get; set; }
+
+        public DateTime YearEnd { get; set; }
+
         public ChartValues<double> BudgetChartValues
         {
             get
@@ -130,13 +131,6 @@ namespace tinyERP.UI.ViewModels
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList[0]; //TODO: What if DB empty?
             BudgetChartValues = new ChartValues<double>();
-            AddRules();
-        }
-
-        private void AddRules()
-        {
-            Validator.AddRule(nameof(FromDate), () => RuleResult.Assert(IsValidYear(FromDate.Year), "Das Datum liegt ausserhalb des gültigen Jahres"));
-            Validator.AddRule(nameof(ToDate),   () => RuleResult.Assert(IsValidYear(ToDate.Year),   "Das Datum liegt ausserhalb des gültigen Jahres"));
         }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -147,21 +141,17 @@ namespace tinyERP.UI.ViewModels
 
         private void SetDatePickersToSelectedYear()
         {
-            FromDate = new DateTime(Budget.Year, 1, 1);
-            ToDate = new DateTime(Budget.Year, 12, 31);
+            var yearStart = new DateTime(Budget.Year, 1, 1);
+            var yearEnd = new DateTime(Budget.Year, 12, 31);
+            FromDate = yearStart;
+            YearStart = yearStart;
+            ToDate = yearEnd;
+            YearEnd = yearEnd;
         }
 
         private void SetDate(ref DateTime dateField, DateTime newDate, string propertyName)
         {
-            if (IsValidYear(newDate.Year))
-            {
-                SetProperty(ref dateField, newDate, propertyName, nameof(BudgetChartValues));
-            }
-            else
-            {
-                SetProperty(ref dateField, newDate, propertyName);
-            }
-
+                
         }
 
         private bool IsValidYear(int year)

@@ -53,9 +53,9 @@
             </lvc:CartesianChart>
             <TextBlock x:Name="DatePickerTitle" Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
             <Grid Height="39">
-                <DatePicker SelectedDate="{Binding FromDate}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
+                <DatePicker SelectedDate="{Binding FromDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
                 <TextBlock x:Name="DateDescriptorFrom" TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
-                <DatePicker SelectedDate="{Binding ToDate}" Margin="290,6,10,5" VerticalAlignment="Center" Height="28"/>
+                <DatePicker SelectedDate="{Binding ToDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Margin="290,6,10,5" VerticalAlignment="Center" Height="28"/>
                 <TextBlock x:Name="DateDescriptorTo" Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,115,13" TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
