@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -41,26 +42,36 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Budget> BudgetList { get; set; }
 
-        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetCategories());
+        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
         
         public DateTime FromDate
         {
             get { return _fromDate; }
-            set { SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues)); }
+            set
+            {
+                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues));
+            }
         }
         
         public DateTime ToDate
         {
             get { return _toDate; }
-            set { SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues)); }
+            set
+            {
+                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues));
+            }
         }
-        
+
+        public DateTime YearStart { get; set; }
+
+        public DateTime YearEnd { get; set; }
+
         public ChartValues<double> BudgetChartValues
         {
             get
             {
                 _budgetChartValues.Clear();
-                _budgetChartValues.AddRange(CalculateCategorySum(CategoryList, Budget));
+                _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
                 return _budgetChartValues;
             }
             set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
@@ -83,7 +94,7 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                double result = 0.0;
+                var result = 0.0;
                 foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
                 {
                     if (!transaction.IsRevenue)
@@ -99,7 +110,7 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                double result = 0.0;
+                var result = 0.0;
                 foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
                 {
                     if (transaction.IsRevenue)
@@ -128,28 +139,35 @@ namespace tinyERP.UI.ViewModels
             OnPropertyChanged(nameof(AllExpensesTotal));
         }
 
-        //TODO: Replace Magic Numbers?
         private void SetDatePickersToSelectedYear()
         {
-            FromDate = new DateTime(Budget.Year, 1, 1);
-            ToDate = new DateTime(Budget.Year, 12, 31);
+            var yearStart = new DateTime(Budget.Year, 1, 1);
+            var yearEnd = new DateTime(Budget.Year, 12, 31);
+            FromDate = yearStart;
+            YearStart = yearStart;
+            ToDate = yearEnd;
+            YearEnd = yearEnd;
         }
 
-        //TODO: Move method to BusinessLayer?
-        public double[] CalculateCategorySum(IEnumerable<Category> categories, Budget budget)
+        private void SetDate(ref DateTime dateField, DateTime newDate, string propertyName)
         {
-            List<double> sums = new List<double>();
+                
+        }
+
+        private bool IsValidYear(int year)
+        {
+            return year == Budget.Year;
+        }
+
+        public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
+        {
+            var sums = new List<double>();
 
             foreach (var category in categories)
             {
-                var sum = 0.0;
-                foreach (var transaction in category.Transactions)
-                {
-                    if (transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
-                    {
-                        sum += (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount;
-                    }
-                }
+                var sum = category.Transactions
+                    .Where(transaction => transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
+                    .Sum(transaction => (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount);
                 sums.Add(sum);
             }
 
@@ -253,12 +271,6 @@ namespace tinyERP.UI.ViewModels
 
         #region Search-Transactions-Command
 
-        private string _searchText;
-        public string SearchText {
-            get { return _searchText; }
-            set { SetProperty(ref _searchText, value, nameof(SearchText)); }
-        }
-
         private RelayCommand _searchTransactionsCommand;
 
         public ICommand SearchTransactionsCommand {
@@ -270,7 +282,6 @@ namespace tinyERP.UI.ViewModels
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(searchTerm as string);
             TransactionList.Clear();
             foreach (var item in transactions) { TransactionList.Add(item); }
-            SelectedTransaction = TransactionList.FirstOrDefault();
         }
 
         #endregion

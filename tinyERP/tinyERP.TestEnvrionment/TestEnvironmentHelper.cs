@@ -30,7 +30,25 @@ namespace tinyERP.TestEnvrionment
                         BudgetId = budget.Id,
                         CategoryId = category.Id
                     });
+                var customer = context.Customers.Add(
+                    new Customer
+                    {
+                        FirstName = "Max",
+                        LastName = "Muster",
+                        City = "Zürich",
+                        Company = "HSR",
+                        Email = "max.muster@hsr.ch",
+                        Street = "Rappistr. 10",
+                        Zip = 8000
+                    });
+                var customerHistory = context.CustomerHistories.Add(
+                    new CustomerHistory
+                    {
+                        Text = "Kunde via Internet gefunden.",
+                        Date = new DateTime(2017,2,3),
+                        CustomerId = customer.Id
 
+                    });
                 context.SaveChanges();
             }
 
@@ -39,6 +57,8 @@ namespace tinyERP.TestEnvrionment
                 var budgetTableName = context.GetTableName<Budget>();
                 var transactionTableName = context.GetTableName<Transaction>();
                 var categoryTableName = context.GetTableName<Category>();
+                var customerTableName = context.GetTableName<Customer>();
+                var customerHistoryTableName = context.GetTableName<CustomerHistory>();
                 var documentTableName = context.GetTableName<Document>();
 
                 try
@@ -46,22 +66,30 @@ namespace tinyERP.TestEnvrionment
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
+                    context.DeleteAllRecords(customerTableName);
+                    context.DeleteAllRecords(customerHistoryTableName);
                     context.DeleteAllRecords(documentTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
                     context.SetAutoIncrementOnTable(categoryTableName, true);
                     context.SetAutoIncrementOnTable(documentTableName, true);
+                    context.SetAutoIncrementOnTable(customerTableName,true);
+                    context.SetAutoIncrementOnTable(customerHistoryTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
                     context.ResetEntitySeed(categoryTableName);
+                    context.ResetEntitySeed(customerTableName);
+                    context.ResetEntitySeed(customerHistoryTableName);
                     context.ResetEntitySeed(documentTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
                     context.Transactions.AddRange(Transactions);
                     context.Documents.AddRange(Documents);
+                    context.Customers.AddRange(Customers);
+                    context.CustomerHistories.AddRange(CustomerHistories);
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -73,6 +101,8 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(budgetTableName, false);
                     context.SetAutoIncrementOnTable(transactionTableName, false);
                     context.SetAutoIncrementOnTable(categoryTableName, false);
+                    context.SetAutoIncrementOnTable(customerTableName,false);
+                    context.SetAutoIncrementOnTable(customerHistoryTableName,false);
                     context.SetAutoIncrementOnTable(documentTableName, false);
                 }
 
@@ -104,6 +134,21 @@ namespace tinyERP.TestEnvrionment
                 new Category {Id = 2, Name = "Aufrag"},
                 new Category {Id = 3, Name = "Auftragserstellung", ParentCategoryId = 2}
            };
+
+        private static List<Customer> Customers =>
+            new List<Customer>
+            {
+                new Customer{FirstName = "Max", LastName = "Muster", City = "Zürich", Company = "HSR", Email = "max.muster@hsr.ch", Street = "Rappistr. 10", Zip = 8000},
+                new Customer{FirstName = "Peter", LastName = "Müller", City = "Uster", Street = "Usterstrasse 10", Zip = 5000},
+                new Customer{FirstName = "Hans", LastName = "Keller", City = "Pfäffikon ZH", Email = "hans.keller@gmail.com", Street = "Pfäffikerstr. 20", Zip = 7000}
+            };
+        private static List<CustomerHistory> CustomerHistories =>
+            new List<CustomerHistory>
+            {
+                new CustomerHistory{Text = "Kunde via Internet gefunden.", Date = new DateTime(2017,2,3), CustomerId = 1},
+                new CustomerHistory{Text = "Kunde hat Rechnung zuspät bezahlt", Date = new DateTime(2017,3,3), CustomerId = 1},
+                new CustomerHistory{Text = "Kunde wurde durch Max vermittelt", Date = new DateTime(2017,2,3), CustomerId = 2}
+            };
 
         private static List<Document> Documents =>
             new List<Document>
