@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileAccess.cs" />
     <Compile Include="TinyErpBusinessComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
