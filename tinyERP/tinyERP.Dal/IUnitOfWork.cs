@@ -8,6 +8,8 @@ namespace tinyERP.Dal
         ICategoryRepository Categories { get; }
         IOrderRepository Orders { get; }
         ITransactionRepository Transactions { get; }
+        ICustomerRepository Customers { get; }
+        ICustomerHistoryRepository CustomerHistories { get; }
 
         int Complete();
     }

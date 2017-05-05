@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\CustomerHistory.cs" />
+    <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Budget.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Document.cs" />
@@ -61,13 +63,17 @@
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\BudgetRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CustomerHistoryRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Repositories\ICustomerHistoryRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
     <Compile Include="Repositories\IDocumentRepository.cs" />
     <Compile Include="Repositories\ITransactionRepository.cs" />
     <Compile Include="Repositories\IBudgetRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="TinyErpContext.cs" />
     <Compile Include="Types\State.cs" />

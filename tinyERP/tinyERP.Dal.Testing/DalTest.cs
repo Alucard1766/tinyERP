@@ -286,10 +286,72 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
-        public void TransactionHasNoDocumentTest()
+        public void InsertCustomerTest()
         {
-            var transactions = unitOfWork.Transactions.GetAll();
-            Assert.IsNull(transactions.First().Document);
+            var customer = new Customer
+            {
+                FirstName = "Sepp",
+                LastName = "Hauser",
+                City = "Zürich",
+                Company = "Buurehof",
+                Email = "sepp.hauser@buure.ch",
+                Street = "Feldstr. 10",
+                Zip = 2000
+            };
+            var returned = unitOfWork.Customers.Add(customer);
+            unitOfWork.Complete();
+            Assert.AreEqual(customer.FirstName, returned.FirstName);
+        }
+
+        [TestMethod]
+        public void DeleteCustomerTest()
+        {
+            unitOfWork.Customers.Remove(unitOfWork.Customers.Get(1));
+            unitOfWork.Complete();
+            Assert.AreEqual(2, unitOfWork.Customers.GetAll().Count());
+        }
+
+        [TestMethod]
+        public void UpdateCustomerTest()
+        {
+            var customer = unitOfWork.Customers.Get(1);
+            customer.Street = "Seeweg";
+            unitOfWork.Complete();
+            var changed = unitOfWork.Customers.Get(1);
+            Assert.AreEqual("Seeweg", changed.Street);
+        }
+
+        [TestMethod]
+        public void InsertCustomerHistoryTest()
+        {
+            var history = new CustomerHistory
+            {
+                Text = "Welcome Back",
+                Date = new DateTime(2017,04,27),
+                CustomerId = 1
+            };
+            var returned = unitOfWork.CustomerHistories.Add(history);
+            var customer = unitOfWork.Customers.Get(1);
+            unitOfWork.Complete();
+            Assert.AreEqual(customer, returned.Customer);
+        }
+
+        [TestMethod]
+        public void DeleteCustomerHistoryTest()
+        {
+            unitOfWork.CustomerHistories.Remove(unitOfWork.CustomerHistories.Get(1));
+            unitOfWork.Complete();
+            Assert.AreEqual(2, unitOfWork.CustomerHistories.GetAll().Count());
+        }
+
+        [TestMethod]
+        public void UpdateCustomerHistoryTest()
+        {
+            var history = unitOfWork.CustomerHistories.Get(1);
+            history.Text = "My edit";
+            unitOfWork.Complete();
+            var changed = unitOfWork.CustomerHistories.Get(1);
+            Assert.AreEqual("My edit", changed.Text);
         }
     }
 }
