@@ -162,6 +162,7 @@ namespace tinyERP.Dal.Testing
         {
             var order = new Order
             {
+                Title = "Order",
                 State = State.InProgress,
                 CreationDate = DateTime.Today,
                 StateModificationDate = DateTime.Today

@@ -1,4 +1,7 @@
-﻿using tinyERP.Dal.Entities;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using tinyERP.Dal.Entities;
 
 namespace tinyERP.Dal.Repositories
 {
@@ -8,6 +11,11 @@ namespace tinyERP.Dal.Repositories
 
         public OrderRepository(TinyErpContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Order> GetOrdersWithCustomers()
+        {
+            return TinyErpContext.Orders.Include(o => o.Customer).ToList();
         }
     }
 }

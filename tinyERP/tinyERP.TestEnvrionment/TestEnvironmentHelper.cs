@@ -19,7 +19,6 @@ namespace tinyERP.TestEnvrionment
             {
                 var budget = context.Budgets.Add(new Budget { Year = 2017, Expenses = 1000.0, Revenue = 1200.0});
                 var category = context.Categories.Add(new Category { Name = "Aufrag" });
-                var order = context.Orders.Add(new Order());
                 var transaction = context.Transactions.Add(
                     new Transaction
                     {
@@ -51,6 +50,8 @@ namespace tinyERP.TestEnvrionment
                         CustomerId = customer.Id
 
                     });
+                var order = context.Orders.Add(new Order { Title = "Order" });
+
                 context.SaveChanges();
             }
 
@@ -69,10 +70,10 @@ namespace tinyERP.TestEnvrionment
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
+                    context.DeleteAllRecords(orderTableName);
                     context.DeleteAllRecords(customerTableName);
                     context.DeleteAllRecords(customerHistoryTableName);
                     context.DeleteAllRecords(documentTableName);
-                    context.DeleteAllRecords(orderTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
@@ -167,9 +168,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Order> Orders =>
             new List<Order>
             {
-                new Order {Id = 1, State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3)},
-                new Order {Id = 2, State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
-                new Order {Id = 3, State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20)},
+                new Order {Id = 1, Title = "Auftrag 1", State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3), CustomerId = 2},
+                new Order {Id = 2, Title = "Auftrag 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
+                new Order {Id = 3, Title = "Auftrag 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3},
             };
 
         private static string GetTableName<T>(this DbContext context)

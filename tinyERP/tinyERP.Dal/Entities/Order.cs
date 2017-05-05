@@ -11,6 +11,9 @@ namespace tinyERP.Dal.Entities
         public int Id { get; set; }
 
         [Required]
+        public string Title { get; set; }
+
+        [Required]
         public State State { get; set; }
 
         [Required]
@@ -18,6 +21,11 @@ namespace tinyERP.Dal.Entities
 
         [Required]
         public DateTime StateModificationDate { get; set; } = DateTime.Today;
+
+        public int? CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customer { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

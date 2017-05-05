@@ -28,7 +28,7 @@ namespace tinyERP.UI.ViewModels
 
         public override void Load()
         {
-            var orders = UnitOfWork.Orders.GetAll();
+            var orders = UnitOfWork.Orders.GetOrdersWithCustomers();
             OrderList = new ObservableCollection<Order>(orders);
         }
 

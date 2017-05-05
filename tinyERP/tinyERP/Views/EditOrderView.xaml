@@ -7,6 +7,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
+        xmlns:entities="clr-namespace:tinyERP.Dal.Entities;assembly=tinyERP.Dal"
         x:Class="tinyERP.UI.Views.EditOrderView"
         mc:Ignorable="d"
         BorderBrush="{DynamicResource AccentColorBrush}"
@@ -43,9 +44,17 @@
 
             <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Auftragsnummer" Margin="10"
                      Text="{Binding OrderNumber, Mode=OneWay}" IsReadOnly="True" IsEnabled="False"/>
-            <controls:SplitButton HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" 
-                                  ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}"
-                                  VerticalAlignment="Center" ToolTip="Kunde auswählen" Margin="10" SelectedIndex="0">
+            <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Height="20" controls:TextBoxHelper.Watermark="Bezeichnung" Margin="10"
+                     Text="{Binding Title, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <controls:SplitButton x:Name="CustomerSplitButton" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" 
+                                  ItemsSource="{DynamicResource CustomerCollection}" SelectedItem="{Binding SelectedCustomer}"
+                                  VerticalAlignment="Center" ToolTip="Kunde auswählen" Margin="10">
+                <controls:SplitButton.Resources>
+                    <CompositeCollection x:Key="CustomerCollection">
+                        <entities:Customer />
+                        <CollectionContainer Collection="{Binding DataContext.CustomerList, Source={x:Reference CustomerSplitButton}}" />
+                    </CompositeCollection>
+                </controls:SplitButton.Resources>
                 <controls:SplitButton.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>

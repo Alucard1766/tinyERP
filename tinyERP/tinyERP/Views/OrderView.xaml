@@ -26,6 +26,7 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth="80" Width="*" Header="Nr" Binding="{Binding OrderNumber}"/>
+                <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Title}"/>
                 <DataGridTextColumn MinWidth="140" Width="*" Header="Kunde">
                     <DataGridTextColumn.Binding>
                         <MultiBinding StringFormat="{}{0} {1}">

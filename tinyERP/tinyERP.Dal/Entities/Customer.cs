@@ -31,5 +31,7 @@ namespace tinyERP.Dal.Entities
         public byte[] RowVersion { get; set; }
 
         public virtual ICollection<CustomerHistory> CustomerHistories { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
@@ -16,12 +17,16 @@ namespace tinyERP.UI.ViewModels
         {
             this.order = order;
             OrderNumber = order.OrderNumber;
+            Title = order.Title;
             SelectedState = order.State;
             CreationDate = order.CreationDate;
             StateModificationDate = order.StateModificationDate;
+            SelectedCustomer = order.Customer;
         }
 
         public string OrderNumber { get; }
+
+        public string Title { get; set; }
 
         public State SelectedState { get; set; }
 
@@ -29,20 +34,20 @@ namespace tinyERP.UI.ViewModels
 
         public DateTime StateModificationDate { get; }
 
-        //public ObservableCollection<Customer> CustomerList { get; set; }
+        public ObservableCollection<Customer> CustomerList { get; set; }
 
-        //public Customer SelectedCustomer { get; set; }
+        public Customer SelectedCustomer { get; set; }
 
         public override void Load()
         {
-            //var customers = UnitOfWork.Customers.GetAll();
-            //CustomerList = new ObservableCollection<Customer>(customers);
+            var customers = UnitOfWork.Customers.GetAll();
+            CustomerList = new ObservableCollection<Customer>(customers);
             AddRules();
         }
 
         private void AddRules()
         {
-            Validator.AddRequiredRule(() => SelectedState, "Status ist notwendig");
+            Validator.AddRequiredRule(() => Title, "Bezeichnung ist notwendig");
         }
 
         #region Save-Command
@@ -51,29 +56,30 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, param => CanSave())); }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save)); }
         }
 
         private void Save(object window)
         {
-            if (order.State != SelectedState)
+            if (Validator.ValidateAll().IsValid)
             {
-                order.StateModificationDate = DateTime.Today;
-                order.State = SelectedState;
+                if (order.State != SelectedState)
+                {
+                    order.StateModificationDate = DateTime.Today;
+                    order.State = SelectedState;
+                }
+
+                order.Title = Title;
+                order.Customer = SelectedCustomer?.Id > 0 ? SelectedCustomer : null;
+
+                if (order.Id == 0)
+                    order = UnitOfWork.Orders.Add(order);
+
+                if (UnitOfWork.Complete() > 0)
+                    ((Window) window).DialogResult = true;
+
+                ((Window) window).Close();
             }
-
-            if (order.Id == 0)
-                order = UnitOfWork.Orders.Add(order);
-
-            if (UnitOfWork.Complete() > 0)
-                ((Window)window).DialogResult = true;
-
-            ((Window)window).Close();
-        }
-
-        private bool CanSave()
-        {
-            return Validator.ValidateAll().IsValid;
         }
 
         #endregion
