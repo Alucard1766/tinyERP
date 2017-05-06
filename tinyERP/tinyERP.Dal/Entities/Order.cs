@@ -30,6 +30,7 @@ namespace tinyERP.Dal.Entities
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
+        [NotMapped]
         public string OrderNumber => Id != 0 ? $"{CreationDate.Year % 100}-{Id:000}" : "Nach dem Speichern generiert";
     }
 }

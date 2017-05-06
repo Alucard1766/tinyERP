@@ -27,15 +27,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth="80" Width="*" Header="Nr" Binding="{Binding OrderNumber}"/>
                 <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Title}"/>
-                <DataGridTextColumn MinWidth="140" Width="*" Header="Kunde">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="Customer.LastName"></Binding>
-                            <Binding Path="Customer.FirstName"></Binding>
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn MinWidth="120" Width="*" Header="Status" Binding="{Binding State, Converter={StaticResource MyEnumToDescriptionConverter}}"/>
+                <DataGridTextColumn MinWidth="140" Width="*" Header="Kunde" Binding="{Binding Customer.FullName}" />
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Status" Binding="{Binding State, Converter={StaticResource MyEnumToDescriptionConverter}}"/>
                 <DataGridTextColumn MinWidth="120" Width="*" Header="Erstellt am" Binding="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
                 <DataGridTextColumn MinWidth="120" Width="*" Header="Letzte Statusänderung" Binding="{Binding StateModificationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
             </DataGrid.Columns>
