@@ -111,6 +111,9 @@
                     <KeyBinding Key="Enter"
                                 Command="{Binding EditTransactionCommand}"
                                 CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                    <KeyBinding Key="Delete"
+                            Command="{Binding DeleteTransactionsCommand}"
+                            CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
                 </DataGrid.InputBindings>
             </DataGrid>
         </DockPanel>
