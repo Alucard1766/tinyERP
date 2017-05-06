@@ -90,9 +90,9 @@ namespace tinyERP.UI.ViewModels
         {
             Validator.AddRule(nameof(Year), () => RuleResult.Assert(_year != null && _year > 1900, "Das Jahr muss grösser sein als 1900"));
             Validator.AddRule(nameof(Revenue),
-                () => RuleResult.Assert(_revenue != null && _revenue > 0, "Die Einnahmen müssen positiv sein"));
+                () => RuleResult.Assert(_revenue != null && _revenue >= 0, "Die Einnahmen müssen positiv sein"));
             Validator.AddRule(nameof(Expense),
-                () => RuleResult.Assert(_expense != null && _expense > 0, "Die Ausgaben müssen positiv sein"));
+                () => RuleResult.Assert(_expense != null && _expense >= 0, "Die Ausgaben müssen positiv sein"));
             Validator.AddRule(nameof(Year), 
                 () => RuleResult.Assert(UnitOfWork.Budgets.GetBudgetByYear(new DateTime(_year.GetValueOrDefault(), 1, 1)) == null, 
                 "Zu dem ausgewählten Jahr existiert bereits ein Budget"));
@@ -104,7 +104,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewCommand
         {
-            get { return _newCommand ?? (_newCommand = new RelayCommand(New, param => CanNew())); }
+            get { return _newCommand ?? (_newCommand = new RelayCommand(New)); }
         }
 
         private void New(object window)
@@ -129,11 +129,6 @@ namespace tinyERP.UI.ViewModels
                         "Die Buchung konnte nicht erfasst werden, versuchen Sie es später nocheinmal oder kontaktieren Sie unseren Support für weitere Unterstützung");
                 }
             }
-        }
-
-        private bool CanNew()
-        {
-            return true;
         }
 
         #endregion

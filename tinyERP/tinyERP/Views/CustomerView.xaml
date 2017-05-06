@@ -20,13 +20,13 @@
 
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button x:Name="AddCustomer" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
 
-            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
-                      CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
+                      CanUserReorderColumns="False" CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Firma" Binding="{Binding Company}"/>

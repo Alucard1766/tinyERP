@@ -45,6 +45,5 @@ namespace tinyERP.UI.ViewModels
         }
 
         #endregion
-
     }
 }

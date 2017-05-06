@@ -12,6 +12,7 @@ namespace tinyERP.UI.ViewModels
         }
 
         public BudgetViewModel BudgetViewModel { get; }
+
         public CustomerViewModel CustomerViewModel { get; }
 
         public OrderViewModel OrderViewModel { get; }

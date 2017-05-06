@@ -13,20 +13,30 @@ namespace tinyERP.UI.ViewModels
     {
         private Order order;
 
+        private string _title;
+
         public EditOrderViewModel(IUnitOfWorkFactory factory, Order order) : base(factory)
         {
             this.order = order;
-            OrderNumber = order.OrderNumber;
-            Title = order.Title;
-            SelectedState = order.State;
-            CreationDate = order.CreationDate;
-            StateModificationDate = order.StateModificationDate;
-            SelectedCustomer = order.Customer;
+            OrderNumber = this.order.OrderNumber;
+            Title = this.order.Title;
+            SelectedState = this.order.State;
+            CreationDate = this.order.CreationDate;
+            StateModificationDate = this.order.StateModificationDate;
+            SelectedCustomer = this.order.Customer;
         }
 
         public string OrderNumber { get; }
 
-        public string Title { get; set; }
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                Validator.Validate(nameof(Title));
+            }
+        }
 
         public State SelectedState { get; set; }
 

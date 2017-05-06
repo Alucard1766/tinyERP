@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using tinyERP.Dal.Entities;
+﻿using tinyERP.Dal.Entities;
 
 namespace tinyERP.Dal.Repositories
 {
