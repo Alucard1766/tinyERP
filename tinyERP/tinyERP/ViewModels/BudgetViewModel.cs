@@ -185,11 +185,7 @@ namespace tinyERP.UI.ViewModels
 
         private void NewTransaction()
         {
-            var transaction = new Transaction()
-            {
-                IsRevenue = true,
-                Date = DateTime.Today
-            };
+            var transaction = new Transaction();
             var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), transaction);
             vm.Init();
             var window = new EditTransactionView(vm);

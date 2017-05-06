@@ -16,13 +16,13 @@ namespace tinyERP.Dal.Entities
         public double Amount { get; set; }
 
         [Required]
-        public bool IsRevenue { get; set; }
+        public bool IsRevenue { get; set; } = true;
 
         [Required]
         public int PrivatePart { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Today;
 
         public string Comment { get; set; }
 
