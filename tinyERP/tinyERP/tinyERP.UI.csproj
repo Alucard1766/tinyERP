@@ -86,7 +86,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Resources\EnumToDescriptionConverter.cs" />
-    <Compile Include="Resources\Converter.cs" />
+    <Compile Include="Resources\BooleanToRevenueConverter.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />

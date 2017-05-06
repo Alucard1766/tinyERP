@@ -18,6 +18,9 @@ namespace tinyERP.UI.Resources
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+                return DependencyProperty.UnsetValue;
+
             return value;
         }
 
