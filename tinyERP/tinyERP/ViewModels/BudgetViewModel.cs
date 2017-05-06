@@ -149,16 +149,6 @@ namespace tinyERP.UI.ViewModels
             YearEnd = yearEnd;
         }
 
-        private void SetDate(ref DateTime dateField, DateTime newDate, string propertyName)
-        {
-                
-        }
-
-        private bool IsValidYear(int year)
-        {
-            return year == Budget.Year;
-        }
-
         public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
         {
             var sums = new List<double>();
