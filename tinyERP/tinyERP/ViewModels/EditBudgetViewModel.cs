@@ -7,13 +7,13 @@ using tinyERP.UI.Factories;
 
 namespace tinyERP.UI.ViewModels
 {
-    internal class DetailedBudgetViewModel : ViewModelBase
+    internal class EditBudgetViewModel : ViewModelBase
     {
         private int? _year;
         private double? _revenue;
         private double? _expense;
 
-        public DetailedBudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
+        public EditBudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
 

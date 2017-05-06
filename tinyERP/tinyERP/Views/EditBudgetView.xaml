@@ -5,11 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    x:Class="tinyERP.UI.Views.DetailedBudgetView"
+    x:Class="tinyERP.UI.Views.EditBudgetView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
-    x:Name="DetailedBudget"
     Title="Budget ändern/hinzufügen" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
 
     <controls:MetroWindow.Resources>

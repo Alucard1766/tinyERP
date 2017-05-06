@@ -293,9 +293,9 @@ namespace tinyERP.UI.ViewModels
 
         private void NewBudget()
         {
-            var vm = new DetailedBudgetViewModel(new UnitOfWorkFactory());
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory());
             vm.Init();
-            var window = new DetailedBudgetView(vm);
+            var window = new EditBudgetView(vm);
             window.ShowDialog();
             if (vm.NewBudget != null)
             {

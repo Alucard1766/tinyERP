@@ -93,7 +93,7 @@
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
-    <Compile Include="ViewModels\DetailedBudgetViewModel.cs" />
+    <Compile Include="ViewModels\EditBudgetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -114,7 +114,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DetailedBudgetView.xaml">
+    <Page Include="Views\EditBudgetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,8 +145,8 @@
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DetailedBudgetView.xaml.cs">
-      <DependentUpon>DetailedBudgetView.xaml</DependentUpon>
+    <Compile Include="Views\EditBudgetView.xaml.cs">
+      <DependentUpon>EditBudgetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DocumentView.xaml.cs">
       <DependentUpon>DocumentView.xaml</DependentUpon>
