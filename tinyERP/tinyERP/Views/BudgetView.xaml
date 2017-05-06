@@ -87,6 +87,9 @@
                 <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten">
+                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                </Button>
                 <Button x:Name="DeleteTransactions" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
@@ -105,9 +108,6 @@
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
                 </DataGrid.Columns>
                 <DataGrid.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding EditTransactionCommand}"
-                                  CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
                     <KeyBinding Key="Enter"
                                 Command="{Binding EditTransactionCommand}"
                                 CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
