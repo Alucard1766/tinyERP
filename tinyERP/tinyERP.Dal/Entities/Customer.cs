@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tinyERP.Dal.Entities
 {
@@ -31,5 +32,10 @@ namespace tinyERP.Dal.Entities
         public byte[] RowVersion { get; set; }
 
         public virtual ICollection<CustomerHistory> CustomerHistories { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
+
+        [NotMapped]
+        public string FullName => $"{LastName} {FirstName}";
     }
 }

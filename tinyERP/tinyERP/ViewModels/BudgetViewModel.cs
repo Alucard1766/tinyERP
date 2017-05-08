@@ -149,16 +149,6 @@ namespace tinyERP.UI.ViewModels
             YearEnd = yearEnd;
         }
 
-        private void SetDate(ref DateTime dateField, DateTime newDate, string propertyName)
-        {
-                
-        }
-
-        private bool IsValidYear(int year)
-        {
-            return year == Budget.Year;
-        }
-
         public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
         {
             var sums = new List<double>();
@@ -185,11 +175,7 @@ namespace tinyERP.UI.ViewModels
 
         private void NewTransaction()
         {
-            var transaction = new Transaction()
-            {
-                IsRevenue = true,
-                Date = DateTime.Today
-            };
+            var transaction = new Transaction();
             var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), transaction);
             vm.Init();
             var window = new EditTransactionView(vm);
@@ -297,9 +283,9 @@ namespace tinyERP.UI.ViewModels
 
         private void NewBudget()
         {
-            var vm = new DetailedBudgetViewModel(new UnitOfWorkFactory());
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory());
             vm.Init();
-            var window = new DetailedBudgetView(vm);
+            var window = new EditBudgetView(vm);
             window.ShowDialog();
             if (vm.NewBudget != null)
             {

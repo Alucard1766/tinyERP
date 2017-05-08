@@ -7,6 +7,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using tinyERP.Dal;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 
 namespace tinyERP.TestEnvrionment
 {
@@ -49,6 +50,8 @@ namespace tinyERP.TestEnvrionment
                         CustomerId = customer.Id
 
                     });
+                var order = context.Orders.Add(new Order { Title = "Order" });
+
                 context.SaveChanges();
             }
 
@@ -60,12 +63,14 @@ namespace tinyERP.TestEnvrionment
                 var customerTableName = context.GetTableName<Customer>();
                 var customerHistoryTableName = context.GetTableName<CustomerHistory>();
                 var documentTableName = context.GetTableName<Document>();
+                var orderTableName = context.GetTableName<Order>();
 
                 try
                 {
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
+                    context.DeleteAllRecords(orderTableName);
                     context.DeleteAllRecords(customerTableName);
                     context.DeleteAllRecords(customerHistoryTableName);
                     context.DeleteAllRecords(documentTableName);
@@ -76,6 +81,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(documentTableName, true);
                     context.SetAutoIncrementOnTable(customerTableName,true);
                     context.SetAutoIncrementOnTable(customerHistoryTableName, true);
+                    context.SetAutoIncrementOnTable(orderTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
@@ -83,6 +89,7 @@ namespace tinyERP.TestEnvrionment
                     context.ResetEntitySeed(customerTableName);
                     context.ResetEntitySeed(customerHistoryTableName);
                     context.ResetEntitySeed(documentTableName);
+                    context.ResetEntitySeed(orderTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
@@ -90,6 +97,8 @@ namespace tinyERP.TestEnvrionment
                     context.Documents.AddRange(Documents);
                     context.Customers.AddRange(Customers);
                     context.CustomerHistories.AddRange(CustomerHistories);
+                    context.Orders.AddRange(Orders);
+
                     context.SaveChanges();
                 }
                 catch (Exception e)
@@ -104,8 +113,8 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(customerTableName,false);
                     context.SetAutoIncrementOnTable(customerHistoryTableName,false);
                     context.SetAutoIncrementOnTable(documentTableName, false);
+                    context.SetAutoIncrementOnTable(orderTableName, false);
                 }
-
             }
         }
 
@@ -154,6 +163,14 @@ namespace tinyERP.TestEnvrionment
             new List<Document>
             {
                 new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
+            };
+
+        private static List<Order> Orders =>
+            new List<Order>
+            {
+                new Order {Id = 1, Title = "Auftrag 1", State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3), CustomerId = 2},
+                new Order {Id = 2, Title = "Auftrag 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
+                new Order {Id = 3, Title = "Auftrag 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3},
             };
 
         private static string GetTableName<T>(this DbContext context)

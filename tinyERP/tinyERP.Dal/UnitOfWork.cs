@@ -9,6 +9,7 @@ namespace tinyERP.Dal
         private IBudgetRepository _budgets;
         private ICategoryRepository _categories;
         private IDocumentRepository _documents;
+        private IOrderRepository _orders;
         private ITransactionRepository _transactions;
         private ICustomerRepository _customers;
         private ICustomerHistoryRepository _customerHistories;
@@ -24,10 +25,14 @@ namespace tinyERP.Dal
 
         public IDocumentRepository Documents => _documents ?? (_documents = new DocumentRepository(context));
 
+        public IOrderRepository Orders => _orders ?? (_orders = new OrderRepository(context));
+
         public ITransactionRepository Transactions => _transactions ?? (_transactions = new TransactionRepository(context));
 
         public ICustomerRepository Customers => _customers ?? (_customers = new CustomerRepository(context));
+
         public ICustomerHistoryRepository CustomerHistories => _customerHistories ?? (_customerHistories = new CustomerHistoryRepository(context));
+
         public int Complete()
         {
             return context.SaveChanges();
