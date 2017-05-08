@@ -51,6 +51,12 @@ namespace tinyERP.TestEnvrionment
 
                     });
                 var order = context.Orders.Add(new Order { Title = "Order" });
+                var document = context.Documents.Add(new Document
+                {
+                    Name = "Quittung 1",
+                    RelativePath = "qu1.docx",
+                    IssueDate = new DateTime(2017, 2, 2)
+                });
 
                 context.SaveChanges();
             }
@@ -162,7 +168,7 @@ namespace tinyERP.TestEnvrionment
         private static List<Document> Documents =>
             new List<Document>
             {
-                new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
+                new Document {Id = 1, Name = "Quittung 1", RelativePath = "qu1.docx", IssueDate = new DateTime(2017, 2, 2)}
             };
 
         private static List<Order> Orders =>
