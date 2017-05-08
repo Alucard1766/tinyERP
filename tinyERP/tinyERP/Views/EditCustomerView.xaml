@@ -53,7 +53,7 @@
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}" ToolTip="Kunde hinzufügen">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen" IsCancel="True">
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Kunde verwerfen" IsCancel="True">
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
                 </Button>
             </StackPanel>

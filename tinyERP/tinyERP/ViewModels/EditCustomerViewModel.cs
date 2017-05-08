@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
@@ -23,6 +24,12 @@ namespace tinyERP.UI.ViewModels
         {
             this.customer = customer;
             FirstName = this.customer.FirstName;
+            LastName = this.customer.LastName;
+            Street = this.customer.Street;
+            City = this.customer.City;
+            Company = this.customer.Company;
+            Email = this.customer.Email;
+            Zip = (this.customer.Zip == 0) ? null : this.customer.Zip.ToString();
         }
         
         public string FirstName
@@ -47,8 +54,9 @@ namespace tinyERP.UI.ViewModels
                 else
                 {
                     int local;
-                    int.TryParse(value, out local);
-                    _zip = local;
+                    bool parse;
+                    parse = int.TryParse(value, out local);
+                    _zip = (int?) (parse ? local : (ValueType)null);
                 }
 
                 Validator.Validate(nameof(Zip));
@@ -125,7 +133,7 @@ namespace tinyERP.UI.ViewModels
                         return RuleResult.Assert(Regex.IsMatch(Email,
                                 @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
                                 RegexOptions.IgnoreCase),
-                            "Email Adresse nicht gültig");
+                            "Email-Adresse ungültig");
                     }
 
                     return RuleResult.Valid();
