@@ -18,6 +18,7 @@ namespace tinyERP.Dal.Testing
         public static void InitializeBeforeAllTests(TestContext context)
         {
             File.Create(FileToAdd);
+            Directory.CreateDirectory(FileAccess.RepositoryPath);
             File.Create(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
         }
         [ClassCleanup]
@@ -26,7 +27,9 @@ namespace tinyERP.Dal.Testing
             TestEnvironmentHelper.InitializeTestData();
             File.Delete(FileToAdd);
             File.Delete(FileToDelete);
+            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToAdd));
             File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
+            Directory.Delete(FileAccess.RepositoryPath);
         }
 
         [TestInitialize]
