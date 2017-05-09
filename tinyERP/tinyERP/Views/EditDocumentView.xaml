@@ -44,8 +44,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width ="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Height="20" controls:TextBoxHelper.Watermark="Datei" 
-                         Text="{Binding RelativePath,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+                <TextBox Grid.Row="0" Grid.Column="0" IsReadOnly="True" HorizontalAlignment="Stretch" Height="20" controls:TextBoxHelper.Watermark="Datei" 
+                         Text="{Binding RelativePath,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}">
+                    <TextBox.InputBindings>
+                        <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="..." Height="20" Margin="5,0,0,0"
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
                     

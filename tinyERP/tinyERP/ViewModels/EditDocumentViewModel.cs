@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -6,6 +7,7 @@ using Microsoft.Win32;
 using MvvmValidation;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
+using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -37,7 +39,10 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public string Tag { get; set; }
+        public string Tag {
+            get { return _tag; }
+            set { _tag = value; }
+        }
 
         public string RelativePath
         {
@@ -68,6 +73,10 @@ namespace tinyERP.UI.ViewModels
         {
             Validator.AddRequiredRule(() => Name, "Name ist notwendig");
             Validator.AddRequiredRule(() => RelativePath, "Dateiname ist notwendig");
+            Validator.AddRule(nameof(RelativePath),
+                () => RuleResult.Assert(
+                    File.Exists(_relativePath) || File.Exists(Path.Combine(FileAccess.RepositoryPath, _relativePath)),
+                    "File does not exist anymore"));
             Validator.AddRequiredRule(() => IssueDate, "Das Ausstellungsdatum muss angegeben sein");
         }
 
@@ -86,9 +95,17 @@ namespace tinyERP.UI.ViewModels
             if (validationResult.IsValid)
             {
                 document.Name = Name;
-                document.Tag = _tag;
-                document.RelativePath = _relativePath;
-                document.IssueDate = _issueDate;
+                document.Tag = Tag;
+                document.IssueDate = IssueDate;
+                if (document.RelativePath == null)
+                {
+                    document.RelativePath = FileAccess.Add(RelativePath);
+                }
+                else if (document.RelativePath != RelativePath)
+                {
+                    FileAccess.Delete(document.RelativePath);
+                    document.RelativePath = FileAccess.Add(RelativePath);
+                }
 
                 if (document.Id == 0)
                     document = UnitOfWork.Documents.Add(document);
