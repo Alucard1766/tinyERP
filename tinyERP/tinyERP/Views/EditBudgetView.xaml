@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
-    Title="Budget ändern/hinzufügen" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
+    Title="Budget bearbeiten" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>

@@ -29,15 +29,26 @@
         </Grid.ColumnDefinitions>
         <Border BorderThickness="0 0 1 0" BorderBrush="Black"/>
 
-        <StackPanel Grid.Column="0" Orientation="Vertical">
-            <TextBlock FontSize="40" Margin="10" Height="auto">Budgetverwaltung</TextBlock>
+        <DockPanel Grid.Column="0">
+            <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Budgetverwaltung</TextBlock>
             <controls:SplitButton ItemsSource="{Binding BudgetList}" SelectedItem="{Binding Budget}" DisplayMemberPath="Year"
-                                  ToolTip="Budgetperiode auswählen" Margin="10"/>
-            <TextBlock Text="{Binding Budget.Expenses, StringFormat=Budgetierte Ausgaben: {0:C}}" Margin="10,0,10,0" />
-            <TextBlock Text="{Binding Budget.Revenue, StringFormat=Budgetierte Einnahmen: {0:C}}" Margin="10,0,10,0" />
-            <TextBlock Text="{Binding AllExpensesTotal, StringFormat=Ausgaben: {0:C}}" Margin="10,0,10,0" />
-            <TextBlock Text="{Binding AllRevenuesTotal, StringFormat=Einnahmen: {0:C}}" Margin="10,0,10,0" />
-            <lvc:CartesianChart Height="200" Margin="10" >
+                                  ToolTip="Budgetperiode auswählen" Margin="10" DockPanel.Dock="Top"/>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock Text="Budgetierte Ausgaben:" Margin="10,0,10,0" />
+                    <TextBlock Text="Budgetierte Einnahmen:" Margin="10,0,10,0" />
+                    <TextBlock Text="Ausgaben:" Margin="10,0,10,0" />
+                    <TextBlock Text="Einnahmen:" Margin="10,0,10,0" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding Budget.Expenses, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding Budget.Revenue, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding AllExpensesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding AllRevenuesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+
+            <lvc:CartesianChart Height="200" Margin="10" DockPanel.Dock="Top" >
                 <lvc:CartesianChart.Series >
                     <lvc:ColumnSeries Title=""  Values="{Binding BudgetChartValues}">
                         <lvc:ColumnSeries.Fill>
@@ -52,15 +63,15 @@
                     <lvc:Axis Title="Saldo"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
-            <TextBlock Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
-            <Grid Height="39">
+            <TextBlock Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" DockPanel.Dock="Top" />
+            <Grid Height="39" DockPanel.Dock="Top">
                 <DatePicker SelectedDate="{Binding FromDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
                 <TextBlock TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
                 <DatePicker SelectedDate="{Binding ToDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Margin="290,6,10,5" VerticalAlignment="Center" Height="28"/>
                 <TextBlock Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,115,13" TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" DockPanel.Dock="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
@@ -73,7 +84,7 @@
             </StackPanel>
 
 
-        </StackPanel>
+        </DockPanel>
 
         <DockPanel Grid.Column="1" Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
