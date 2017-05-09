@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace tinyERP.Dal.Repositories
 {
@@ -16,6 +18,11 @@ namespace tinyERP.Dal.Repositories
         public TEntity Get(int id)
         {
             return Context.Set<TEntity>().Find(id);
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Context.Set<TEntity>().Where(predicate);
         }
 
         public IEnumerable<TEntity> GetAll()
