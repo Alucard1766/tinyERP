@@ -39,7 +39,7 @@
                      Text="{Binding Amount,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
             <DatePicker HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0"  Height="20" Text="Wähle ein Datum" Margin="10" 
                         SelectedDate="{Binding Date,Mode=TwoWay}" ToolTip="Belegdatum auswählen"/>
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" controls:TextBoxHelper.Watermark="Bemerkungen" Margin="10,10,10,0" 
+            <TextBox HorizontalAlignment="Stretch" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Grid.Row="3" Grid.Column="0" controls:TextBoxHelper.Watermark="Bemerkungen" Margin="10,10,10,0" 
                      Text="{Binding Comment,Mode=TwoWay,UpdateSourceTrigger=LostFocus}"/>
             <controls:SplitButton HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" 
                                   ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="Name"

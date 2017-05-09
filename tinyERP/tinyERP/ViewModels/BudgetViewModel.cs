@@ -93,15 +93,7 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                var result = 0.0;
-                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
-                {
-                    if (!transaction.IsRevenue)
-                    {
-                        result += transaction.Amount;
-                    }
-                }
-                return result;
+                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => !transaction.IsRevenue).Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
 
@@ -109,15 +101,7 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                var result = 0.0;
-                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
-                {
-                    if (transaction.IsRevenue)
-                    {
-                        result += transaction.Amount;
-                    }
-                }
-                return result;
+                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => transaction.IsRevenue).Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
 
