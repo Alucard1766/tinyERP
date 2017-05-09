@@ -45,13 +45,11 @@ namespace tinyERP.Dal
         {
             var fileWithoutExtension  = Path.Combine(Path.GetDirectoryName(destination), Path.GetFileNameWithoutExtension(destination));
             var extension = Path.GetExtension(destination);
-            string newDestination;
             do
             {
-                newDestination = $"{fileWithoutExtension}_{RandomSuffix()}{extension}";
+                destination = $"{fileWithoutExtension}_{RandomSuffix()}{extension}";
             }
-            while (File.Exists(newDestination));
-            destination = newDestination;
+            while (File.Exists(destination));
         }
 
         private static string RandomSuffix()
