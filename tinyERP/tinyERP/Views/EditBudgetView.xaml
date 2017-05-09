@@ -5,11 +5,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    x:Class="tinyERP.UI.Views.DetailedBudgetView"
+    x:Class="tinyERP.UI.Views.EditBudgetView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
-    x:Name="DetailedBudget"
     Title="Budget ändern/hinzufügen" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
 
     <controls:MetroWindow.Resources>
@@ -43,7 +42,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Margin="0,10,10,-10" HorizontalAlignment="Right">
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" 
-                        Command="{Binding NewCommand}" CommandParameter="{Binding ElementName=DetailedBudget}" ToolTip="Akzeptieren">
+                        Command="{Binding NewCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}" ToolTip="Akzeptieren">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
                 <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Verwerfen" IsCancel="True">

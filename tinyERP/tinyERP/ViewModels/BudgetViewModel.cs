@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -149,16 +148,6 @@ namespace tinyERP.UI.ViewModels
             YearEnd = yearEnd;
         }
 
-        private void SetDate(ref DateTime dateField, DateTime newDate, string propertyName)
-        {
-                
-        }
-
-        private bool IsValidYear(int year)
-        {
-            return year == Budget.Year;
-        }
-
         public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
         {
             var sums = new List<double>();
@@ -180,16 +169,12 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewTransactionCommand
         {
-            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction(), param => CanNewTransaction())); }
+            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction())); }
         }
 
         private void NewTransaction()
         {
-            var transaction = new Transaction()
-            {
-                IsRevenue = true,
-                Date = DateTime.Today
-            };
+            var transaction = new Transaction();
             var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), transaction);
             vm.Init();
             var window = new EditTransactionView(vm);
@@ -198,12 +183,6 @@ namespace tinyERP.UI.ViewModels
             {
                 TransactionList.Add(transaction);
             }
-            //TODO: Clean ViewModel after closing window?
-        }
-
-        private bool CanNewTransaction()
-        {
-            return true;
         }
 
         #endregion
@@ -229,7 +208,6 @@ namespace tinyERP.UI.ViewModels
                 OnPropertyChanged(nameof(AllRevenuesTotal));
                 OnPropertyChanged(nameof(AllExpensesTotal));
             }
-            //TODO: Clean ViewModel after closing window?
         }
 
         private bool CanEditTransaction()
@@ -292,26 +270,20 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewBudgetCommand
         {
-            get { return _newBudgetCommand ?? (_newBudgetCommand = new RelayCommand(param => NewBudget(), param => CanNewBudget())); }
+            get { return _newBudgetCommand ?? (_newBudgetCommand = new RelayCommand(param => NewBudget())); }
         }
 
         private void NewBudget()
         {
-            var vm = new DetailedBudgetViewModel(new UnitOfWorkFactory());
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory());
             vm.Init();
-            var window = new DetailedBudgetView(vm);
+            var window = new EditBudgetView(vm);
             window.ShowDialog();
             if (vm.NewBudget != null)
             {
                 BudgetList.Add(vm.NewBudget);
                 Budget = vm.NewBudget;
             }
-            //TODO: Clean ViewModel after closing window?
-        }
-
-        private bool CanNewBudget()
-        {
-            return true;
         }
 
         #endregion

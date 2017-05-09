@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 using tinyERP.TestEnvrionment;
 
 namespace tinyERP.Dal.Testing
@@ -58,6 +59,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetOrdersTest()
+        {
+            var orders = unitOfWork.Orders.GetAll();
+            Assert.AreEqual(3, orders.Count());
+        }
+
+        [TestMethod]
         public void GetTransactionsTest()
         {
             var transactions = unitOfWork.Transactions.GetAll();
@@ -86,6 +94,13 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void GetOrderByIdTest()
+        {
+            var order = unitOfWork.Orders.Get(1);
+            Assert.AreEqual(State.New, order.State);
+        }
+
+        [TestMethod]
         public void GetTransactionByIdTest()
         {
             var transaction = unitOfWork.Transactions.Get(1);
@@ -111,6 +126,13 @@ namespace tinyERP.Dal.Testing
         {
             var document = unitOfWork.Documents.Get(10);
             Assert.IsNull(document);
+        }
+
+        [TestMethod]
+        public void GetOrderByNonexistingIdTest()
+        {
+            var order = unitOfWork.Orders.Get(10);
+            Assert.IsNull(order);
         }
 
         [TestMethod]
@@ -145,6 +167,21 @@ namespace tinyERP.Dal.Testing
             var returned = unitOfWork.Documents.Add(document);
             unitOfWork.Complete();
             Assert.AreEqual(document.Name, returned.Name);
+        }
+
+        [TestMethod]
+        public void InsertOrderTest()
+        {
+            var order = new Order
+            {
+                Title = "Order",
+                State = State.InProgress,
+                CreationDate = DateTime.Today,
+                StateModificationDate = DateTime.Today
+            };
+            var returned = unitOfWork.Orders.Add(order);
+            unitOfWork.Complete();
+            Assert.AreEqual(order.State, returned.State);
         }
 
         [TestMethod]
@@ -195,6 +232,16 @@ namespace tinyERP.Dal.Testing
         }
 
         [TestMethod]
+        public void UpdateOrderTest()
+        {
+            var order = unitOfWork.Orders.Get(1);
+            order.State = State.Completed;
+            unitOfWork.Complete();
+            var changed = unitOfWork.Orders.Get(1);
+            Assert.AreEqual(State.Completed, changed.State);
+        }
+
+        [TestMethod]
         public void UpdateTransactionTest()
         {
             var transaction = unitOfWork.Transactions.Get(1);
@@ -226,6 +273,14 @@ namespace tinyERP.Dal.Testing
             unitOfWork.Documents.Remove(unitOfWork.Documents.Get(1));
             unitOfWork.Complete();
             Assert.AreEqual(0, unitOfWork.Documents.GetAll().Count());
+        }
+
+        [TestMethod]
+        public void DeleteOrderTest()
+        {
+            unitOfWork.Orders.Remove(unitOfWork.Orders.Get(1));
+            unitOfWork.Complete();
+            Assert.AreEqual(2, unitOfWork.Orders.GetAll().Count());
         }
 
         [TestMethod]

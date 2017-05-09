@@ -29,16 +29,16 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button x:Name="BudgetTab" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="0">
+            <Button Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="0">
                 <iconPacks:PackIconMaterial Kind="Cash" Width="50" Height="50" />
             </Button>
-            <Button x:Name="DocumentTab" Grid.Row="1" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="1">
+            <Button Grid.Row="1" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="1">
                 <iconPacks:PackIconMaterial Kind="Archive" Width="50" Height="50" />
             </Button>
-            <Button x:Name="CustomerTab" Grid.Row="2" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="2">
+            <Button Grid.Row="2" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="2">
                 <iconPacks:PackIconMaterial Kind="AccountMultiple" Width="50" Height="50" />
             </Button>
-            <Button x:Name="OrderTab" Grid.Row="3" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="3">
+            <Button Grid.Row="3" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="3">
                 <iconPacks:PackIconFontAwesome Kind="PencilSquareOutline" Width="50" Height="50" />
             </Button>
         </Grid>
@@ -48,16 +48,16 @@
             </Grid.ColumnDefinitions>
             <TabControl Grid.Column="0" Grid.Row="0" x:Name="MainTabControl">
                 <TabItem>
-                    <views:BudgetView x:Name="AvBudgetView" DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
+                    <views:BudgetView DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <views:DocumentView x:Name="AvDocumentView" DataContext="{Binding Path=DocumentViewModel, Mode=OneWay}"/>
+                    <views:DocumentView DataContext="{Binding Path=DocumentViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <views:CustomerView x:Name="AvCustomerView" DataContext="{Binding Path=CustomerViewModel, Mode=OneWay}"/>
+                    <views:CustomerView DataContext="{Binding Path=CustomerViewModel, Mode=OneWay}"/>
                 </TabItem>
                 <TabItem>
-                    <views:OrderView x:Name="AvOrderView" DataContext="{Binding Path=OrderViewModel, Mode=OneWay}"/>
+                    <views:OrderView DataContext="{Binding Path=OrderViewModel, Mode=OneWay}"/>
                 </TabItem>
             </TabControl>
         </Grid>

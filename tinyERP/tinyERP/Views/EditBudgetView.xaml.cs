@@ -4,16 +4,16 @@ using tinyERP.UI.ViewModels;
 namespace tinyERP.UI.Views
 {
     /// <summary>
-    /// Interaction logic for DetailedBudgetView.xaml
+    /// Interaction logic for EditBudgetView.xaml
     /// </summary>
-    public partial class DetailedBudgetView : MetroWindow
+    public partial class EditBudgetView : MetroWindow
     {
-        public DetailedBudgetView()
+        public EditBudgetView()
         {
             InitializeComponent();
         }
 
-        public DetailedBudgetView(ViewModelBase vm)
+        public EditBudgetView(ViewModelBase vm)
         {
             DataContext = vm;
             InitializeComponent();

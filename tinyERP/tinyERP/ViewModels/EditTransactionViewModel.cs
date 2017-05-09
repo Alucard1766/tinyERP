@@ -117,9 +117,7 @@ namespace tinyERP.UI.ViewModels
             Validator.AddRule(nameof(Date), () =>
                 RuleResult.Assert(Date.Date.CompareTo(DateTime.Now.Date) <= 0,
                     "Ungültiges Datum - Datum liegt in der Zukunft"));
-            Validator.AddRule(nameof(SelectedCategory), () =>
-                RuleResult.Assert(SelectedCategory != null,
-                    "Es wurde keine Kategorie ausgewählt - Erstellen Sie zuerst eine passende Kategorie"));
+            Validator.AddRequiredRule(() => SelectedCategory, "Es wurde keine Kategorie ausgewählt - Erstellen Sie zuerst eine passende Kategorie");
         }
 
         #region Save-Command
@@ -128,7 +126,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save, param => CanSave())); }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save)); }
         }
 
         private void Save(object window)
@@ -142,8 +140,8 @@ namespace tinyERP.UI.ViewModels
                 transaction.PrivatePart = _privatPart.GetValueOrDefault();
                 transaction.Date = Date;
                 transaction.Comment = Comment;
-                transaction.BudgetId = budget.Id;
-                transaction.CategoryId = SelectedCategory.Id;
+                transaction.Budget = budget;
+                transaction.Category = SelectedCategory;
 
                 if (transaction.Id == 0)
                     transaction = UnitOfWork.Transactions.Add(transaction);
@@ -153,11 +151,6 @@ namespace tinyERP.UI.ViewModels
 
                 ((Window) window).Close();
             }
-        }
-
-        private bool CanSave()
-        {
-            return true;
         }
 
         #endregion

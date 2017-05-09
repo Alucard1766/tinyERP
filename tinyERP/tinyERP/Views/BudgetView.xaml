@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="DatePickerTextBox">
+                <Setter Property="IsReadOnly" Value="True" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Padding" Value="2" />
             </Style>
@@ -51,22 +52,22 @@
                     <lvc:Axis Title="Saldo"></lvc:Axis>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
-            <TextBlock x:Name="DatePickerTitle" Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
+            <TextBlock Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" />
             <Grid Height="39">
                 <DatePicker SelectedDate="{Binding FromDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
-                <TextBlock x:Name="DateDescriptorFrom" TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
+                <TextBlock TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
                 <DatePicker SelectedDate="{Binding ToDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Margin="290,6,10,5" VerticalAlignment="Center" Height="28"/>
-                <TextBlock x:Name="DateDescriptorTo" Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,115,13" TextAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,115,13" TextAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                <Button x:Name="AddBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
-                <Button x:Name="EditBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
                     <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
                 </Button>
-                <Button x:Name="DeleteBudget" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
@@ -84,10 +85,13 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
                     <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                 </Button>
-                <Button x:Name="AddTransaction" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
-                <Button x:Name="DeleteTransactions" Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten">
+                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
                     <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                 </Button>
             </StackPanel>
@@ -105,12 +109,12 @@
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
                 </DataGrid.Columns>
                 <DataGrid.InputBindings>
-                    <MouseBinding MouseAction="LeftDoubleClick"
-                                  Command="{Binding EditTransactionCommand}"
-                                  CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
                     <KeyBinding Key="Enter"
                                 Command="{Binding EditTransactionCommand}"
                                 CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                    <KeyBinding Key="Delete"
+                            Command="{Binding DeleteTransactionsCommand}"
+                            CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
                 </DataGrid.InputBindings>
             </DataGrid>
         </DockPanel>
