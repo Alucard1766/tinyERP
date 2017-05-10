@@ -29,7 +29,7 @@ namespace tinyERP.UI.ViewModels
             DocumentList = new ObservableCollection<Document>(documents);
         }
 
-        #region New-Documend-Command
+        #region New-Document-Command
 
         private RelayCommand _newDocumentCommand;
 

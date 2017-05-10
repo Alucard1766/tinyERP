@@ -34,7 +34,7 @@
 
             <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Name" Margin="10"
                      Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Tag" Margin="10"
+            <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Schlagworte" Margin="10"
                      Text="{Binding Tag,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
             <DatePicker HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"  Height="20" Text="Ausstellungsdatum" Margin="10" 
                         SelectedDate="{Binding IssueDate,Mode=TwoWay}" ToolTip="Ausstellungsdatum auswählen"/>

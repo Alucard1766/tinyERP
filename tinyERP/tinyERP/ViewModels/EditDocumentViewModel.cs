@@ -16,7 +16,6 @@ namespace tinyERP.UI.ViewModels
         private Document document;
 
         private string _name;
-        private string _tag;
         private string _relativePath;
         private DateTime _issueDate;
 
@@ -39,10 +38,8 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public string Tag {
-            get { return _tag; }
-            set { _tag = value; }
-        }
+        public string Tag { get; set; }
+
 
         public string RelativePath
         {
