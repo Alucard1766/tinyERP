@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tinyERP.Dal.Entities
 {
@@ -18,6 +19,12 @@ namespace tinyERP.Dal.Entities
 
         [Required]
         public DateTime IssueDate { get; set; }
+
+        public virtual Offer Offer { get; set; }
+
+        public virtual Invoice Invoice { get; set; }
+
+        public virtual OrderConfirmation OrderConfirmation { get; set; }
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

@@ -51,6 +51,21 @@ namespace tinyERP.TestEnvrionment
 
                     });
                 var order = context.Orders.Add(new Order { Title = "Order" });
+                var document = context.Documents.Add(new Document {IssueDate = new DateTime(2017, 2, 3), Name = "name", RelativePath = "q.txt"});
+                var offer = context.Offers.Add(new Offer
+                {
+                    OfferNumber = "ONr",
+                    DocumentId = document.Id,
+                    OrderId = order.Id
+                });
+                var invoice = context.Invoices.Add(new Invoice
+                {
+                    Amount = 100.0,
+                    InvoiceNumber = "Invoice",
+                    DocumentId = document.Id,
+                    IsPayed = true,
+                    OrderId = order.Id
+                });
 
                 context.SaveChanges();
             }
@@ -64,6 +79,8 @@ namespace tinyERP.TestEnvrionment
                 var customerHistoryTableName = context.GetTableName<CustomerHistory>();
                 var documentTableName = context.GetTableName<Document>();
                 var orderTableName = context.GetTableName<Order>();
+                var offerTableName = context.GetTableName<Offer>();
+                var invoiceTableName = context.GetTableName<Invoice>();
 
                 try
                 {
@@ -74,6 +91,8 @@ namespace tinyERP.TestEnvrionment
                     context.DeleteAllRecords(customerTableName);
                     context.DeleteAllRecords(customerHistoryTableName);
                     context.DeleteAllRecords(documentTableName);
+                    context.DeleteAllRecords(offerTableName);
+                    context.DeleteAllRecords(invoiceTableName);
 
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
@@ -82,6 +101,8 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(customerTableName,true);
                     context.SetAutoIncrementOnTable(customerHistoryTableName, true);
                     context.SetAutoIncrementOnTable(orderTableName, true);
+                    context.SetAutoIncrementOnTable(offerTableName, true);
+                    context.SetAutoIncrementOnTable(invoiceTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
@@ -90,6 +111,8 @@ namespace tinyERP.TestEnvrionment
                     context.ResetEntitySeed(customerHistoryTableName);
                     context.ResetEntitySeed(documentTableName);
                     context.ResetEntitySeed(orderTableName);
+                    context.ResetEntitySeed(offerTableName);
+                    context.ResetEntitySeed(invoiceTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
@@ -98,6 +121,8 @@ namespace tinyERP.TestEnvrionment
                     context.Customers.AddRange(Customers);
                     context.CustomerHistories.AddRange(CustomerHistories);
                     context.Orders.AddRange(Orders);
+                    context.Offers.AddRange(Offers);
+                    context.Invoices.AddRange(Invoices);
 
                     context.SaveChanges();
                 }
@@ -114,6 +139,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(customerHistoryTableName,false);
                     context.SetAutoIncrementOnTable(documentTableName, false);
                     context.SetAutoIncrementOnTable(orderTableName, false);
+                    context.SetAutoIncrementOnTable(offerTableName, false);
                 }
             }
         }
@@ -162,7 +188,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Document> Documents =>
             new List<Document>
             {
-                new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
+                new Document {Id = 1, Name = "OfferQuittung 1", RelativePath = "quittung1.docx", IssueDate = new DateTime(2017, 2, 2)},
+                new Document {Id = 2, Name = "OfferQuittung 2", RelativePath = "quittung2.docx", IssueDate = new DateTime(2017, 2, 2)},
+                new Document {Id = 3, Name = "InvoiceQuittung 3", RelativePath = "quittung3.docx", IssueDate = new DateTime(2017, 2, 2)}
             };
 
         private static List<Order> Orders =>
@@ -171,6 +199,19 @@ namespace tinyERP.TestEnvrionment
                 new Order {Id = 1, Title = "Auftrag 1", State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3), CustomerId = 2},
                 new Order {Id = 2, Title = "Auftrag 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
                 new Order {Id = 3, Title = "Auftrag 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3},
+            };
+
+        private static List<Offer> Offers =>
+            new List<Offer>
+            {
+                new Offer {Id = 1, OfferNumber = "Offer 1", OrderId = 2, DocumentId = 1},
+                new Offer {Id = 2, OfferNumber = "Offer 2", OrderId = 3, DocumentId = 2}
+            };
+
+        private static List<Invoice> Invoices =>
+            new List<Invoice>
+            {
+                new Invoice {Id = 1, Amount = 150.0, IsPayed = true, OrderId = 2, DocumentId = 3}
             };
 
         private static string GetTableName<T>(this DbContext context)

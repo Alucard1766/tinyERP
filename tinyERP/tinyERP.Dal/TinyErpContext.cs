@@ -16,6 +16,14 @@ namespace tinyERP.Dal
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TinyErpContext, Configuration>());
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Document>().HasOptional(d => d.Offer).WithRequired(o => o.Document);
+            modelBuilder.Entity<Document>().HasOptional(d => d.Invoice).WithRequired(i => i.Document);
+            modelBuilder.Entity<Document>().HasOptional(d => d.OrderConfirmation).WithRequired(oc => oc.Document);
+            //modelBuilder.Entity<Order>().HasOptional(o => o.OrderConfirmation).WithRequired(oc => oc.Order);
+        }
+
         public DbSet<Budget> Budgets { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -29,5 +37,9 @@ namespace tinyERP.Dal
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<CustomerHistory> CustomerHistories { get; set; }
+
+        public DbSet<Offer> Offers { get; set; }
+
+        public DbSet<Invoice> Invoices { get; set; }
     }
 }

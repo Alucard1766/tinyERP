@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using tinyERP.Dal.Types;
@@ -26,6 +27,12 @@ namespace tinyERP.Dal.Entities
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
+
+        public virtual OrderConfirmation OrderConfirmation { get; set; }
+        public virtual ICollection<Offer> Offers { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
+        
+
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
