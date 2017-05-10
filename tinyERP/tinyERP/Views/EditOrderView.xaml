@@ -7,7 +7,6 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
-    xmlns:entities="clr-namespace:tinyERP.Dal.Entities;assembly=tinyERP.Dal"
     x:Class="tinyERP.UI.Views.EditOrderView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
@@ -50,27 +49,8 @@
             <TextBox Grid.Row="0" Grid.Column="1" controls:TextBoxHelper.Watermark="Bezeichnung" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding Title, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Kunde</Label>
-            <ComboBox x:Name="CustomerComboBox" Grid.Row="1" Grid.Column="0" ToolTip="Kunde auswählen" Margin="10" VerticalAlignment="Bottom"
-                      ItemsSource="{DynamicResource CustomerCollection}" SelectedItem="{Binding SelectedCustomer}">
-                <ComboBox.Resources>
-                    <CompositeCollection x:Key="CustomerCollection">
-                        <entities:Customer />
-                        <CollectionContainer Collection="{Binding DataContext.CustomerList, Source={x:Reference CustomerComboBox}}" />
-                    </CompositeCollection>
-                </ComboBox.Resources>
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}">
-                                    <Binding Path="LastName"></Binding>
-                                    <Binding Path="FirstName"></Binding>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            <ComboBox Grid.Row="1" Grid.Column="0" ToolTip="Kunde auswählen" Margin="10" VerticalAlignment="Bottom"
+                      ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="FullName" />
             <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Status</Label>
             <ComboBox Grid.Row="1" Grid.Column="1" ToolTip="Status auswählen" Margin="10" VerticalAlignment="Bottom"
                       ItemsSource="{Binding Source={StaticResource StateEnum}}" SelectedItem="{Binding SelectedState}" SelectedIndex="0">
@@ -80,8 +60,8 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Erstelltdatum</Label>
-            <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Erstelltdatum" Margin="10" VerticalAlignment="Bottom"
+            <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Erstelldatum</Label>
+            <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Erstelldatum" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />
             <Label Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Top">Letzte Statusänderung</Label>
             <TextBox Grid.Row="2" Grid.Column="1" controls:TextBoxHelper.Watermark="Letzte Statusänderung" Margin="10" VerticalAlignment="Bottom"
