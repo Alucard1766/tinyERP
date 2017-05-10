@@ -66,8 +66,10 @@
     <Compile Include="Repositories\IInvoiceRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\IOfferRepository.cs" />
+    <Compile Include="Repositories\IOrderConfirmationRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Repositories\OfferRepository.cs" />
+    <Compile Include="Repositories\OrderConfirmationRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\BudgetRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />

@@ -81,9 +81,13 @@ namespace tinyERP.TestEnvrionment
                 var orderTableName = context.GetTableName<Order>();
                 var offerTableName = context.GetTableName<Offer>();
                 var invoiceTableName = context.GetTableName<Invoice>();
+                var orderConfirmationTableName = context.GetTableName<OrderConfirmation>();
 
                 try
                 {
+                    context.DeleteAllRecords(offerTableName);
+                    context.DeleteAllRecords(invoiceTableName);
+                    context.DeleteAllRecords(orderConfirmationTableName);
                     context.DeleteAllRecords(budgetTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
@@ -91,9 +95,7 @@ namespace tinyERP.TestEnvrionment
                     context.DeleteAllRecords(customerTableName);
                     context.DeleteAllRecords(customerHistoryTableName);
                     context.DeleteAllRecords(documentTableName);
-                    context.DeleteAllRecords(offerTableName);
-                    context.DeleteAllRecords(invoiceTableName);
-
+                    
                     context.SetAutoIncrementOnTable(budgetTableName, true);
                     context.SetAutoIncrementOnTable(transactionTableName, true);
                     context.SetAutoIncrementOnTable(categoryTableName, true);
@@ -103,6 +105,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(orderTableName, true);
                     context.SetAutoIncrementOnTable(offerTableName, true);
                     context.SetAutoIncrementOnTable(invoiceTableName, true);
+                    context.SetAutoIncrementOnTable(orderConfirmationTableName, true);
 
                     context.ResetEntitySeed(budgetTableName);
                     context.ResetEntitySeed(transactionTableName);
@@ -113,6 +116,7 @@ namespace tinyERP.TestEnvrionment
                     context.ResetEntitySeed(orderTableName);
                     context.ResetEntitySeed(offerTableName);
                     context.ResetEntitySeed(invoiceTableName);
+                    context.ResetEntitySeed(orderConfirmationTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
@@ -123,6 +127,7 @@ namespace tinyERP.TestEnvrionment
                     context.Orders.AddRange(Orders);
                     context.Offers.AddRange(Offers);
                     context.Invoices.AddRange(Invoices);
+                    context.OrderConfirmations.AddRange(OrderConfirmations);
 
                     context.SaveChanges();
                 }
@@ -140,6 +145,7 @@ namespace tinyERP.TestEnvrionment
                     context.SetAutoIncrementOnTable(documentTableName, false);
                     context.SetAutoIncrementOnTable(orderTableName, false);
                     context.SetAutoIncrementOnTable(offerTableName, false);
+                    context.SetAutoIncrementOnTable(orderConfirmationTableName, false);
                 }
             }
         }
@@ -204,14 +210,20 @@ namespace tinyERP.TestEnvrionment
         private static List<Offer> Offers =>
             new List<Offer>
             {
-                new Offer {Id = 1, OfferNumber = "Offer 1", OrderId = 2, DocumentId = 1},
+                new Offer {Id = 1, OfferNumber = "Offer 1", OrderId = 2, DocumentId = 2},
                 new Offer {Id = 2, OfferNumber = "Offer 2", OrderId = 3, DocumentId = 2}
             };
 
         private static List<Invoice> Invoices =>
             new List<Invoice>
             {
-                new Invoice {Id = 1, Amount = 150.0, IsPayed = true, OrderId = 2, DocumentId = 3}
+                new Invoice {Id = 1, InvoiceNumber= "Invoice 1", Amount = 150.0, IsPayed = true, OrderId = 2, DocumentId = 3}
+            };
+
+        private static List<OrderConfirmation> OrderConfirmations =>
+            new List<OrderConfirmation>
+            {
+                new OrderConfirmation {OrderId = 1, DocumentId = 3, OrderConfNumber = "OrderConf"}
             };
 
         private static string GetTableName<T>(this DbContext context)

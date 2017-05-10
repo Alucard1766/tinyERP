@@ -18,10 +18,12 @@ namespace tinyERP.Dal
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Document>().HasOptional(d => d.Offer).WithRequired(o => o.Document);
-            modelBuilder.Entity<Document>().HasOptional(d => d.Invoice).WithRequired(i => i.Document);
-            modelBuilder.Entity<Document>().HasOptional(d => d.OrderConfirmation).WithRequired(oc => oc.Document);
-            //modelBuilder.Entity<Order>().HasOptional(o => o.OrderConfirmation).WithRequired(oc => oc.Order);
+
+            //modelBuilder.Entity<Invoice>().HasRequired(i => i.Document).WithOptional(d => d.Invoice);
+            //modelBuilder.Entity<Document>().HasOptional(d => d.Offer).WithRequired(o => o.Document);
+            //modelBuilder.Entity<Document>().HasOptional(d => d.OrderConfirmation).WithRequired(oc => oc.Document);
+            modelBuilder.Entity<OrderConfirmation>().HasKey(oc => oc.OrderId);
+            modelBuilder.Entity<OrderConfirmation>().HasRequired(oc => oc.Order).WithOptional(o => o.OrderConfirmation).WillCascadeOnDelete(true);
         }
 
         public DbSet<Budget> Budgets { get; set; }
@@ -41,5 +43,7 @@ namespace tinyERP.Dal
         public DbSet<Offer> Offers { get; set; }
 
         public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<OrderConfirmation> OrderConfirmations { get; set; }
     }
 }

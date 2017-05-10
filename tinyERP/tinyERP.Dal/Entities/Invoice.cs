@@ -24,6 +24,7 @@ namespace tinyERP.Dal.Entities
 
         public int DocumentId { get; set; }
 
+        [ForeignKey("DocumentId")]
         public virtual Document Document { get; set; }
 
         [Timestamp]
