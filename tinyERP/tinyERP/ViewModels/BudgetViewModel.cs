@@ -101,7 +101,7 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => transaction.IsRevenue).Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
+                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => transaction.IsRevenue).Sum(transaction => transaction.Amount);
             }
         }
 
@@ -139,8 +139,8 @@ namespace tinyERP.UI.ViewModels
             foreach (var category in categories)
             {
                 var sum = category.Transactions
-                    .Where(transaction => transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
-                    .Sum(transaction => (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount);
+                    .Where(t => t.Budget.Id == budget.Id && t.Date >= FromDate && t.Date <= ToDate)
+                    .Sum(t => (t.IsRevenue) ? t.Amount : -(t.Amount *(100.0 - t.PrivatePart) / 100));
                 sums.Add(sum);
             }
 
