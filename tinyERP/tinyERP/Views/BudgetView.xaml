@@ -31,8 +31,8 @@
 
         <DockPanel Grid.Column="0">
             <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Budgetverwaltung</TextBlock>
-            <controls:SplitButton ItemsSource="{Binding BudgetList}" SelectedItem="{Binding Budget}" DisplayMemberPath="Year"
-                                  ToolTip="Budgetperiode auswählen" Margin="10" DockPanel.Dock="Top"/>
+            <ComboBox ItemsSource="{Binding BudgetList}" SelectedItem="{Binding Budget}" DisplayMemberPath="Year"
+                      ToolTip="Budgetperiode auswählen" Margin="10" DockPanel.Dock="Top" HorizontalContentAlignment="Center" />
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Budgetierte Ausgaben:" Margin="10,0,10,0" />

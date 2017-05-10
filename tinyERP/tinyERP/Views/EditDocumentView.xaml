@@ -9,7 +9,8 @@
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
-    Title="Dokument bearbeiten" Height="220" Width="550" MinWidth="550" MinHeight="220" MaxHeight="320">
+    Title="Dokument bearbeiten"
+    Width="550" MinWidth="550" Height="260" MinHeight="260" MaxHeight="260">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -22,45 +23,48 @@
     <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Name" Margin="10"
-                     Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Schlagworte" Margin="10"
-                     Text="{Binding Tag,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
-            <DatePicker HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"  Height="20" Text="Ausstellungsdatum" Margin="10" 
-                        SelectedDate="{Binding IssueDate,Mode=TwoWay}" ToolTip="Ausstellungsdatum auswählen"/>
-
-            <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Name</Label>
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Name" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Name, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Ausstellungsdatum</Label>
+            <DatePicker Grid.Row="0" Grid.Column="1" ToolTip="Ausstellungsdatum auswählen" Margin="10" VerticalAlignment="Bottom"
+                        SelectedDate="{Binding IssueDate}" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Schlagworte</Label>
+            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Schlagworte" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Tag, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Datei</Label>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width ="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" IsReadOnly="True" HorizontalAlignment="Stretch" Height="20" controls:TextBoxHelper.Watermark="Datei" 
-                         Text="{Binding RelativePath,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}">
+                <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Datei"
+                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" IsReadOnly="True">
                     <TextBox.InputBindings>
                         <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="..." Height="20" Margin="5,0,0,0"
+                <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,0,0"
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
-                    
                 </Button>
             </Grid>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="0,10,10,-10" HorizontalAlignment="Right">
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" 
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}" ToolTip="Buchung hinzufügen">
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung verwerfen" IsCancel="True">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
                 </Button>
             </StackPanel>
