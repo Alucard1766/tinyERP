@@ -17,5 +17,15 @@ namespace tinyERP.Dal.Repositories
         {
             return TinyErpContext.Orders.Include(o => o.Customer).ToList();
         }
+
+        public IEnumerable<Offer> GetOffersAndDocumentsByOrderId(int orderId)
+        {
+            var offers = TinyErpContext.Offers.Where(o => o.OrderId == orderId).ToList();
+            foreach (var offer in offers)
+            {
+                offer.Document = TinyErpContext.Documents.FirstOrDefault(d => d.Id == offer.DocumentId);
+            }
+            return offers;
+        }
     }
 }

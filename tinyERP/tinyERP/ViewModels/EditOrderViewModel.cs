@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
+using tinyERP.Dal;
 using tinyERP.Dal.Entities;
 using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
@@ -48,10 +49,14 @@ namespace tinyERP.UI.ViewModels
 
         public Customer SelectedCustomer { get; set; }
 
+        public ObservableCollection<Offer> OfferList { get; set; }
+
         public override void Load()
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
+            var offers = UnitOfWork.Orders.GetOffersAndDocumentsByOrderId(order.Id);
+            OfferList = new ObservableCollection<Offer>(offers);
             AddRules();
         }
 
@@ -90,6 +95,23 @@ namespace tinyERP.UI.ViewModels
 
                 ((Window) window).Close();
             }
+        }
+
+        #endregion
+
+        #region OpenDocument-Command
+
+        private RelayCommand _openDocument;
+
+        public ICommand OpenDocument
+        {
+            get { return _openDocument ?? (_openDocument = new RelayCommand(Open)); }
+        }
+
+        private void Open(object fileName)
+        {
+            FileAccess.Open((string)fileName);
+            
         }
 
         #endregion

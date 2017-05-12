@@ -210,8 +210,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Offer> Offers =>
             new List<Offer>
             {
-                new Offer {Id = 1, OfferNumber = "Offer 1", OrderId = 2, DocumentId = 2},
-                new Offer {Id = 2, OfferNumber = "Offer 2", OrderId = 3, DocumentId = 2}
+                new Offer {Id = 1, OfferNumber = "Offer 1", OrderId = 2, DocumentId = 1},
+                new Offer {Id = 2, OfferNumber = "Offer 2", OrderId = 3, DocumentId = 2},
+                new Offer {Id = 3, OfferNumber = "Offer 3", OrderId = 2, DocumentId = 2}
             };
 
         private static List<Invoice> Invoices =>
