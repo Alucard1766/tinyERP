@@ -35,7 +35,9 @@ namespace tinyERP.UI.ViewModels
             set
             {
                 SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues));
-                SetDatePickersToSelectedYear();
+
+                if (Budget != null)
+                    SetDatePickersToSelectedYear();
             }
         }
 
@@ -70,7 +72,10 @@ namespace tinyERP.UI.ViewModels
             get
             {
                 _budgetChartValues.Clear();
-                _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
+
+                if (Budget != null)
+                    _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
+
                 return _budgetChartValues;
             }
             set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
@@ -93,7 +98,9 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => !transaction.IsRevenue).Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
+                return (Budget?.Transactions ?? new Collection<Transaction>())
+                    .Where(transaction => !transaction.IsRevenue)
+                    .Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
 
@@ -101,7 +108,9 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                return (Budget?.Transactions ?? new Collection<Transaction>()).Where(transaction => transaction.IsRevenue).Sum(transaction => transaction.Amount);
+                return (Budget?.Transactions ?? new Collection<Transaction>())
+                    .Where(transaction => transaction.IsRevenue)
+                    .Sum(transaction => transaction.Amount);
             }
         }
 
@@ -112,7 +121,7 @@ namespace tinyERP.UI.ViewModels
             TransactionList.CollectionChanged += ContentCollectionChanged;
             var budgets = UnitOfWork.Budgets.GetAll();
             BudgetList = new ObservableCollection<Budget>(budgets);
-            Budget = BudgetList[0]; //TODO: What if DB empty?
+            Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             BudgetChartValues = new ChartValues<double>();
         }
 
@@ -138,10 +147,13 @@ namespace tinyERP.UI.ViewModels
 
             foreach (var category in categories)
             {
-                var sum = category.Transactions
-                    .Where(t => t.Budget.Id == budget.Id && t.Date >= FromDate && t.Date <= ToDate)
-                    .Sum(t => (t.IsRevenue) ? t.Amount : -(t.Amount *(100.0 - t.PrivatePart) / 100));
-                sums.Add(sum);
+                if (category.Transactions != null)
+                {
+                    var sum = category.Transactions
+                        .Where(t => t.Budget.Id == budget.Id && t.Date >= FromDate && t.Date <= ToDate)
+                        .Sum(t => (t.IsRevenue) ? t.Amount : -(t.Amount * (100.0 - t.PrivatePart) / 100));
+                    sums.Add(sum);
+                }
             }
 
             return sums.ToArray();
@@ -153,7 +165,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewTransactionCommand
         {
-            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction())); }
+            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction(), param => CanNewTransaction())); }
         }
 
         private void NewTransaction()
@@ -167,6 +179,11 @@ namespace tinyERP.UI.ViewModels
             {
                 TransactionList.Add(transaction);
             }
+        }
+
+        private bool CanNewTransaction()
+        {
+            return Budget != null;
         }
 
         #endregion
@@ -308,8 +325,8 @@ namespace tinyERP.UI.ViewModels
                 foreach (var t in deletedTransactions)
                     TransactionList.Remove(t);
 
-                Budget = BudgetList[0]; //TODO: What if DB/List empty?
                 BudgetList.Remove(deletedBudget);
+                Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             }
         }
 
