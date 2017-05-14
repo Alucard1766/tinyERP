@@ -129,6 +129,7 @@ namespace tinyERP.UI.ViewModels
         {
             OnPropertyChanged(nameof(AllRevenuesTotal));
             OnPropertyChanged(nameof(AllExpensesTotal));
+            OnPropertyChanged(nameof(BudgetChartValues));
         }
 
         private void SetDatePickersToSelectedYear()
@@ -206,8 +207,7 @@ namespace tinyERP.UI.ViewModels
             if (window.ShowDialog() ?? false)
             {
                 (dataGrid as DataGrid)?.Items.Refresh();
-                OnPropertyChanged(nameof(AllRevenuesTotal));
-                OnPropertyChanged(nameof(AllExpensesTotal));
+                ContentCollectionChanged(this, null);
             }
         }
 
