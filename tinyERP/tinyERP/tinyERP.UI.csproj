@@ -85,10 +85,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\LevelToMarginConverter.cs" />
     <Compile Include="Resources\EnumToDescriptionConverter.cs" />
     <Compile Include="Resources\BooleanToRevenueConverter.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
+    <Compile Include="ViewModels\EditDocumentViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
@@ -99,6 +102,10 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Views\EditCustomerView.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditDocumentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditOrderView.xaml">
       <SubType>Designer</SubType>
@@ -132,6 +139,9 @@
     </Compile>
     <Compile Include="Views\EditCustomerView.xaml.cs">
       <DependentUpon>EditCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDocumentView.xaml.cs">
+      <DependentUpon>EditDocumentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditOrderView.xaml.cs">
       <DependentUpon>EditOrderView.xaml</DependentUpon>

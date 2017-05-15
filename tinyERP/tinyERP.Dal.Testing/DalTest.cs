@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using tinyERP.Dal.Entities;
@@ -11,11 +12,25 @@ namespace tinyERP.Dal.Testing
     public class DalTest
     {
         private UnitOfWork unitOfWork;
+        private const string FileToAdd = "filetoadd.txt";
+        private const string FileToDelete = "filetodelete.txt";
 
+        [ClassInitialize]
+        public static void InitializeBeforeAllTests(TestContext context)
+        {
+            File.Create(FileToAdd);
+            Directory.CreateDirectory(FileAccess.RepositoryPath);
+            File.Create(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
+        }
         [ClassCleanup]
         public static void CleanUpAfterAllTests()
         {
             TestEnvironmentHelper.InitializeTestData();
+            File.Delete(FileToAdd);
+            File.Delete(FileToDelete);
+            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToAdd));
+            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
+            Directory.Delete(FileAccess.RepositoryPath);
         }
 
         [TestInitialize]
@@ -165,7 +180,8 @@ namespace tinyERP.Dal.Testing
                 Title = "Order",
                 State = State.InProgress,
                 CreationDate = DateTime.Today,
-                StateModificationDate = DateTime.Today
+                StateModificationDate = DateTime.Today,
+                CustomerId = 1
             };
             var returned = unitOfWork.Orders.Add(order);
             unitOfWork.Complete();
@@ -353,6 +369,22 @@ namespace tinyERP.Dal.Testing
             unitOfWork.Complete();
             var changed = unitOfWork.CustomerHistories.Get(1);
             Assert.AreEqual("My edit", changed.Text);
+        }
+
+        [TestMethod]
+        public void AddFileTest()
+        {
+            var fileName = FileAccess.Add(FileToAdd);
+            Assert.IsTrue(File.Exists(Path.Combine(FileAccess.RepositoryPath, fileName)));
+        }
+
+        [TestMethod]
+        public void DeleteFileTest()
+        {
+            var file = Path.Combine(FileAccess.RepositoryPath, FileToDelete);
+            Assert.IsTrue(File.Exists(file));
+            FileAccess.Delete(FileToDelete);
+            Assert.IsFalse(File.Exists(file));
         }
     }
 }

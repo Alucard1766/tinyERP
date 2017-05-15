@@ -17,8 +17,7 @@ namespace tinyERP.UI.ViewModels
     internal class BudgetViewModel : ViewModelBase
     {
         private Budget _budget;
-        private DateTime _fromDate;
-        private DateTime _toDate;
+        private DateTime _fromDate, _toDate, _yearStart, _yearEnd;
         private ChartValues<double> _budgetChartValues;
 
         public BudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
@@ -35,7 +34,9 @@ namespace tinyERP.UI.ViewModels
             set
             {
                 SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues));
-                SetDatePickersToSelectedYear();
+
+                if (Budget != null)
+                    SetDatePickersToSelectedYear();
             }
         }
 
@@ -61,16 +62,27 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public DateTime YearStart { get; set; }
+        public DateTime YearStart
+        {
+            get { return _yearStart; }
+            set { SetProperty(ref _yearStart, value, nameof(YearStart)); }
+        }
 
-        public DateTime YearEnd { get; set; }
+        public DateTime YearEnd
+        {
+            get { return _yearEnd; }
+            set { SetProperty(ref _yearEnd, value, nameof(YearEnd)); }
+        }
 
         public ChartValues<double> BudgetChartValues
         {
             get
             {
                 _budgetChartValues.Clear();
-                _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
+
+                if (Budget != null)
+                    _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
+
                 return _budgetChartValues;
             }
             set { SetProperty(ref _budgetChartValues, value, nameof(BudgetChartValues)); }
@@ -93,15 +105,9 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                var result = 0.0;
-                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
-                {
-                    if (!transaction.IsRevenue)
-                    {
-                        result += transaction.Amount;
-                    }
-                }
-                return result;
+                return (Budget?.Transactions ?? new Collection<Transaction>())
+                    .Where(transaction => !transaction.IsRevenue)
+                    .Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
 
@@ -109,15 +115,9 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                var result = 0.0;
-                foreach (var transaction in Budget?.Transactions ?? new Collection<Transaction>())
-                {
-                    if (transaction.IsRevenue)
-                    {
-                        result += transaction.Amount;
-                    }
-                }
-                return result;
+                return (Budget?.Transactions ?? new Collection<Transaction>())
+                    .Where(transaction => transaction.IsRevenue)
+                    .Sum(transaction => transaction.Amount);
             }
         }
 
@@ -128,7 +128,7 @@ namespace tinyERP.UI.ViewModels
             TransactionList.CollectionChanged += ContentCollectionChanged;
             var budgets = UnitOfWork.Budgets.GetAll();
             BudgetList = new ObservableCollection<Budget>(budgets);
-            Budget = BudgetList[0]; //TODO: What if DB empty?
+            Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             BudgetChartValues = new ChartValues<double>();
         }
 
@@ -136,6 +136,7 @@ namespace tinyERP.UI.ViewModels
         {
             OnPropertyChanged(nameof(AllRevenuesTotal));
             OnPropertyChanged(nameof(AllExpensesTotal));
+            OnPropertyChanged(nameof(BudgetChartValues));
         }
 
         private void SetDatePickersToSelectedYear()
@@ -150,17 +151,41 @@ namespace tinyERP.UI.ViewModels
 
         public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
         {
-            var sums = new List<double>();
+            var sums = new Dictionary<Category, double>();
 
             foreach (var category in categories)
             {
-                var sum = category.Transactions
-                    .Where(transaction => transaction.Budget.Id == budget.Id && transaction.Date >= FromDate && transaction.Date <= ToDate)
-                    .Sum(transaction => (transaction.IsRevenue) ? transaction.Amount : -transaction.Amount);
-                sums.Add(sum);
+                if (category.Transactions != null)
+                {
+                    var sum = category.Transactions
+                        .Where(t => t.Budget.Id == budget.Id && t.Date >= FromDate && t.Date <= ToDate)
+                        .Sum(t => (t.IsRevenue) ? t.Amount : -(t.Amount * (100.0 - t.PrivatePart) / 100));
+                    if (category.ParentCategory == null)
+                    {
+                        if (sums.ContainsKey(category))
+                        {
+                            sums[category] += sum;
+                        }
+                        else
+                        {
+                            sums.Add(category, sum);
+                        }
+                    }
+                    else
+                    {
+                        if (sums.ContainsKey(category.ParentCategory))
+                        {
+                            sums[category.ParentCategory] += sum;
+                        }
+                        else
+                        {
+                            sums.Add(category.ParentCategory, sum);
+                        }
+                    }
+                }
             }
 
-            return sums.ToArray();
+            return sums.Values.ToArray();
         }
 
         #region New-Transaction-Command
@@ -169,7 +194,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewTransactionCommand
         {
-            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction())); }
+            get { return _newTransactionCommand ?? (_newTransactionCommand = new RelayCommand(param => NewTransaction(), param => CanNewTransaction())); }
         }
 
         private void NewTransaction()
@@ -183,6 +208,11 @@ namespace tinyERP.UI.ViewModels
             {
                 TransactionList.Add(transaction);
             }
+        }
+
+        private bool CanNewTransaction()
+        {
+            return Budget != null;
         }
 
         #endregion
@@ -205,8 +235,7 @@ namespace tinyERP.UI.ViewModels
             if (window.ShowDialog() ?? false)
             {
                 (dataGrid as DataGrid)?.Items.Refresh();
-                OnPropertyChanged(nameof(AllRevenuesTotal));
-                OnPropertyChanged(nameof(AllExpensesTotal));
+                ContentCollectionChanged(this, null);
             }
         }
 
@@ -324,8 +353,8 @@ namespace tinyERP.UI.ViewModels
                 foreach (var t in deletedTransactions)
                     TransactionList.Remove(t);
 
-                Budget = BudgetList[0]; //TODO: What if DB/List empty?
                 BudgetList.Remove(deletedBudget);
+                Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             }
         }
 

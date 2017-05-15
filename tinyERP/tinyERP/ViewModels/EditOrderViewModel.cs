@@ -58,6 +58,7 @@ namespace tinyERP.UI.ViewModels
         private void AddRules()
         {
             Validator.AddRequiredRule(() => Title, "Bezeichnung ist notwendig");
+            Validator.AddRequiredRule(() => SelectedCustomer, "Kunde ist notwendig");
         }
 
         #region Save-Command
@@ -80,7 +81,7 @@ namespace tinyERP.UI.ViewModels
                 }
 
                 order.Title = Title;
-                order.Customer = SelectedCustomer?.Id > 0 ? SelectedCustomer : null;
+                order.Customer = SelectedCustomer;
 
                 if (order.Id == 0)
                     order = UnitOfWork.Orders.Add(order);

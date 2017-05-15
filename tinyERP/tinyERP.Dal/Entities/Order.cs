@@ -22,7 +22,8 @@ namespace tinyERP.Dal.Entities
         [Required]
         public DateTime StateModificationDate { get; set; } = DateTime.Today;
 
-        public int? CustomerId { get; set; }
+        [Required]
+        public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }

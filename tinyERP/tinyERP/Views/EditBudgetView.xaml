@@ -9,7 +9,8 @@
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
-    Title="Budget ändern/hinzufügen" Height="320" Width="275" MinWidth="275" MinHeight="320" MaxHeight="320">
+    Title="Budget bearbeiten"
+    Width="275" MinWidth="275" Height="330" MinHeight="330" MaxHeight="330">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -22,30 +23,33 @@
     <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Jahr" Margin="10"
-                     Text="{Binding Year,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0"  Height="20" controls:TextBoxHelper.Watermark="Einnahmen" Margin="10"
-                     Text="{Binding Revenue,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
-            <TextBox HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Height="20" controls:TextBoxHelper.Watermark="Ausgaben" Margin="10" 
-                     Text="{Binding Expense,Mode=TwoWay,UpdateSourceTrigger=LostFocus,TargetNullValue='',ValidatesOnNotifyDataErrors=True}"/>
+            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Jahr</Label>
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Jahr" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Year, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Einnahmen</Label>
+            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Einnahmen" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Revenue, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            
+            <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Ausgaben</Label>
+            <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Ausgaben" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Expense, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
 
-
-            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Margin="0,10,10,-10" HorizontalAlignment="Right">
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" 
-                        Command="{Binding NewCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}" ToolTip="Akzeptieren">
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Budget speichern"
+                        Command="{Binding NewCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Verwerfen" IsCancel="True">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
                 </Button>
             </StackPanel>

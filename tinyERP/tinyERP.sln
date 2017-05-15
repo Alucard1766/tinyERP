@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.UI", "tinyERP\tinyERP.UI.csproj", "{C3305B6B-C7D6-464B-94C4-EB46D7926EE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Dal", "tinyERP.Dal\tinyERP.Dal.csproj", "{F25E441D-D68F-4AE0-ABF2-EAC482022378}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.BusinessLayer", "tinyERP.BusinessLayer\tinyERP.BusinessLayer.csproj", "{44E3E545-F58F-48EB-AC33-47A99AA46319}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tinyERP.Common", "tinyERP.Common\tinyERP.Common.csproj", "{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{DEA10531-5FB1-4316-B6D3-3DDC1BBC0A17}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,14 +32,6 @@ Global
 		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F25E441D-D68F-4AE0-ABF2-EAC482022378}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44E3E545-F58F-48EB-AC33-47A99AA46319}.Release|Any CPU.Build.0 = Release|Any CPU
-		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{566C7421-FD6A-46A3-A744-4BD06E2F0B2C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D0B1739-5A39-4A37-8581-3640DB5A68AA}.Release|Any CPU.ActiveCfg = Release|Any CPU

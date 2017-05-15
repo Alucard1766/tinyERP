@@ -22,6 +22,7 @@
                 <ResourceDictionary>
                     <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>
                     <converter:EnumToDescriptionConverter x:Key="MyEnumToDescriptionConverter"/>
+                    <converter:LevelToMarginConverter x:Key="MyLevelToMarginConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

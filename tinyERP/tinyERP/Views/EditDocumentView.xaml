@@ -1,0 +1,73 @@
+﻿<controls:MetroWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    x:Class="tinyERP.UI.Views.EditDocumentView"
+    mc:Ignorable="d"
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    Title="Dokument bearbeiten"
+    Width="550" MinWidth="550" Height="260" MinHeight="260" MaxHeight="260">
+
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+
+    <DockPanel>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Name</Label>
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Name" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Name, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Ausstellungsdatum</Label>
+            <DatePicker Grid.Row="0" Grid.Column="1" ToolTip="Ausstellungsdatum auswählen" Margin="10" VerticalAlignment="Bottom"
+                        SelectedDate="{Binding IssueDate}" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Schlagworte</Label>
+            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Schlagworte" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Tag, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Datei</Label>
+            <Grid Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Datei"
+                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" IsReadOnly="True">
+                    <TextBox.InputBindings>
+                        <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,0,0"
+                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
+                </Button>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
+                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
+                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</controls:MetroWindow>

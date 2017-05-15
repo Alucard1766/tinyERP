@@ -50,7 +50,13 @@ namespace tinyERP.TestEnvrionment
                         CustomerId = customer.Id
 
                     });
-                var order = context.Orders.Add(new Order { Title = "Order" });
+                var order = context.Orders.Add(new Order { Title = "Order", CustomerId = customer.Id});
+                var document = context.Documents.Add(new Document
+                {
+                    Name = "Quittung 1",
+                    RelativePath = "qu1.docx",
+                    IssueDate = new DateTime(2017, 2, 2)
+                });
 
                 context.SaveChanges();
             }
@@ -162,14 +168,14 @@ namespace tinyERP.TestEnvrionment
         private static List<Document> Documents =>
             new List<Document>
             {
-                new Document {Id = 1, Name = "Quittung 1", RelativePath = "/Docs/", IssueDate = new DateTime(2017, 2, 2)}
+                new Document {Id = 1, Name = "Quittung 1", RelativePath = "qu1.docx", IssueDate = new DateTime(2017, 2, 2)}
             };
 
         private static List<Order> Orders =>
             new List<Order>
             {
                 new Order {Id = 1, Title = "Auftrag 1", State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3), CustomerId = 2},
-                new Order {Id = 2, Title = "Auftrag 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15)},
+                new Order {Id = 2, Title = "Auftrag 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15), CustomerId = 1},
                 new Order {Id = 3, Title = "Auftrag 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3},
             };
 
