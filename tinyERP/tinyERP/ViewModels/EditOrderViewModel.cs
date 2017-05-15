@@ -133,7 +133,7 @@ namespace tinyERP.UI.ViewModels
             }
             catch (Win32Exception e)
             {
-                MessageBox.Show($"{fnfMessage}\nWindows-Fehlercode: {e.ErrorCode}", title);
+                MessageBox.Show(fnfMessage, title);
             }
 
         }

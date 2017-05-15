@@ -8,7 +8,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListView">
-                            <TextBlock Text="Hier wurde noch nichts erfasst"/>
+                            <TextBlock Text="Hier existieren noch keine Einträge" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
