@@ -59,12 +59,12 @@
             <Label Grid.Row="4" Grid.Column="0" Margin="10" VerticalAlignment="Top">Email</Label>
             <TextBox Grid.Row="4" Grid.Column="0" controls:TextBoxHelper.Watermark="Email" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding Email, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
-            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Kunde speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Kunde verwerfen" IsCancel="True">
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
                     <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
                 </Button>
             </StackPanel>

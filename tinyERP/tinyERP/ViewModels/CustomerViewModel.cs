@@ -90,8 +90,8 @@ namespace tinyERP.UI.ViewModels
         private void DeleteCustomers(object selectedItems)
         {
             var selectedCustomers = (selectedItems as IEnumerable)?.Cast<Customer>().ToList();
-            if (MessageBox.Show($"Wollen Sie die ausgewählten Buchungen ({selectedCustomers.Count}) wirklich löschen?",
-                    "Buchungen löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Wollen Sie die ausgewählten Kunden ({selectedCustomers.Count}) wirklich löschen?",
+                    "Kunde löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 UnitOfWork.Customers.RemoveRange(selectedCustomers);
                 UnitOfWork.Complete();
