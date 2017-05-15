@@ -180,7 +180,8 @@ namespace tinyERP.Dal.Testing
                 Title = "Order",
                 State = State.InProgress,
                 CreationDate = DateTime.Today,
-                StateModificationDate = DateTime.Today
+                StateModificationDate = DateTime.Today,
+                CustomerId = 1
             };
             var returned = unitOfWork.Orders.Add(order);
             unitOfWork.Complete();

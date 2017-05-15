@@ -73,6 +73,7 @@ namespace tinyERP.UI.ViewModels
         private void AddRules()
         {
             Validator.AddRequiredRule(() => Title, "Bezeichnung ist notwendig");
+            Validator.AddRequiredRule(() => SelectedCustomer, "Kunde ist notwendig");
         }
 
         #region Save-Command
@@ -95,7 +96,7 @@ namespace tinyERP.UI.ViewModels
                 }
 
                 order.Title = Title;
-                order.Customer = SelectedCustomer?.Id > 0 ? SelectedCustomer : null;
+                order.Customer = SelectedCustomer;
 
                 if (order.Id == 0)
                     order = UnitOfWork.Orders.Add(order);
@@ -111,11 +112,11 @@ namespace tinyERP.UI.ViewModels
 
         #region OpenDocument-Command
 
-        private RelayCommand _openDocument;
+        private RelayCommand _openDocumentCommand;
 
-        public ICommand OpenDocument
+        public ICommand OpenDocumentCommand
         {
-            get { return _openDocument ?? (_openDocument = new RelayCommand(Open)); }
+            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(Open)); }
         }
 
         private void Open(object fileName)

@@ -114,9 +114,7 @@ namespace tinyERP.UI.ViewModels
                 return RuleResult.Assert(budget != null,
                     $"Budget wurde nicht gefunden - Erstellen Sie zuerst das Budget für das Jahr {Date.Year}");
             });
-            Validator.AddRule(nameof(Date), () =>
-                RuleResult.Assert(Date.Date.CompareTo(DateTime.Now.Date) <= 0,
-                    "Ungültiges Datum - Datum liegt in der Zukunft"));
+            Validator.AddRequiredRule(() => Date, "Datum ist notwendig");
             Validator.AddRequiredRule(() => SelectedCategory, "Es wurde keine Kategorie ausgewählt - Erstellen Sie zuerst eine passende Kategorie");
         }
 
