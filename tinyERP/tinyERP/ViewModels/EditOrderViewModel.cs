@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
-using tinyERP.Dal;
 using tinyERP.Dal.Entities;
 using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
+using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -118,8 +120,21 @@ namespace tinyERP.UI.ViewModels
 
         private void Open(object fileName)
         {
-            FileAccess.Open((string)fileName);
-            
+            const string fnfMessage = "Das gesuchte Dokument konnte nicht gefunden werden.";
+            const string title = "Ein Fehler ist aufgetreten";
+            try
+            {
+                FileAccess.Open((string)fileName);
+            }
+            catch (FileNotFoundException e)
+            {
+                MessageBox.Show(fnfMessage, title);
+            }
+            catch (Win32Exception e)
+            {
+                MessageBox.Show($"{fnfMessage}\nWindows-Fehlercode: {e.ErrorCode}", title);
+            }
+
         }
 
         #endregion
