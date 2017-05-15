@@ -49,18 +49,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\Offer.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\CustomerHistory.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Budget.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Document.cs" />
+    <Compile Include="Entities\OrderConfirmation.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="FileAccess.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\TinyErpDBInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IInvoiceRepository.cs" />
+    <Compile Include="Repositories\InvoiceRepository.cs" />
+    <Compile Include="Repositories\IOfferRepository.cs" />
+    <Compile Include="Repositories\IOrderConfirmationRepository.cs" />
     <Compile Include="Repositories\IOrderRepository.cs" />
+    <Compile Include="Repositories\OfferRepository.cs" />
+    <Compile Include="Repositories\OrderConfirmationRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\BudgetRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />

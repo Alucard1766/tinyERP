@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
 using tinyERP.Dal.Entities;
 using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
+using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -48,10 +51,22 @@ namespace tinyERP.UI.ViewModels
 
         public Customer SelectedCustomer { get; set; }
 
+        public ObservableCollection<Offer> OfferList { get; set; }
+
+        public ObservableCollection<Invoice> InvoiceList { get; set; }
+
+        public ObservableCollection<OrderConfirmation> OrderConfirmationList { get; set; }
+
         public override void Load()
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
+            var offers = UnitOfWork.Orders.GetOffersAndDocumentsByOrderId(order.Id);
+            OfferList = new ObservableCollection<Offer>(offers);
+            var invoices = UnitOfWork.Orders.GetInvoicesAndDocumentsByOrderId(order.Id);
+            InvoiceList = new ObservableCollection<Invoice>(invoices);
+            var orderConfirmations = UnitOfWork.Orders.GetOrderConfirmationWithDocumentByOrderId(order.Id);
+            OrderConfirmationList = new ObservableCollection<OrderConfirmation>(orderConfirmations);
             AddRules();
         }
 
@@ -91,6 +106,36 @@ namespace tinyERP.UI.ViewModels
 
                 ((Window) window).Close();
             }
+        }
+
+        #endregion
+
+        #region OpenDocument-Command
+
+        private RelayCommand _openDocumentCommand;
+
+        public ICommand OpenDocumentCommand
+        {
+            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(Open)); }
+        }
+
+        private void Open(object fileName)
+        {
+            const string fnfMessage = "Das gesuchte Dokument konnte nicht gefunden werden.";
+            const string title = "Ein Fehler ist aufgetreten";
+            try
+            {
+                FileAccess.Open((string)fileName);
+            }
+            catch (FileNotFoundException e)
+            {
+                MessageBox.Show(fnfMessage, title);
+            }
+            catch (Win32Exception e)
+            {
+                MessageBox.Show(fnfMessage, title);
+            }
+
         }
 
         #endregion

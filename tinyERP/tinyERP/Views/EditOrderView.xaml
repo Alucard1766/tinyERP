@@ -11,13 +11,16 @@
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
+    Language="de-CH"
     Title="Auftrag bearbeiten"
-    Width="550" MinWidth="550" Height="330" MinHeight="330" MaxHeight="330">
+    Width="550" MinWidth="550" Height="600" MinHeight="600" MaxHeight="600">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
+                <ResourceDictionary Source="../Resources/ButtonAsLink.xaml" />
+                <ResourceDictionary Source="../Resources/ListviewWithoutItems.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <ObjectDataProvider x:Key="StateEnum" MethodName="GetValues"
@@ -35,7 +38,8 @@
                 <RowDefinition Height="70" />
                 <RowDefinition Height="70" />
                 <RowDefinition Height="70" />
-                <RowDefinition Height="70" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -67,7 +71,82 @@
             <TextBox Grid.Row="2" Grid.Column="1" controls:TextBoxHelper.Watermark="Letzte Statusänderung" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding StateModificationDate, StringFormat={}{0:dd.MM.yyyy}, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />
 
-            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" controls:TabControlHelper.IsUnderlined="True" controls:ControlsHelper.HeaderFontSize="24">
+                <TabItem Header="Offerten">
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OfferList}" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Offerten Nummer" DisplayMemberBinding="{Binding OfferNumber}" />
+                                <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
+                                <GridViewColumn Header="Dokumentenlink">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Auftragsbestätigung" controls:ControlsHelper.HeaderFontSize="24">
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OrderConfirmationList}" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Auftragsbestätigungsnummer" DisplayMemberBinding="{Binding OrderConfNumber}" />
+                                <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
+                                <GridViewColumn Header="Dokumentenlink">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding InvoiceList}" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Rechnungsnummer" DisplayMemberBinding="{Binding InvoiceNumber}" />
+                                <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
+                                <GridViewColumn Header="Dokumentenlink">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+            </TabControl>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Auftrag speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />

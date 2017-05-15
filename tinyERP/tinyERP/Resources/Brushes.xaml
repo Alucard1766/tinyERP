@@ -5,4 +5,6 @@
     <SolidColorBrush x:Key="PopupWindowBrush" Color="{StaticResource PopupWindowBackgroundColor}" />
     <SolidColorBrush x:Key="DataGridBackgroundBrush" Color="{StaticResource DataGridBackgroundColor}" />
     <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="{StaticResource TextBoxFocusBorderColor}"/>
+    
+
 </ResourceDictionary>
