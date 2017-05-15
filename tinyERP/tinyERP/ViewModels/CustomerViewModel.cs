@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -42,6 +46,64 @@ namespace tinyERP.UI.ViewModels
             {
                 CustomerList.Add(customer);
             }
+        }
+
+        #endregion
+
+        #region Edit-Customer-Command
+
+        private RelayCommand _editCustomerCommand;
+
+        public ICommand EditCustomerCommand
+        {
+            get { return _editCustomerCommand ?? (_editCustomerCommand = new RelayCommand(EditCustomer, param => CanEditCustomer())); }
+        }
+
+        private void EditCustomer(object dataGrid)
+        {
+            var vm = new EditCustomerViewModel(new UnitOfWorkFactory(), SelectedCustomer);
+            vm.Init();
+            var window = new EditCustomerView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
+                (dataGrid as DataGrid)?.Items.Refresh();
+            }
+        }
+
+        private bool CanEditCustomer()
+        {
+            return SelectedCustomer != null;
+        }
+
+        #endregion
+
+        #region Delete-Customer-Command
+
+        private RelayCommand _deleteCustomersCommand;
+
+        public ICommand DeleteCustomersCommand
+        {
+            get { return _deleteCustomersCommand ?? (_deleteCustomersCommand = new RelayCommand(DeleteCustomers, CanDeleteCustomers)); }
+        }
+
+        private void DeleteCustomers(object selectedItems)
+        {
+            var selectedCustomers = (selectedItems as IEnumerable)?.Cast<Customer>().ToList();
+            if (MessageBox.Show($"Wollen Sie die ausgewählten Kunden ({selectedCustomers.Count}) wirklich löschen?",
+                    "Kunde löschen?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                UnitOfWork.Customers.RemoveRange(selectedCustomers);
+                UnitOfWork.Complete();
+
+                foreach (var t in selectedCustomers)
+                    CustomerList.Remove(t);
+            }
+        }
+
+        private bool CanDeleteCustomers(object selectedItems)
+        {
+            return (selectedItems as ICollection)?.Count > 0;
         }
 
         #endregion
