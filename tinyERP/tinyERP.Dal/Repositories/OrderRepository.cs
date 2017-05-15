@@ -27,5 +27,28 @@ namespace tinyERP.Dal.Repositories
             }
             return offers;
         }
+
+        public IEnumerable<Invoice> GetInvoicesAndDocumentsByOrderId(int orderId)
+        {
+            var invoices = TinyErpContext.Invoices.Where(o => o.OrderId == orderId).ToList();
+            foreach (var invoice in invoices)
+            {
+                invoice.Document = TinyErpContext.Documents.FirstOrDefault(d => d.Id == invoice.DocumentId);
+            }
+            return invoices;
+        }
+
+        public IEnumerable<OrderConfirmation> GetOrderConfirmationWithDocumentByOrderId(int orderId)
+        {
+            var orderConfirmations = TinyErpContext.OrderConfirmations.Where(o => o.OrderId == orderId).ToList();
+            foreach (var oc in orderConfirmations)
+            {
+                oc.Document =
+                    TinyErpContext.Documents.FirstOrDefault(d => d.Id == oc.DocumentId);
+            }
+
+            return orderConfirmations;
+
+        }
     }
 }

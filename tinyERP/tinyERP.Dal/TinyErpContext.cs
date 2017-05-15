@@ -18,10 +18,6 @@ namespace tinyERP.Dal
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-            //modelBuilder.Entity<Invoice>().HasRequired(i => i.Document).WithOptional(d => d.Invoice);
-            //modelBuilder.Entity<Document>().HasOptional(d => d.Offer).WithRequired(o => o.Document);
-            //modelBuilder.Entity<Document>().HasOptional(d => d.OrderConfirmation).WithRequired(oc => oc.Document);
             modelBuilder.Entity<OrderConfirmation>().HasKey(oc => oc.OrderId);
             modelBuilder.Entity<OrderConfirmation>().HasRequired(oc => oc.Order).WithOptional(o => o.OrderConfirmation).WillCascadeOnDelete(true);
         }

@@ -19,6 +19,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
+                <ResourceDictionary Source="../Resources/ButtonAsLink.xaml" />
+                <ResourceDictionary Source="../Resources/ListviewWithoutItems.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <ObjectDataProvider x:Key="StateEnum" MethodName="GetValues"
@@ -87,7 +89,7 @@
             
             <TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" controls:TabControlHelper.IsUnderlined="True" Margin="10,0,10,0">
                 <TabItem Header="Offerten" controls:ControlsHelper.HeaderFontSize="24">
-                    <ListView ItemsSource="{Binding OfferList}">
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OfferList}" BorderThickness="0">
                         <ListView.Resources>
                             <Style TargetType="GridViewColumnHeader">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -100,7 +102,7 @@
                                 <GridViewColumn Header="Dokumentenlink">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="{Binding Document.RelativePath}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=DataContext.OpenDocument}" CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=DataContext.OpenDocument}" CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -109,10 +111,48 @@
                     </ListView>
                 </TabItem>
                 <TabItem Header="Auftragsbestätigung" controls:ControlsHelper.HeaderFontSize="24">
-                    <TextBlock>Welt!</TextBlock>
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OrderConfirmationList}" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Auftragsbestätigungsnummer" DisplayMemberBinding="{Binding OrderConfNumber}" />
+                                <GridViewColumn Header="Ausstellungsdatum"  DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
+                                <GridViewColumn Header="Dokumentenlink">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=DataContext.OpenDocument}" CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </TabItem>
                 <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">
-                    <TextBlock>Welt!</TextBlock>
+                    <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding InvoiceList}" BorderThickness="0">
+                        <ListView.Resources>
+                            <Style TargetType="GridViewColumnHeader">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Rechnungsnummer" DisplayMemberBinding="{Binding InvoiceNumber}" />
+                                <GridViewColumn Header="Ausstellungsdatum"  DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
+                                <GridViewColumn Header="Dokumentenlink">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}, Path=DataContext.OpenDocument}" CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </TabItem>
             </TabControl>
             

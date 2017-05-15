@@ -51,12 +51,20 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Offer> OfferList { get; set; }
 
+        public ObservableCollection<Invoice> InvoiceList { get; set; }
+
+        public ObservableCollection<OrderConfirmation> OrderConfirmationList { get; set; }
+
         public override void Load()
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
             var offers = UnitOfWork.Orders.GetOffersAndDocumentsByOrderId(order.Id);
             OfferList = new ObservableCollection<Offer>(offers);
+            var invoices = UnitOfWork.Orders.GetInvoicesAndDocumentsByOrderId(order.Id);
+            InvoiceList = new ObservableCollection<Invoice>(invoices);
+            var orderConfirmations = UnitOfWork.Orders.GetOrderConfirmationWithDocumentByOrderId(order.Id);
+            OrderConfirmationList = new ObservableCollection<OrderConfirmation>(orderConfirmations);
             AddRules();
         }
 
