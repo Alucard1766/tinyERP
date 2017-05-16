@@ -96,12 +96,12 @@ namespace tinyERP.UI.ViewModels
                 document.IssueDate = IssueDate;
                 if (document.RelativePath == null)
                 {
-                    document.RelativePath = FileAccess.Add(RelativePath);
+                    document.RelativePath = FileAccess.Add(RelativePath, FileAccess.RepositoryPath);
                 }
                 else if (document.RelativePath != RelativePath)
                 {
                     FileAccess.Delete(document.RelativePath);
-                    document.RelativePath = FileAccess.Add(RelativePath);
+                    document.RelativePath = FileAccess.Add(RelativePath, FileAccess.RepositoryPath);
                 }
 
                 if (document.Id == 0)

@@ -9,22 +9,34 @@ namespace tinyERP.Dal
     public static class FileAccess
     {
         public const string RepositoryPath = "Files";
+        public const string TemplatePath = "Templates";
         private static readonly Random Rng = new Random();
         //Rng is defined here to prevent too many instantiations in rapid succession, which would potentially lead to same numbers generated
 
-        public static string Add(string source)
+        public static string Add(string sourceFile, string targetDirectory)
         {
-            if(source == null)
-                throw new ApplicationException("Kein Pfadname angegeben");
-            var destinationFileName = Path.GetFileName(source);
-            var destination = Path.Combine(RepositoryPath, destinationFileName);
+            if(sourceFile == null)
+                throw new ArgumentNullException($"Keinen Pfad angegeben");
+            var destinationFileName = Path.GetFileName(sourceFile);
+            var destination = Path.Combine(targetDirectory, destinationFileName);
 
-            Directory.CreateDirectory(RepositoryPath);
-            if (File.Exists(destination))
+            Directory.CreateDirectory(targetDirectory);
+            if (targetDirectory.Equals(RepositoryPath))
             {
-                MakePathUnique(ref destination);
+                if (File.Exists(destination))
+                {
+                    MakePathUnique(targetDirectory, ref destinationFileName);
+                }
+                File.Copy(sourceFile, Path.Combine(targetDirectory, destinationFileName));
             }
-            File.Copy(source, destination);
+            else if (targetDirectory.Equals(TemplatePath))
+            {
+                File.Copy(sourceFile, Path.Combine(targetDirectory, destinationFileName), true);
+            }
+            else
+            {
+                throw new ArgumentException("Unzulässiger Pfad");
+            }
             return destinationFileName;
         }
 
@@ -41,15 +53,15 @@ namespace tinyERP.Dal
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method
-        private static void MakePathUnique(ref string destination)
+        private static void MakePathUnique(string targetDirectory, ref string fileName)
         {
-            var fileWithoutExtension  = Path.Combine(Path.GetDirectoryName(destination), Path.GetFileNameWithoutExtension(destination));
-            var extension = Path.GetExtension(destination);
+            var fileWithoutExtension  = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName));
+            var extension = Path.GetExtension(fileName);
             do
             {
-                destination = $"{fileWithoutExtension}_{RandomSuffix()}{extension}";
+                fileName = $"{fileWithoutExtension}_{RandomSuffix()}{extension}";
             }
-            while (File.Exists(destination));
+            while (File.Exists(fileName));
         }
 
         private static string RandomSuffix()

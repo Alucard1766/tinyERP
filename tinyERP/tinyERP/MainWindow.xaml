@@ -21,6 +21,12 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands ShowLastSeparator="False">
+            <Button Content="Meine Vorlagen"></Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    
     <DockPanel>
         <Grid DockPanel.Dock="Left" Width="120" Background="{StaticResource AccentColorBrush2}">
             <Grid.RowDefinitions>

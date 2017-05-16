@@ -374,7 +374,7 @@ namespace tinyERP.Dal.Testing
         [TestMethod]
         public void AddFileTest()
         {
-            var fileName = FileAccess.Add(FileToAdd);
+            var fileName = FileAccess.Add(FileToAdd, FileAccess.RepositoryPath);
             Assert.IsTrue(File.Exists(Path.Combine(FileAccess.RepositoryPath, fileName)));
         }
 
