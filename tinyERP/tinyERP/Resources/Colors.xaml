@@ -3,15 +3,15 @@
 
     <!--Colors for the MetroTheme, don't rename the keys-->
     <!--ACCENT COLORS-->
-    <Color x:Key="HighlightColor">#ad00ad</Color>
+    <Color x:Key="HighlightColor">#DB6300</Color>
     <!--80%-->
     <Color x:Key="AccentColor">#00AF00</Color>
     <!--60%-->
-    <Color x:Key="AccentColor2">#4db938</Color>
+    <Color x:Key="AccentColor2">#1dca1d</Color>
     <!--40%-->
-    <Color x:Key="AccentColor3">#44d62c</Color>
+    <Color x:Key="AccentColor3">#45D145</Color>
     <!--20%-->
-    <Color x:Key="AccentColor4">#828f5b</Color>
+    <Color x:Key="AccentColor4">#008383</Color>
     <Color x:Key="IdealForegroundColor">White</Color>
     <!--End of MetroTheme-->
     

@@ -32,9 +32,15 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten">
+                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                </Button>
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteCustomersCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde löschen">
+                    <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
+                </Button>
             </StackPanel>
 
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
+            <DataGrid x:Name="CustomersDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
                       CanUserReorderColumns="False" CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,10">
                 <DataGrid.Columns>

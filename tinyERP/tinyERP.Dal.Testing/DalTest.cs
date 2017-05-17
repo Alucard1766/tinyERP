@@ -58,7 +58,7 @@ namespace tinyERP.Dal.Testing
         public void GetDocumentsTest()
         {
             var documents = unitOfWork.Documents.GetAll();
-            Assert.AreEqual(1, documents.Count());
+            Assert.AreEqual(3, documents.Count());
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace tinyERP.Dal.Testing
         public void GetDocumentByIdTest()
         {
             var document = unitOfWork.Documents.Get(1);
-            Assert.AreEqual("Quittung 1", document.Name);
+            Assert.AreEqual("OfferQuittung 1", document.Name);
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace tinyERP.Dal.Testing
         {
             unitOfWork.Documents.Remove(unitOfWork.Documents.Get(1));
             unitOfWork.Complete();
-            Assert.AreEqual(0, unitOfWork.Documents.GetAll().Count());
+            Assert.AreEqual(2, unitOfWork.Documents.GetAll().Count());
         }
 
         [TestMethod]

@@ -13,6 +13,9 @@ namespace tinyERP.Dal
         private ITransactionRepository _transactions;
         private ICustomerRepository _customers;
         private ICustomerHistoryRepository _customerHistories;
+        private IOfferRepository _offers;
+        private IInvoiceRepository _invoices;
+        private IOrderConfirmationRepository _orderConfirmations;
 
         public UnitOfWork(TinyErpContext context)
         {
@@ -32,6 +35,14 @@ namespace tinyERP.Dal
         public ICustomerRepository Customers => _customers ?? (_customers = new CustomerRepository(context));
 
         public ICustomerHistoryRepository CustomerHistories => _customerHistories ?? (_customerHistories = new CustomerHistoryRepository(context));
+
+        public IOfferRepository Offers => _offers ?? (_offers = new OfferRepository(context));
+
+        public IInvoiceRepository Invoices => _invoices ?? (_invoices = new InvoiceRepository(context));
+
+        public IOrderConfirmationRepository OrderConfirmations => _orderConfirmations ??
+                                                                  (_orderConfirmations =
+                                                                      new OrderConfirmationRepository(context));
 
         public int Complete()
         {

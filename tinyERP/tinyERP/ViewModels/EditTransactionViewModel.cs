@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using LiveCharts.Helpers;
 using MvvmValidation;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -89,14 +92,22 @@ namespace tinyERP.UI.ViewModels
 
         public string Comment { get; set; }
 
-        public ObservableCollection<Category> CategoryList { get; set; }
+        public List<Category> CategoryList { get; set; }
 
         public Category SelectedCategory { get; set; }
 
         public override void Load()
         {
             var categories = UnitOfWork.Categories.GetAll();
-            CategoryList = new ObservableCollection<Category>(categories);
+            CategoryList = new List<Category>();
+            categories.Where(c => c.ParentCategoryId == null).OrderBy(c => c.Name).ForEach(c =>
+            {
+                CategoryList.Add(c);
+                if (c.SubCategories != null)
+                {
+                    CategoryList.AddRange(c.SubCategories.OrderBy(sc => sc.Name));
+                }
+            });
             AddRules();
         }
 
@@ -114,9 +125,7 @@ namespace tinyERP.UI.ViewModels
                 return RuleResult.Assert(budget != null,
                     $"Budget wurde nicht gefunden - Erstellen Sie zuerst das Budget für das Jahr {Date.Year}");
             });
-            Validator.AddRule(nameof(Date), () =>
-                RuleResult.Assert(Date.Date.CompareTo(DateTime.Now.Date) <= 0,
-                    "Ungültiges Datum - Datum liegt in der Zukunft"));
+            Validator.AddRequiredRule(() => Date, "Datum ist notwendig");
             Validator.AddRequiredRule(() => SelectedCategory, "Es wurde keine Kategorie ausgewählt - Erstellen Sie zuerst eine passende Kategorie");
         }
 
