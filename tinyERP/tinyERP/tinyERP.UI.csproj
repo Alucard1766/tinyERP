@@ -93,6 +93,7 @@
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditDocumentViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
+    <Compile Include="ViewModels\EditTemplateViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
@@ -117,6 +118,10 @@
     </Page>
     <Page Include="Views\EditOrderView.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditTemplateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditTransactionView.xaml">
       <SubType>Designer</SubType>
@@ -153,6 +158,9 @@
     </Compile>
     <Compile Include="Views\EditOrderView.xaml.cs">
       <DependentUpon>EditOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTemplateView.xaml.cs">
+      <DependentUpon>EditTemplateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditTransactionView.xaml.cs">
       <DependentUpon>EditTransactionView.xaml</DependentUpon>
