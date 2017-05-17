@@ -88,6 +88,7 @@
     <Compile Include="Resources\LevelToMarginConverter.cs" />
     <Compile Include="Resources\EnumToDescriptionConverter.cs" />
     <Compile Include="Resources\BooleanToRevenueConverter.cs" />
+    <Compile Include="Resources\SelectedTabToActiveButtonMultiConverter.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
@@ -225,7 +226,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tinyERP.Dal\tinyERP.Dal.csproj">

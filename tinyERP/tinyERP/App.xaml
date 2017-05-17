@@ -23,6 +23,7 @@
                     <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>
                     <converter:EnumToDescriptionConverter x:Key="MyEnumToDescriptionConverter"/>
                     <converter:LevelToMarginConverter x:Key="MyLevelToMarginConverter"/>
+                    <converter:SelectedTabToActiveButtonMultiConverter x:Key="SelectedTabConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
