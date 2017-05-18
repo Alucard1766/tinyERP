@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="../Resources/Brushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </controls:MetroWindow.Resources>
 
     <DockPanel>
@@ -34,8 +35,8 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Bezeichnung</Label>
-            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Bezeichnung" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Name, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Name}" />
             <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Kategorie</Label>
             <ComboBox Grid.Row="0" Grid.Column="1" ToolTip="Kategorie auswählen" Margin="10" VerticalAlignment="Bottom"
                       ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" SelectedIndex="0">
@@ -47,11 +48,11 @@
             </ComboBox>
 
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Betrag</Label>
-            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Betrag" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Amount, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Amount}" />
             <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Privatanteil (%)</Label>
-            <TextBox Grid.Row="1" Grid.Column="1" controls:TextBoxHelper.Watermark="Privatanteil (%)" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding PrivatPart, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Bottom" IsEnabled="{Binding IsExpense}"
+                     Text="{Binding PrivatPart}" />
 
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Belegdatum</Label>
             <DatePicker Grid.Row="2" Grid.Column="0" ToolTip="Belegdatum auswählen" Margin="10" VerticalAlignment="Bottom"
@@ -62,8 +63,8 @@
             </StackPanel>
 
             <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Top">Bemerkungen</Label>
-            <TextBox Grid.Row="3" Grid.Column="0" controls:TextBoxHelper.Watermark="Bemerkungen" Margin="10,34,10,10" 
-                     Text="{Binding Comment, UpdateSourceTrigger=LostFocus}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
+            <TextBox Grid.Row="3" Grid.Column="0" Margin="10,34,10,10"
+                     Text="{Binding Comment}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
