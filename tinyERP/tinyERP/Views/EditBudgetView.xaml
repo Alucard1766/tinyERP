@@ -34,7 +34,7 @@
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Jahr</Label>
             <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Jahr" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Year, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+                     Text="{Binding Year, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" IsEnabled="{Binding IsNewBudget}" />
             
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Einnahmen</Label>
             <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Einnahmen" Margin="10" VerticalAlignment="Bottom"
@@ -42,11 +42,11 @@
             
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Ausgaben</Label>
             <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Ausgaben" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Expense, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+                     Text="{Binding Expenses, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Budget speichern"
-                        Command="{Binding NewCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">

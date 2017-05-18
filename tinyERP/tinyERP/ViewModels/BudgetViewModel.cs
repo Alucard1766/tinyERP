@@ -306,15 +306,44 @@ namespace tinyERP.UI.ViewModels
 
         private void NewBudget()
         {
-            var vm = new EditBudgetViewModel(new UnitOfWorkFactory());
+            var budget = new Budget();
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory(), budget);
             vm.Init();
             var window = new EditBudgetView(vm);
-            window.ShowDialog();
-            if (vm.NewBudget != null)
+
+            if (window.ShowDialog() ?? false)
             {
-                BudgetList.Add(vm.NewBudget);
-                Budget = vm.NewBudget;
+                BudgetList.Add(budget);
+                Budget = budget;
             }
+        }
+
+        #endregion
+
+        #region Edit-Budget-Command
+
+        private RelayCommand _editBudgetCommand;
+
+        public ICommand EditBudgetCommand
+        {
+            get { return _editBudgetCommand ?? (_editBudgetCommand = new RelayCommand(param => EditBudget(), param => CanEditBudget())); }
+        }
+
+        private void EditBudget()
+        {
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory(), Budget);
+            vm.Init();
+            var window = new EditBudgetView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
+                OnPropertyChanged(nameof(Budget));
+            }
+        }
+
+        private bool CanEditBudget()
+        {
+            return Budget != null;
         }
 
         #endregion
