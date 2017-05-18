@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+        <Setter Property="Background" Value="{StaticResource AccentColorBrush3}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush4}"/>
+
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="SortDirection" Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{StaticResource HighlightBrush}" />
+            </MultiTrigger>
+        </Style.Triggers>
+
+    </Style>
+</ResourceDictionary>
