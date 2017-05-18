@@ -65,6 +65,9 @@
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
                             <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                         </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
+                            <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                        </Button>
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
                             <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
                         </Button>
