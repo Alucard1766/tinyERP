@@ -8,6 +8,7 @@ using MvvmValidation;
 using tinyERP.Dal.Entities;
 using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
+using tinyERP.UI.Views;
 using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
@@ -127,15 +128,89 @@ namespace tinyERP.UI.ViewModels
             {
                 FileAccess.Open((string)fileName);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 MessageBox.Show(fnfMessage, title);
             }
-            catch (Win32Exception e)
+            catch (Win32Exception)
             {
                 MessageBox.Show(fnfMessage, title);
             }
 
+        }
+
+        #endregion
+
+        #region NewInvoice-Command
+
+        private RelayCommand _newInvoiceCommand;
+
+        public ICommand NewInvoiceCommand
+        {
+            get { return _newInvoiceCommand ?? (_newInvoiceCommand = new RelayCommand(NewInvoice)); }
+        }
+
+        private void NewInvoice(object window)
+        {
+            if (Validator.ValidateAll().IsValid)
+            {
+                if (order.State != SelectedState)
+                {
+                    order.StateModificationDate = DateTime.Today;
+                    order.State = SelectedState;
+                }
+
+                order.Title = Title;
+                order.Customer = SelectedCustomer;
+
+                if (order.Id == 0)
+                    order = UnitOfWork.Orders.Add(order);
+
+                var vm = new InvoiceCreationViewModel(new UnitOfWorkFactory());
+                vm.Init();
+                var windowView = new InvoiceCreationView(vm);
+
+                double amount;
+                string invoiceNumber;
+                if (windowView.ShowDialog() ?? false)
+                {
+                    invoiceNumber = vm.InvoiceNumber;
+                    amount = double.Parse(vm.Amount);
+                }
+                else
+                {
+                    return;
+                }
+
+                var fileName = FileAccess.CreateInvoice(order.Customer, invoiceNumber);
+
+                var document = new Document
+                {
+                    IssueDate = DateTime.Now,
+                    Name = invoiceNumber,
+                    Tag = OrderNumber,
+                    RelativePath = fileName
+                };
+
+                document = UnitOfWork.Documents.Add(document);
+
+                var invoice = new Invoice
+                {
+                    Amount = amount,
+                    InvoiceNumber = invoiceNumber,
+                    IsPayed = false,
+                    OrderId = order.Id,
+                    DocumentId = document.Id
+                };
+
+                invoice = UnitOfWork.Invoices.Add(invoice);
+
+                UnitOfWork.Complete();
+
+                InvoiceList.Add(invoice);
+
+
+            }
         }
 
         #endregion

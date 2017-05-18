@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using DocumentFormat.OpenXml.Packaging;
+using tinyERP.Dal.Entities;
 
 namespace tinyERP.Dal
 {
@@ -38,6 +41,46 @@ namespace tinyERP.Dal
         {
             var file = Path.Combine(RepositoryPath, fileName);
             Process.Start(file);
+        }
+
+        public static string CreateInvoice(Customer customer, string invoiceNumber)
+        {
+            var fileName = Add(Path.Combine("Templates", "Rechnung.docx"));
+
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(Path.Combine(RepositoryPath, fileName), true))
+            {
+                string documentText = null;
+                using (StreamReader sr = new StreamReader(wordDocument.MainDocumentPart.GetStream()))
+                {
+                    documentText = sr.ReadToEnd();
+                }
+
+                Regex companyRegex = new Regex("\\[Company\\]");
+                Regex streetRegex = new Regex("\\[Street\\]");
+                Regex zipRegex = new Regex("\\[Zip\\]");
+                Regex cityRegex = new Regex("\\[City\\]");
+                Regex firstNameRegex = new Regex("\\[FirstName\\]");
+                Regex lastNameRegex = new Regex("\\[LastName\\]");
+                Regex issueDateRegex = new Regex("\\[IssueDate\\]");
+                Regex invoiceNumberRegex = new Regex("\\[InvoiceNumber\\]");
+
+                //TODO: Handle optional fields
+                documentText = companyRegex.Replace(documentText, customer.Company);
+                documentText = streetRegex.Replace(documentText, customer.Street);
+                documentText = zipRegex.Replace(documentText, customer.Zip.ToString());
+                documentText = cityRegex.Replace(documentText, customer.City);
+                documentText = firstNameRegex.Replace(documentText, customer.FirstName);
+                documentText = lastNameRegex.Replace(documentText, customer.LastName);
+                documentText = issueDateRegex.Replace(documentText, DateTime.Today.ToShortDateString());
+                documentText = invoiceNumberRegex.Replace(documentText, invoiceNumber);
+
+                using (StreamWriter sw = new StreamWriter(wordDocument.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(documentText);
+                }
+            }
+
+            return fileName;
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method

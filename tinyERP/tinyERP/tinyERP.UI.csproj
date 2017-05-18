@@ -93,6 +93,7 @@
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditDocumentViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceCreationViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
@@ -175,6 +176,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\InvoiceCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +202,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\InvoiceCreationView.xaml.cs">
+      <DependentUpon>InvoiceCreationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
