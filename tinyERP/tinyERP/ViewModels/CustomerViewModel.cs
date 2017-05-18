@@ -107,5 +107,24 @@ namespace tinyERP.UI.ViewModels
         }
 
         #endregion
+
+        #region Search-Customers-Command
+
+        private RelayCommand _searchCustomersCommand;
+
+        public ICommand SearchCustomersCommand
+        {
+            get { return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(SearchCustomers)); }
+        }
+
+        private void SearchCustomers(object searchTerm)
+        {
+            var st = searchTerm as string;
+            var customers = UnitOfWork.Customers.Find(c => c.FirstName.Contains(st) || c.LastName.Contains(st));
+            CustomerList.Clear();
+            foreach (var item in customers) { CustomerList.Add(item); }
+        }
+        
+        #endregion
     }
 }
