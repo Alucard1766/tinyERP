@@ -9,6 +9,7 @@ using Microsoft.Win32;
 using tinyERP.Dal;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
+using tinyERP.UI.Resources;
 using tinyERP.UI.Views;
 
 namespace tinyERP.UI.ViewModels
@@ -24,10 +25,6 @@ namespace tinyERP.UI.ViewModels
         public EditTemplateViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
-
-        public const string OfferTemplateType = "Offer";
-        public const string ConfirmationTemplateType = "Confirmation";
-        public const string InvoiceTemplateType = "Invoice";
 
         public string Offer
         {
@@ -60,17 +57,17 @@ namespace tinyERP.UI.ViewModels
 
         private void UploadTemplate(object templateType)
         {
-            var template = (string)templateType;
+            var template = (TemplateType)templateType;
 
             switch (template)
             {
-                case OfferTemplateType:
+                case TemplateType.Offer:
                     FileAccess.Add(Offer, FileAccess.TemplatePath);
                     break;
-                case ConfirmationTemplateType:
+                case TemplateType.Confirmation:
                     FileAccess.Add(Confirmation, FileAccess.TemplatePath);
                     break;
-                case InvoiceTemplateType:
+                case TemplateType.Invoice:
                     FileAccess.Add(Invoice, FileAccess.TemplatePath);
                     break;
                 default:
@@ -98,27 +95,21 @@ namespace tinyERP.UI.ViewModels
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                if (templateType == null)
+                var template = (TemplateType) templateType;
+                switch (template)
                 {
-                    MessageBox.Show("oops");
-                }
-                else
-                {
-                    var template = (string) templateType;
-                    switch (template)
-                    {
-                        case OfferTemplateType:
-                            Offer = openFileDialog.FileName;
-                            break;
-                        case ConfirmationTemplateType:
-                            Confirmation = openFileDialog.FileName;
-                            break;
-                        case InvoiceTemplateType:
-                            Invoice = openFileDialog.FileName;
-                            break;
-                        default:
-                            throw new ArgumentException("Invalid Template Instance");
-                    }
+                    case TemplateType.Offer:
+                        Offer = openFileDialog.FileName;
+                        break;
+                    case TemplateType.Confirmation:
+                        Confirmation = openFileDialog.FileName;
+                        break;
+                    case TemplateType.Invoice:
+                        Invoice = openFileDialog.FileName;
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid Template Instance");
+
                 }
             }
         }

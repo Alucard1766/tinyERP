@@ -6,8 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:local="clr-namespace:tinyERP.UI.Views"
-    xmlns:viewModels="clr-namespace:tinyERP.UI.ViewModels"
     xmlns:resources="clr-namespace:tinyERP.UI.Resources"
     mc:Ignorable="d" 
     d:DesignHeight="330" d:DesignWidth="400"    
@@ -31,20 +29,23 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage"
-                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage hochladen"
+                         Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>
-                        <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
+                        <MouseBinding 
+                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                            CommandParameter="{x:Static resources:TemplateType.Offer}" />
                     </TextBox.InputBindings>
                 </TextBox>
                 <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
+                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                        CommandParameter="{x:Static resources:TemplateType.Offer}">
                 </Button>
                 <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{Binding OfferTemplateType}">
+                        CommandParameter="{x:Static resources:TemplateType.Offer}">
                     <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
                 </Button>
             </Grid>
@@ -56,20 +57,23 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage"
-                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage hochladen"
+                         Text="{Binding Confirmation, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>
-                        <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
+                        <MouseBinding 
+                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                            CommandParameter="{x:Static resources:TemplateType.Confirmation}" />
                     </TextBox.InputBindings>
                 </TextBox>
                 <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
+                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                 </Button>
                 <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage hochladen" 
                         Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{x:Static viewModels:EditTemplateViewModel.ConfirmationTemplateType}">
+                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                     <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
                 </Button>
             </Grid>
@@ -81,28 +85,26 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage"
-                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage hochladen"
+                         Text="{Binding Invoice, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>
-                        <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
+                        <MouseBinding 
+                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                            CommandParameter="{x:Static resources:TemplateType.Invoice}" />
                     </TextBox.InputBindings>
                 </TextBox>
                 <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen">
+                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
                 </Button>
                 <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{Binding InvoiceTemplateType}">
+                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
                     <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
                 </Button>
             </Grid>
         </Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20">
-            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern">
-                <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-            </Button>
-        </StackPanel>
     </Grid>
 </controls:MetroWindow>
