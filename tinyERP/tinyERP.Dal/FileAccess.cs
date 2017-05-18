@@ -40,7 +40,7 @@ namespace tinyERP.Dal
             Process.Start(file);
         }
 
-        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add-method
         private static void MakePathUnique(ref string destination)
         {
             var fileWithoutExtension  = Path.Combine(Path.GetDirectoryName(destination), Path.GetFileNameWithoutExtension(destination));

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -93,6 +94,7 @@ namespace tinyERP.UI.ViewModels
             get { return _deleteOrdersCommand ?? (_deleteOrdersCommand = new RelayCommand(DeleteOrders, CanDeleteOrders)); }
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] //null-reference tested in CanDeleteOrders-method
         private void DeleteOrders(object selectedItems)
         {
             var selectedOrders = (selectedItems as IEnumerable)?.Cast<Order>().ToList();
