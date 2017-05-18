@@ -18,6 +18,8 @@
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/CircleButtonExtend.xaml"/>
+                <ResourceDictionary Source="Resources/DataGridTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/HeaderLabel.xaml"/>
                 
                 <ResourceDictionary>
                     <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>
