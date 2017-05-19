@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -87,6 +88,7 @@ namespace tinyERP.UI.ViewModels
             get { return _deleteCustomersCommand ?? (_deleteCustomersCommand = new RelayCommand(DeleteCustomers, CanDeleteCustomers)); }
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] //null-reference tested in CanDeleteCustomers-method
         private void DeleteCustomers(object selectedItems)
         {
             var selectedCustomers = (selectedItems as IEnumerable)?.Cast<Customer>().ToList();
@@ -106,6 +108,25 @@ namespace tinyERP.UI.ViewModels
             return (selectedItems as ICollection)?.Count > 0;
         }
 
+        #endregion
+
+        #region Search-Customers-Command
+
+        private RelayCommand _searchCustomersCommand;
+
+        public ICommand SearchCustomersCommand
+        {
+            get { return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(SearchCustomers)); }
+        }
+
+        private void SearchCustomers(object searchTerm)
+        {
+            var st = searchTerm as string;
+            var customers = UnitOfWork.Customers.Find(c => c.FirstName.Contains(st) || c.LastName.Contains(st));
+            CustomerList.Clear();
+            foreach (var item in customers) { CustomerList.Add(item); }
+        }
+        
         #endregion
     }
 }

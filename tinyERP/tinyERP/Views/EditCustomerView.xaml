@@ -35,30 +35,30 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Firma</Label>
-            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Firma" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Company, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Company}" />
             
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Vorname</Label>
-            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Vorname" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding FirstName, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding FirstName}" />
             <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Nachname</Label>
-            <TextBox Grid.Row="1" Grid.Column="1" controls:TextBoxHelper.Watermark="Nachname" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding LastName, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding LastName}" />
             
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Strasse</Label>
-            <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Strasse" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Street, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Street}" />
             
             <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Top">Postleitzahl</Label>
-            <TextBox Grid.Row="3" Grid.Column="0" controls:TextBoxHelper.Watermark="Postleitzahl" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Zip, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Zip}" />
             <Label Grid.Row="3" Grid.Column="1" Margin="10" VerticalAlignment="Top">Ort</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" controls:TextBoxHelper.Watermark="Ort" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding City, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding City}" />
             
             <Label Grid.Row="4" Grid.Column="0" Margin="10" VerticalAlignment="Top">Email</Label>
-            <TextBox Grid.Row="4" Grid.Column="0" controls:TextBoxHelper.Watermark="Email" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Email, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="4" Grid.Column="0" controls:TextBoxHelper.Watermark="max.muster@suisse.ch" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Email}" />
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Kunde speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">

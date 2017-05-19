@@ -6,14 +6,26 @@ using tinyERP.UI.Views;
 
 namespace tinyERP.UI.ViewModels
 {
-    internal class MainWindowViewModel
+    internal class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel()
+        private int _selectedTab;
+
+        public int SelectedTab
         {
-            BudgetViewModel = new BudgetViewModel(new UnitOfWorkFactory());
-            CustomerViewModel = new CustomerViewModel(new UnitOfWorkFactory());
-            OrderViewModel = new OrderViewModel(new UnitOfWorkFactory());
-            DocumentViewModel = new DocumentViewModel(new UnitOfWorkFactory());
+            get { return _selectedTab; }
+            set
+            {
+                _selectedTab = value;
+                OnPropertyChanged(nameof(SelectedTab));
+            }
+        }
+
+        public MainWindowViewModel(IUnitOfWorkFactory factory) : base(factory)
+        {
+            BudgetViewModel = new BudgetViewModel(factory);
+            CustomerViewModel = new CustomerViewModel(factory);
+            OrderViewModel = new OrderViewModel(factory);
+            DocumentViewModel = new DocumentViewModel(factory);
         }
 
         public BudgetViewModel BudgetViewModel { get; }
@@ -24,13 +36,29 @@ namespace tinyERP.UI.ViewModels
 
         public DocumentViewModel DocumentViewModel { get; }
 
-        public void Init()
+        public override void Load()
         {
             BudgetViewModel.Init();
             CustomerViewModel.Init();
             OrderViewModel.Init();
             DocumentViewModel.Init();
         }
+
+        #region Switch-Tab-Command
+
+        private RelayCommand _switchTabCommand;
+
+        public ICommand SwitchTabCommand
+        {
+            get { return _switchTabCommand ?? (_switchTabCommand = new RelayCommand(SwitchTab)); }
+        }
+
+        private void SwitchTab(object tag)
+        {
+            SelectedTab = int.Parse((string)tag);
+        }
+
+        #endregion
 
         #region Edit-Templates-Command
 
@@ -54,6 +82,5 @@ namespace tinyERP.UI.ViewModels
         }
 
         #endregion
-
     }
 }

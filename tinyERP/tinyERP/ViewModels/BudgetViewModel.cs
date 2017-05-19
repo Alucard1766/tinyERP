@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -255,6 +256,7 @@ namespace tinyERP.UI.ViewModels
             get { return _deleteTransactionsCommand ?? (_deleteTransactionsCommand = new RelayCommand(DeleteTransactions, CanDeleteTransactions)); }
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] //null-reference tested in CanDeleteTransactions-method
         private void DeleteTransactions(object selectedItems)
         {
             var selectedTransactions = (selectedItems as IEnumerable)?.Cast<Transaction>().ToList();
@@ -304,15 +306,44 @@ namespace tinyERP.UI.ViewModels
 
         private void NewBudget()
         {
-            var vm = new EditBudgetViewModel(new UnitOfWorkFactory());
+            var budget = new Budget();
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory(), budget);
             vm.Init();
             var window = new EditBudgetView(vm);
-            window.ShowDialog();
-            if (vm.NewBudget != null)
+
+            if (window.ShowDialog() ?? false)
             {
-                BudgetList.Add(vm.NewBudget);
-                Budget = vm.NewBudget;
+                BudgetList.Add(budget);
+                Budget = budget;
             }
+        }
+
+        #endregion
+
+        #region Edit-Budget-Command
+
+        private RelayCommand _editBudgetCommand;
+
+        public ICommand EditBudgetCommand
+        {
+            get { return _editBudgetCommand ?? (_editBudgetCommand = new RelayCommand(param => EditBudget(), param => CanEditBudget())); }
+        }
+
+        private void EditBudget()
+        {
+            var vm = new EditBudgetViewModel(new UnitOfWorkFactory(), Budget);
+            vm.Init();
+            var window = new EditBudgetView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
+                OnPropertyChanged(nameof(Budget));
+            }
+        }
+
+        private bool CanEditBudget()
+        {
+            return Budget != null;
         }
 
         #endregion

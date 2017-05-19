@@ -35,16 +35,44 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="0">
+            <Button Tag="0"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource SelectedTabConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                        <Binding Path="SelectedTab"></Binding>
+                    </MultiBinding>
+                </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="Cash" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="1" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="1">
+            <Button Grid.Row="1" Tag="1"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource SelectedTabConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                        <Binding Path="SelectedTab"></Binding>
+                    </MultiBinding>
+                </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="Archive" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="2" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="2">
+            <Button Grid.Row="2" Tag="2"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource SelectedTabConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                        <Binding Path="SelectedTab"></Binding>
+                    </MultiBinding>
+                </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="AccountMultiple" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="3" Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Click="TabHandler" Tag="3">
+            <Button Grid.Row="3" Tag="3"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource SelectedTabConverter}">
+                        <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
+                        <Binding Path="SelectedTab"></Binding>
+                    </MultiBinding>
+                </Button.IsEnabled>
                 <iconPacks:PackIconFontAwesome Kind="PencilSquareOutline" Width="50" Height="50" />
             </Button>
         </Grid>
@@ -52,7 +80,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TabControl Grid.Column="0" Grid.Row="0" x:Name="MainTabControl">
+            <TabControl Grid.Column="0" Grid.Row="0" x:Name="MainTabControl" SelectedIndex="{Binding SelectedTab}">
                 <TabItem>
                     <views:BudgetView DataContext="{Binding Path=BudgetViewModel, Mode=OneWay}"/>
                 </TabItem>

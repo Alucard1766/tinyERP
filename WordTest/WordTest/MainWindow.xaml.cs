@@ -41,7 +41,7 @@ namespace WordTest
                     docText = sr.ReadToEnd();
                 }
 
-                Regex regexText = new Regex("{Name}");
+                Regex regexText = new Regex("\\[Name\\]");
                 docText = regexText.Replace(docText, "TinyERP");
 
                 using (StreamWriter sw = new StreamWriter(wordDoc.MainDocumentPart.GetStream(FileMode.Create)))

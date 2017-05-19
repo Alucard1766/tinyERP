@@ -22,112 +22,121 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Border BorderThickness="0 0 1 0" BorderBrush="Black"/>
-
-        <DockPanel Grid.Column="0">
-            <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Budgetverwaltung</TextBlock>
-            <ComboBox ItemsSource="{Binding BudgetList}" SelectedItem="{Binding Budget}" DisplayMemberPath="Year"
-                      ToolTip="Budgetperiode auswählen" Margin="10" DockPanel.Dock="Top" HorizontalContentAlignment="Center" />
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <StackPanel>
-                    <TextBlock Text="Budgetierte Ausgaben:" Margin="10,0,10,0" />
-                    <TextBlock Text="Budgetierte Einnahmen:" Margin="10,0,10,0" />
-                    <TextBlock Text="Ausgaben:" Margin="10,0,10,0" />
-                    <TextBlock Text="Einnahmen:" Margin="10,0,10,0" />
+    <DockPanel Background="White">
+        <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Budgetverwaltung</TextBlock>
+        <StackPanel DockPanel.Dock="Top" Margin="10,0">
+            <Label Content="Wählen Sie die gewünschte Budgetperiode aus" Margin="0,10,0,0" Style="{StaticResource HeaderLabel}"/>
+            <Border BorderBrush="{StaticResource AccentColorBrush2}" BorderThickness="2px" Padding="5,10">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox ItemsSource="{Binding BudgetList}" SelectedItem="{Binding Budget}" DisplayMemberPath="Year"
+                              ToolTip="Budgetjahr auswählen" Width="400" HorizontalAlignment="Left"/>
+                    <Label Content="Von" Margin="50,0,0,0"/>
+                    <DatePicker SelectedDate="{Binding FromDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Width="150" VerticalAlignment="Center"/>
+                    <Label Content="Bis" Margin="20,0,0,0"/>
+                    <DatePicker SelectedDate="{Binding ToDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Width="150" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding Budget.Expenses, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding Budget.Revenue, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding AllExpensesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding AllRevenuesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
-                </StackPanel>
-            </StackPanel>
+            </Border>
+        </StackPanel>
 
-            <lvc:CartesianChart Height="200" Margin="10" DockPanel.Dock="Top" >
-                <lvc:CartesianChart.Series >
-                    <lvc:ColumnSeries Title=""  Values="{Binding BudgetChartValues}">
-                        <lvc:ColumnSeries.Fill>
-                            <SolidColorBrush Color="#FF00B000" Opacity="1"/>
-                        </lvc:ColumnSeries.Fill>
-                    </lvc:ColumnSeries>
-                </lvc:CartesianChart.Series>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Kategorien" Labels="{Binding Labels}"></lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Saldo"></lvc:Axis>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-            <TextBlock Height="23" TextWrapping="Wrap" Text="Wählen Sie eine Zeitspanne aus:" Margin="10,0,10,0" DockPanel.Dock="Top" />
-            <Grid Height="39" DockPanel.Dock="Top">
-                <DatePicker SelectedDate="{Binding FromDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Height="28" VerticalAlignment="Center" Margin="100,6,200,5"/>
-                <TextBlock TextWrapping="Wrap" Text="Von" VerticalAlignment="Center" Margin="74,13,0,13" HorizontalAlignment="Left" Height="13"/>
-                <DatePicker SelectedDate="{Binding ToDate}" DisplayDateStart="{Binding YearStart}" DisplayDateEnd="{Binding YearEnd}" Margin="290,6,10,5" VerticalAlignment="Center" Height="28"/>
-                <TextBlock Height="13" TextWrapping="Wrap" Text="Bis" Margin="270,13,115,13" TextAlignment="Center" VerticalAlignment="Center"/>
-            </Grid>
+        <TabControl Margin="10,50,10,0" controls:TabControlHelper.IsUnderlined="True" controls:ControlsHelper.HeaderFontSize="24">
+            <TabItem Header="Budgetübersicht">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0,10">
+                        <Label Content="Budget Zusammenfassung" Style="{StaticResource HeaderLabel}"/>
+                        <Border BorderBrush="{StaticResource AccentColorBrush2}" BorderThickness="2px" Padding="5,10">
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Budgetierte Ausgaben:" Margin="0,0,10,0" />
+                                    <TextBlock Text="Budgetierte Einnahmen:" Margin="0,0,10,0" />
+                                    <TextBlock Text="Effektive Ausgaben:" Margin="0,0,10,0" />
+                                    <TextBlock Text="Effektive Einnahmen:" Margin="0,0,10,0" />
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding Budget.Expenses, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="{Binding Budget.Revenue, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="{Binding AllExpensesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="{Binding AllRevenuesTotal, StringFormat=C}" Margin="10,0,10,0" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" DockPanel.Dock="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
-                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
-                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
-                    <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
-                </Button>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" DockPanel.Dock="Bottom">
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen">
+                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
+                        </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten">
+                            <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                        </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen">
+                            <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
+                        </Button>
+                    </StackPanel>
+                    <Border>
 
+                    </Border>
+                    <DockPanel Margin="0,30,0,0">
+                        <Label Content="Einnahmen und Ausgaben pro Kategorie" FontWeight="Bold" DockPanel.Dock="Top"/>
+                        <lvc:CartesianChart Margin="10">
+                            <lvc:CartesianChart.Series >
+                                <lvc:ColumnSeries Title=""  Values="{Binding BudgetChartValues}" Fill="{StaticResource AccentColorBrush2}"/>
+                            </lvc:CartesianChart.Series>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Kategorien" Labels="{Binding Labels}"></lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Saldo"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </DockPanel>
+                </DockPanel>
+            </TabItem>
 
-        </DockPanel>
+            <TabItem Header="Buchungen">
+                <DockPanel Margin="0,10">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBox x:Name="SearchBox" Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..." ToolTip="Suche nach Bezeichnung oder Kategorie">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text}"></KeyBinding>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
+                            <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
+                        </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
+                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
+                        </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten">
+                            <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
+                        </Button>
+                        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
+                            <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
+                        </Button>
+                    </StackPanel>
 
-        <DockPanel Grid.Column="1" Margin="10">
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBox x:Name="SearchBox" Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..." ToolTip="Suche nach Bezeichnung oder Kategorie">
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text}"></KeyBinding>
-                    </TextBox.InputBindings>
-                </TextBox>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchTransactionsCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
-                    <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen">
-                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten">
-                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen">
-                    <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
-                </Button>
-            </StackPanel>
-
-            <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" SelectedItem="{Binding SelectedTransaction}" IsReadOnly="True"
-                      CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
-                <DataGrid.Columns>
-                    <DataGridTextColumn MinWidth="80" Width="*" Header="Datum" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"/>
-                    <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
-                    <DataGridTextColumn MinWidth="120" Width="*" Header="Kategorie" Binding="{Binding Category.Name}"/>
-                    <DataGridTextColumn MinWidth="80" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
-                    <DataGridTextColumn MinWidth="160" Width="*" Header="Einnahme/Ausgabe" Binding="{Binding IsRevenue,Converter={StaticResource MyBooleanToRevenueConverter}}"/>
-                    <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
-                    <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
-                </DataGrid.Columns>
-                <DataGrid.InputBindings>
-                    <KeyBinding Key="Enter"
-                                Command="{Binding EditTransactionCommand}"
-                                CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
-                    <KeyBinding Key="Delete"
-                            Command="{Binding DeleteTransactionsCommand}"
-                            CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
-                </DataGrid.InputBindings>
-            </DataGrid>
-        </DockPanel>
-    </Grid>
+                    <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" SelectedItem="{Binding SelectedTransaction}" IsReadOnly="True"
+                              CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn MinWidth="80" Width="*" Header="Datum" Binding="{Binding Date, StringFormat={}{0:dd.MM.yyyy}}"/>
+                            <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Name}"/>
+                            <DataGridTextColumn MinWidth="120" Width="*" Header="Kategorie" Binding="{Binding Category.Name}"/>
+                            <DataGridTextColumn MinWidth="80" Width="*" Header="Betrag" Binding="{Binding Amount}"/>
+                            <DataGridTextColumn MinWidth="160" Width="*" Header="Einnahme/Ausgabe" Binding="{Binding IsRevenue,Converter={StaticResource MyBooleanToRevenueConverter}}"/>
+                            <DataGridTextColumn MinWidth="100" Width="*" Header="Privatanteil" Binding="{Binding PrivatePart}"/>
+                            <DataGridTextColumn MinWidth="140" Width="*" Header="Bemerkungen" Binding="{Binding Comment}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Enter"
+                                        Command="{Binding EditTransactionCommand}"
+                                        CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                            <KeyBinding Key="Delete"
+                                        Command="{Binding DeleteTransactionsCommand}"
+                                        CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
+                        </DataGrid.InputBindings>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </UserControl>

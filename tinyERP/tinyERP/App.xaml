@@ -18,11 +18,14 @@
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/CircleButtonExtend.xaml"/>
+                <ResourceDictionary Source="Resources/DataGridTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/HeaderLabel.xaml"/>
                 
                 <ResourceDictionary>
                     <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>
                     <converter:EnumToDescriptionConverter x:Key="MyEnumToDescriptionConverter"/>
                     <converter:LevelToMarginConverter x:Key="MyLevelToMarginConverter"/>
+                    <converter:SelectedTabToActiveButtonMultiConverter x:Key="SelectedTabConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

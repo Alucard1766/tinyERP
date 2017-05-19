@@ -51,16 +51,11 @@
                             </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ellipse" Property="Opacity" Value="1" />
+                            <Setter Property="Background" Value="{DynamicResource HighlightBrush}" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="False">
-                            <Setter TargetName="ellipse" Property="Opacity" Value="0.7" />
-                        </Trigger>
-                        <!--
-                        <Trigger Property="IsFocused" Value="True">
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
-                            <Setter TargetName="ellipse" Property="Opacity" Value="0.3" />
-                        </Trigger> -->
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
