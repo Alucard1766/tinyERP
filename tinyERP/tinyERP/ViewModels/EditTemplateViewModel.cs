@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
-using tinyERP.Dal;
-using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Resources;
-using tinyERP.UI.Views;
+using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -43,35 +38,77 @@ namespace tinyERP.UI.ViewModels
             get { return _invoice; }
             set { SetProperty(ref _invoice, value, nameof(Invoice)); }
         }
+
         public override void Load()
         {
-            
+
         }
 
         #region Upload-Template-Command
 
         public ICommand UploadTemplateCommand
         {
-            get { return _uploadTemplateCommand ?? (_uploadTemplateCommand = new RelayCommand(UploadTemplate, CanUploadTemplate)); }
+            get
+            {
+                return _uploadTemplateCommand ?? (_uploadTemplateCommand =
+                           new RelayCommand(UploadTemplate, CanUploadTemplate));
+            }
         }
 
         private void UploadTemplate(object templateType)
         {
-            var template = (TemplateType)templateType;
-
-            switch (template)
+            var template = (TemplateType) templateType;
+            try
             {
-                case TemplateType.Offer:
-                    FileAccess.Add(Offer, FileAccess.TemplatePath);
-                    break;
-                case TemplateType.Confirmation:
-                    FileAccess.Add(Confirmation, FileAccess.TemplatePath);
-                    break;
-                case TemplateType.Invoice:
-                    FileAccess.Add(Invoice, FileAccess.TemplatePath);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid Template Instance");
+                switch (template)
+                {
+                    case TemplateType.Offer:
+                        CheckIfWordFile(Offer);
+                        Properties.Settings.Default.OfferTemplatePath = 
+                            FileAccess.Add(Offer, FileAccess.TemplatePath);
+                        break;
+                    case TemplateType.Confirmation:
+                        CheckIfWordFile(Confirmation);
+                        Properties.Settings.Default.ConfirmationTemplatePath =
+                            FileAccess.Add(Confirmation, FileAccess.TemplatePath);
+                        break;
+                    case TemplateType.Invoice:
+                        CheckIfWordFile(Invoice);
+                        Properties.Settings.Default.InvoiceTemplatePath =
+                            FileAccess.Add(Invoice, FileAccess.TemplatePath);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid Template Instance");
+                }
+                Properties.Settings.Default.Save();
+                MessageBox.Show("Vorlage erfolgreich hochgeladen.");
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show(
+                    "Ein Fehler ist aufgetreten. Bitte vergewissern Sie sich, dass das Dokument " +
+                    "nicht von einem anderen Programm geöffnet ist und Sie die Leserechte dafür besitzen.");
+            }
+            catch (ArgumentNullException e)
+            {
+                MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
+            }
+        }
+
+        private void CheckIfWordFile(string filePath)
+        {
+            if (!(Path.GetExtension(filePath).ToLower().Equals(".docx") ||
+                  Path.GetExtension(filePath).ToLower().Equals(".doc")))
+            {
+                throw new ArgumentException("Ungültiger Dateityp, nur Word-Dokumente werden akzeptiert.");
             }
         }
 
