@@ -23,7 +23,7 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands ShowLastSeparator="False">
-            <Button Content="Meine Vorlagen" Command="{Binding EditTemplatesCommand}"></Button>
+            <Button Content="Vorlagen bearbeiten" Command="{Binding EditTemplatesCommand}"></Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     

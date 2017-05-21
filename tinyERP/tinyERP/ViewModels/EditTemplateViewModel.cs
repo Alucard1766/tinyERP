@@ -64,15 +64,15 @@ namespace tinyERP.UI.ViewModels
                 {
                     case TemplateType.Offer:
                         Properties.Settings.Default.OfferTemplatePath =
-                            FileAccess.Add(Offer, FileAccess.TemplatePath);
+                            FileAccess.Add(Offer, FileAccess.TemplatesDirectory);
                         break;
                     case TemplateType.Confirmation:
                         Properties.Settings.Default.ConfirmationTemplatePath =
-                            FileAccess.Add(Confirmation, FileAccess.TemplatePath);
+                            FileAccess.Add(Confirmation, FileAccess.TemplatesDirectory);
                         break;
                     case TemplateType.Invoice:
                         Properties.Settings.Default.InvoiceTemplatePath =
-                            FileAccess.Add(Invoice, FileAccess.TemplatePath);
+                            FileAccess.Add(Invoice, FileAccess.TemplatesDirectory);
                         break;
                     default:
                         throw new ArgumentException("Invalid Template Instance");
@@ -94,13 +94,9 @@ namespace tinyERP.UI.ViewModels
             {
                 MessageBox.Show(e.Message);
             }
-            catch (NullReferenceException e)
-            {
-                MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
-            }
         }
 
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] // argument null exception is caught in calling method
         private void CheckIfWordFile(string filePath)
         {
             if (!(Path.GetExtension(filePath).ToLower().Equals(".docx") ||
@@ -129,26 +125,40 @@ namespace tinyERP.UI.ViewModels
         private void ChooseFile(object templateType)
         {
             var openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+            try
             {
-                switch ((TemplateType)templateType)
+                if (openFileDialog.ShowDialog() == true)
                 {
-                    case TemplateType.Offer:
-                        CheckIfWordFile(Offer);
-                        Offer = openFileDialog.FileName;
-                        break;
-                    case TemplateType.Confirmation:
-                        CheckIfWordFile(Confirmation);
-                        Confirmation = openFileDialog.FileName;
-                        break;
-                    case TemplateType.Invoice:
-                        CheckIfWordFile(Invoice);
-                        Invoice = openFileDialog.FileName;
-                        break;
-                    default:
-                        throw new ArgumentException("Invalid Template Instance");
+                    switch ((TemplateType) templateType)
+                    {
+                        case TemplateType.Offer:
+                            var offer = openFileDialog.FileName;
+                            CheckIfWordFile(offer);
+                            Offer = offer;
+                            break;
+                        case TemplateType.Confirmation:
+                            var confirmation = openFileDialog.FileName;
+                            CheckIfWordFile(confirmation);
+                            Confirmation = confirmation;
+                            break;
+                        case TemplateType.Invoice:
+                            var invoice = openFileDialog.FileName;
+                            CheckIfWordFile(invoice);
+                            Invoice = invoice;
+                            break;
+                        default:
+                            throw new ArgumentException("Invalid Template Instance");
 
+                    }
                 }
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
             }
         }
 

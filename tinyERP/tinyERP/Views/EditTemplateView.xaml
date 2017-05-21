@@ -8,11 +8,11 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:resources="clr-namespace:tinyERP.UI.Resources"
     mc:Ignorable="d" 
-    d:DesignHeight="330" d:DesignWidth="400"    
+    d:DesignHeight="280" d:DesignWidth="400"    
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
     Title="Vorlagen bearbeiten"
-    Height="330"
+    Height="280"
     Width="400">
     <Grid Background="White">
         <Grid Margin="10,10,10,0" VerticalAlignment="Top">
@@ -29,7 +29,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage hochladen"
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage auswählen"
                          Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>
@@ -57,7 +57,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage hochladen"
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage auswählen"
                          Text="{Binding Confirmation, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>
@@ -85,7 +85,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage hochladen"
+                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage auswählen"
                          Text="{Binding Invoice, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                          IsReadOnly="True">
                     <TextBox.InputBindings>

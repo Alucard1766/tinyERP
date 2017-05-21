@@ -19,8 +19,8 @@ namespace tinyERP.Dal.Testing
         public static void InitializeBeforeAllTests(TestContext context)
         {
             File.Create(FileToAdd);
-            Directory.CreateDirectory(FileAccess.RepositoryPath);
-            File.Create(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
+            Directory.CreateDirectory(FileAccess.FilesDirectory);
+            File.Create(Path.Combine(FileAccess.FilesDirectory, FileToDelete));
         }
         [ClassCleanup]
         public static void CleanUpAfterAllTests()
@@ -28,9 +28,9 @@ namespace tinyERP.Dal.Testing
             TestEnvironmentHelper.InitializeTestData();
             File.Delete(FileToAdd);
             File.Delete(FileToDelete);
-            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToAdd));
-            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
-            Directory.Delete(FileAccess.RepositoryPath);
+            File.Delete(Path.Combine(FileAccess.FilesDirectory, FileToAdd));
+            File.Delete(Path.Combine(FileAccess.FilesDirectory, FileToDelete));
+            Directory.Delete(FileAccess.FilesDirectory);
         }
 
         [TestInitialize]
@@ -374,14 +374,14 @@ namespace tinyERP.Dal.Testing
         [TestMethod]
         public void AddFileTest()
         {
-            var fileName = FileAccess.Add(FileToAdd, FileAccess.RepositoryPath);
-            Assert.IsTrue(File.Exists(Path.Combine(FileAccess.RepositoryPath, fileName)));
+            var fileName = FileAccess.Add(FileToAdd, FileAccess.FilesDirectory);
+            Assert.IsTrue(File.Exists(Path.Combine(FileAccess.FilesDirectory, fileName)));
         }
 
         [TestMethod]
         public void DeleteFileTest()
         {
-            var file = Path.Combine(FileAccess.RepositoryPath, FileToDelete);
+            var file = Path.Combine(FileAccess.FilesDirectory, FileToDelete);
             Assert.IsTrue(File.Exists(file));
             FileAccess.Delete(FileToDelete);
             Assert.IsFalse(File.Exists(file));

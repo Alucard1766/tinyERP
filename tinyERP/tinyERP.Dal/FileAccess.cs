@@ -8,30 +8,32 @@ namespace tinyERP.Dal
 {
     public static class FileAccess
     {
-        public const string RepositoryPath = "Files";
-        public const string TemplatePath = "Templates";
+        public const string FilesDirectory = "Files";
+        public const string TemplatesDirectory = "Templates";
         private static readonly Random Rng = new Random();
         //Rng is defined here to prevent too many instantiations in rapid succession, which would potentially lead to same numbers generated
 
         public static string Add(string sourceFile, string targetDirectory)
         {
-            if(sourceFile == null)
+            if (sourceFile == null)
+            {
                 throw new ArgumentNullException($"Keinen Pfad angegeben");
+            }
             var destinationFileName = Path.GetFileName(sourceFile);
             var destination = Path.Combine(targetDirectory, destinationFileName);
 
             Directory.CreateDirectory(targetDirectory);
-            if (targetDirectory.Equals(RepositoryPath))
+            if (targetDirectory.Equals(FilesDirectory))
             {
                 if (File.Exists(destination))
                 {
-                    MakePathUnique(targetDirectory, ref destinationFileName);
+                    MakePathUnique(ref destination);
                 }
-                File.Copy(sourceFile, Path.Combine(targetDirectory, destinationFileName));
+                File.Copy(sourceFile, destination);
             }
-            else if (targetDirectory.Equals(TemplatePath))
+            else if (targetDirectory.Equals(TemplatesDirectory))
             {
-                File.Copy(sourceFile, Path.Combine(targetDirectory, destinationFileName), true);
+                File.Copy(sourceFile, destination, true);
             }
             else
             {
@@ -42,26 +44,26 @@ namespace tinyERP.Dal
 
         public static void Delete(string fileName)
         {
-            var file = Path.Combine(RepositoryPath, fileName);
+            var file = Path.Combine(FilesDirectory, fileName);
             File.Delete(file);
         }
 
         public static void Open(string fileName)
         {
-            var file = Path.Combine(RepositoryPath, fileName);
+            var file = Path.Combine(FilesDirectory, fileName);
             Process.Start(file);
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method
-        private static void MakePathUnique(string targetDirectory, ref string fileName)
+        private static void MakePathUnique(ref string destination)
         {
-            var fileWithoutExtension  = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName));
-            var extension = Path.GetExtension(fileName);
+            var pathWithoutExtension  = Path.Combine(FilesDirectory, Path.GetFileNameWithoutExtension(destination));
+            var extension = Path.GetExtension(destination);
             do
             {
-                fileName = $"{fileWithoutExtension}_{RandomSuffix()}{extension}";
+                destination = $"{pathWithoutExtension}_{RandomSuffix()}{extension}";
             }
-            while (File.Exists(fileName));
+            while (File.Exists(destination));
         }
 
         private static string RandomSuffix()
