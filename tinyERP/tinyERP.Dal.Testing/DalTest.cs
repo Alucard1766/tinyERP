@@ -257,6 +257,13 @@ namespace tinyERP.Dal.Testing
             Assert.AreEqual(2, context.Orders.Count());
         }
 
+        [TestMethod]
+        public void GetOrdersWithCustomersTest()
+        {
+            var orders = unitOfWork.Orders.GetOrdersWithCustomers();
+            Assert.AreEqual(3, orders.Count(o => o.Customer != null));
+        }
+
         #endregion
 
         #region OrderConfirmation-Tests
@@ -296,6 +303,20 @@ namespace tinyERP.Dal.Testing
             unitOfWork.Transactions.Remove(context.Transactions.First());
             unitOfWork.Complete();
             Assert.AreEqual(4, context.Transactions.Count());
+        }
+
+        [TestMethod]
+        public void GetTransactionsWithCategoriesTest()
+        {
+            var transactions = unitOfWork.Transactions.GetTransactionsWithCategories();
+            Assert.AreEqual(5, transactions.Count(t => t.Category != null));
+        }
+
+        [TestMethod]
+        public void GetTransactionsWithCategoriesFilteredByTest()
+        {
+            var transactions = unitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy("Second");
+            Assert.AreEqual(2, transactions.Count(t => t.Category != null));
         }
 
         #endregion
