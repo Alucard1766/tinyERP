@@ -23,20 +23,20 @@ namespace tinyERP.Dal.Entities
         [Required]
         public DateTime StateModificationDate { get; set; } = DateTime.Today;
 
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
         [Required]
         public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
 
-        public virtual OrderConfirmation OrderConfirmation { get; set; }
         public virtual ICollection<Offer> Offers { get; set; }
+
         public virtual ICollection<Invoice> Invoices { get; set; }
-        
 
-
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public virtual OrderConfirmation OrderConfirmation { get; set; }
 
         [NotMapped]
         public string OrderNumber => Id != 0 ? $"{CreationDate.Year % 100}-{Id:000}" : "Wird automatisch generiert";
