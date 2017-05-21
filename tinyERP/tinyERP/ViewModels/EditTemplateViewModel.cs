@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -14,8 +15,6 @@ namespace tinyERP.UI.ViewModels
         private string _offer;
         private string _confirmation;
         private string _invoice;
-        private RelayCommand _uploadTemplateCommand;
-        private RelayCommand _chooseFileCommand;
 
         public EditTemplateViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -46,34 +45,32 @@ namespace tinyERP.UI.ViewModels
 
         #region Upload-Template-Command
 
+        private RelayCommand _uploadTemplateCommand;
+
         public ICommand UploadTemplateCommand
         {
             get
             {
                 return _uploadTemplateCommand ?? (_uploadTemplateCommand =
-                           new RelayCommand(UploadTemplate, CanUploadTemplate));
+                    new RelayCommand(UploadTemplate, CanUploadTemplate));
             }
         }
 
         private void UploadTemplate(object templateType)
         {
-            var template = (TemplateType) templateType;
             try
             {
-                switch (template)
+                switch ((TemplateType)templateType)
                 {
                     case TemplateType.Offer:
-                        CheckIfWordFile(Offer);
-                        Properties.Settings.Default.OfferTemplatePath = 
+                        Properties.Settings.Default.OfferTemplatePath =
                             FileAccess.Add(Offer, FileAccess.TemplatePath);
                         break;
                     case TemplateType.Confirmation:
-                        CheckIfWordFile(Confirmation);
                         Properties.Settings.Default.ConfirmationTemplatePath =
                             FileAccess.Add(Confirmation, FileAccess.TemplatePath);
                         break;
                     case TemplateType.Invoice:
-                        CheckIfWordFile(Invoice);
                         Properties.Settings.Default.InvoiceTemplatePath =
                             FileAccess.Add(Invoice, FileAccess.TemplatePath);
                         break;
@@ -103,6 +100,7 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         private void CheckIfWordFile(string filePath)
         {
             if (!(Path.GetExtension(filePath).ToLower().Equals(".docx") ||
@@ -114,13 +112,14 @@ namespace tinyERP.UI.ViewModels
 
         private bool CanUploadTemplate(object filePath)
         {
-            // ReSharper disable once PossibleNullReferenceException - won't be null, because of prior condition
             return filePath != null;
         }
 
         #endregion
 
         #region ChooseFile-Command
+
+        private RelayCommand _chooseFileCommand;
 
         public ICommand ChooseFileCommand
         {
@@ -132,16 +131,18 @@ namespace tinyERP.UI.ViewModels
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                var template = (TemplateType) templateType;
-                switch (template)
+                switch ((TemplateType)templateType)
                 {
                     case TemplateType.Offer:
+                        CheckIfWordFile(Offer);
                         Offer = openFileDialog.FileName;
                         break;
                     case TemplateType.Confirmation:
+                        CheckIfWordFile(Confirmation);
                         Confirmation = openFileDialog.FileName;
                         break;
                     case TemplateType.Invoice:
+                        CheckIfWordFile(Invoice);
                         Invoice = openFileDialog.FileName;
                         break;
                     default:
