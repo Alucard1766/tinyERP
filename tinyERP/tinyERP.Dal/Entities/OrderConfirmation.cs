@@ -5,7 +5,6 @@ namespace tinyERP.Dal.Entities
 {
     public class OrderConfirmation
     {
-
         [Required]
         public string OrderConfNumber { get; set; }
 

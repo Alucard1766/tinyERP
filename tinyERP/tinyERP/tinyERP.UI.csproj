@@ -89,12 +89,15 @@
     <Compile Include="Resources\EnumToDescriptionConverter.cs" />
     <Compile Include="Resources\BooleanToRevenueConverter.cs" />
     <Compile Include="Resources\SelectedTabToActiveButtonMultiConverter.cs" />
+    <Compile Include="ViewModels\CategorySelectionViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditDocumentViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
     <Compile Include="ViewModels\InvoiceCreationViewModel.cs" />
+    <Compile Include="ViewModels\OfferCreationViewModel.cs" />
+    <Compile Include="ViewModels\OrderConfirmationCreationViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\EditTransactionViewModel.cs" />
     <Compile Include="ViewModels\BudgetViewModel.cs" />
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ListviewWithoutItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategorySelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,6 +162,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\CategorySelectionView.xaml.cs">
+      <DependentUpon>CategorySelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditCustomerView.xaml.cs">
       <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +199,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OfferCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrderConfirmationCreationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -213,6 +231,12 @@
   <ItemGroup>
     <Compile Include="Views\InvoiceCreationView.xaml.cs">
       <DependentUpon>InvoiceCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OfferCreationView.xaml.cs">
+      <DependentUpon>OfferCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrderConfirmationCreationView.xaml.cs">
+      <DependentUpon>OrderConfirmationCreationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrderView.xaml.cs">
       <DependentUpon>OrderView.xaml</DependentUpon>

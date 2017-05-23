@@ -7,13 +7,13 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
-    x:Class="tinyERP.UI.Views.InvoiceCreationView"
+    x:Class="tinyERP.UI.Views.OrderConfirmationCreationView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
     Language="de-CH"
-    Title="Rechnung hinzufügen"
-    Width="450" MinWidth="450" Height="200" MinHeight="200" MaxHeight="200">
+    Title="Auftragsbestätigung hinzufügen"
+    Width="250" MinWidth="250" Height="200" MinHeight="200" MaxHeight="200">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -31,17 +31,14 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Rechnungsbetrag</Label>
-            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsbetrag" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Amount, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
-            <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Rechnungsnummer</Label>
-            <TextBox Grid.Row="0" Grid.Column="1" controls:TextBoxHelper.Watermark="Rechnungsnummer" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding InvoiceNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Rechnung speichern"
+            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Auftragsbestätigungsnummer</Label>
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Auftragsbestätigungsnummer" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding OrderConfNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Auftragsbestätigung speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
                 </Button>

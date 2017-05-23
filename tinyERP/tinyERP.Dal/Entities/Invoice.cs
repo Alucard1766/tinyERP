@@ -29,5 +29,8 @@ namespace tinyERP.Dal.Entities
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        [NotMapped]
+        public bool IsNotPayed => !IsPayed;
     }
 }
