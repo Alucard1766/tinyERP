@@ -33,23 +33,23 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Name</Label>
-            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Name" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Name, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Drucker_Beleg1" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Name}" />
             <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Ausstellungsdatum</Label>
             <DatePicker Grid.Row="0" Grid.Column="1" ToolTip="Ausstellungsdatum auswählen" Margin="10" VerticalAlignment="Bottom"
                         SelectedDate="{Binding IssueDate}" />
             
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Schlagworte</Label>
-            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Schlagworte" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Tag, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="1" Grid.Column="0" controls:TextBoxHelper.Watermark="Steuern, Büro" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Tag}" />
             <Label Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">Datei</Label>
             <Grid Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Datei"
-                         Text="{Binding RelativePath, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" IsReadOnly="True">
+                <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="C:\Users\maxmuster\Beleg.pdf"
+                         Text="{Binding RelativePath}" IsReadOnly="True">
                     <TextBox.InputBindings>
                         <MouseBinding Command="{Binding ChooseFileCommand}" MouseAction="LeftClick" />
                     </TextBox.InputBindings>

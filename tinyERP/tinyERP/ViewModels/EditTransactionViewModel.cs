@@ -20,14 +20,15 @@ namespace tinyERP.UI.ViewModels
         private string _name;
         private double? _amount;
         private int? _privatPart;
+        private bool _isRevenue;
 
         public EditTransactionViewModel(IUnitOfWorkFactory factory, Transaction transaction) : base(factory)
         {
             this.transaction = transaction;
             Name = this.transaction.Name;
-            Amount = this.transaction.Amount.ToString(CultureInfo.InvariantCulture);
+            Amount = (this.transaction.Amount.CompareTo(0) == 0) ? null : this.transaction.Amount.ToString(CultureInfo.InvariantCulture);
             IsRevenue = this.transaction.IsRevenue;
-            PrivatPart = this.transaction.PrivatePart.ToString();
+            PrivatPart = (this.transaction.PrivatePart.CompareTo(0) == 0) ? null : this.transaction.PrivatePart.ToString();
             Date = this.transaction.Date;
             Comment = this.transaction.Comment;
             budget = this.transaction.Budget;
@@ -64,7 +65,14 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public bool IsRevenue { get; set; }
+        public bool IsRevenue
+        {
+            get { return _isRevenue; }
+            set
+            {
+                SetProperty(ref _isRevenue, value, nameof(IsRevenue), nameof(IsExpense));
+            }
+        }
 
         public bool IsExpense => !IsRevenue;
 
@@ -146,7 +154,7 @@ namespace tinyERP.UI.ViewModels
                 transaction.Name = Name;
                 transaction.Amount = _amount.GetValueOrDefault();
                 transaction.IsRevenue = IsRevenue;
-                transaction.PrivatePart = _privatPart.GetValueOrDefault();
+                transaction.PrivatePart = IsRevenue ? 0 : _privatPart.GetValueOrDefault();
                 transaction.Date = Date;
                 transaction.Comment = Comment;
                 transaction.Budget = budget;

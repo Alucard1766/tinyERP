@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using MvvmValidation;
@@ -9,13 +10,21 @@ namespace tinyERP.UI.ViewModels
 {
     internal class EditBudgetViewModel : ViewModelBase
     {
+        private Budget budget;
+
         private int? _year;
         private double? _revenue;
-        private double? _expense;
+        private double? _expenses;
 
-        public EditBudgetViewModel(IUnitOfWorkFactory factory) : base(factory)
+        public EditBudgetViewModel(IUnitOfWorkFactory factory, Budget budget) : base(factory)
         {
+            this.budget = budget;
+            Year = (this.budget.Year == 0) ? null : this.budget.Year.ToString();
+            Revenue = (this.budget.Revenue.CompareTo(0) == 0) ? null : this.budget.Revenue.ToString(CultureInfo.CurrentCulture);
+            Expenses = (this.budget.Expenses.CompareTo(0) == 0) ? null : this.budget.Expenses.ToString(CultureInfo.CurrentCulture);
         }
+
+        public bool IsNewBudget => this.budget.Id == 0;
 
         public string Year
         {
@@ -32,7 +41,7 @@ namespace tinyERP.UI.ViewModels
                     int.TryParse(value, out local);
                     _year = local;
                 }
-                OnPropertyChanged(nameof(Year));
+
                 Validator.Validate(nameof(Year));
             }
         }
@@ -53,33 +62,29 @@ namespace tinyERP.UI.ViewModels
                     _revenue = local;
                 }
 
-                OnPropertyChanged(nameof(Revenue));
                 Validator.Validate(nameof(Revenue));
             }
         }
 
-        public string Expense
+        public string Expenses
         {
-            get { return _expense.ToString(); }
+            get { return _expenses.ToString(); }
             set
             {
                 if (value == null)
                 {
-                    _expense = null;
+                    _expenses = null;
                 }
                 else
                 {
                     double local;
                     double.TryParse(value, out local);
-                    _expense = local;
+                    _expenses = local;
                 }
 
-                OnPropertyChanged(nameof(Expense));
-                Validator.Validate(nameof(Expense));
+                Validator.Validate(nameof(Expenses));
             }
         }
-
-        public Budget NewBudget { get; set; }
 
         public override void Load()
         {
@@ -89,45 +94,41 @@ namespace tinyERP.UI.ViewModels
         private void AddRules()
         {
             Validator.AddRule(nameof(Year), () => RuleResult.Assert(_year != null && _year > 1900, "Das Jahr muss grösser sein als 1900"));
+            Validator.AddRule(nameof(Year), () => RuleResult.Assert(_year <= 9999, "Das Jahr muss kleiner sein als 10'000"));
             Validator.AddRule(nameof(Revenue),
                 () => RuleResult.Assert(_revenue != null && _revenue >= 0, "Die Einnahmen müssen positiv sein"));
-            Validator.AddRule(nameof(Expense),
-                () => RuleResult.Assert(_expense != null && _expense >= 0, "Die Ausgaben müssen positiv sein"));
+            Validator.AddRule(nameof(Expenses),
+                () => RuleResult.Assert(_expenses != null && _expenses >= 0, "Die Ausgaben müssen positiv sein"));
             Validator.AddRule(nameof(Year), 
-                () => RuleResult.Assert(UnitOfWork.Budgets.GetBudgetByYear(new DateTime(_year.GetValueOrDefault(), 1, 1)) == null, 
-                "Zu dem ausgewählten Jahr existiert bereits ein Budget"));
+                () => RuleResult.Assert(!IsNewBudget || UnitOfWork.Budgets.GetBudgetByYear(new DateTime(_year.GetValueOrDefault(), 1, 1)) == null, 
+                    "Zu dem ausgewählten Jahr existiert bereits ein Budget"));
         }
 
-        #region New-Command
+        #region Save-Command
 
-        private RelayCommand _newCommand;
+        private RelayCommand _saveCommand;
 
-        public ICommand NewCommand
+        public ICommand SaveCommand
         {
-            get { return _newCommand ?? (_newCommand = new RelayCommand(New)); }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(Save)); }
         }
 
-        private void New(object window)
+        private void Save(object window)
         {
             var validationResult = Validator.ValidateAll();
             if (validationResult.IsValid)
             {
-                var budget = new Budget();
                 budget.Year = _year.GetValueOrDefault();
-                budget.Expenses = _expense.GetValueOrDefault();
                 budget.Revenue = _revenue.GetValueOrDefault();
-                UnitOfWork.Budgets.Add(budget);
+                budget.Expenses = _expenses.GetValueOrDefault();
+
+                if (IsNewBudget)
+                    budget = UnitOfWork.Budgets.Add(budget);
 
                 if (UnitOfWork.Complete() > 0)
-                {
-                    NewBudget = budget;
-                    ((Window)window).Close();
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Die Buchung konnte nicht erfasst werden, versuchen Sie es später nocheinmal oder kontaktieren Sie unseren Support für weitere Unterstützung");
-                }
+                    ((Window)window).DialogResult = true;
+
+                ((Window)window).Close();
             }
         }
 

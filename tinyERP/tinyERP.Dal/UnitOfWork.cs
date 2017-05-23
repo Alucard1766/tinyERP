@@ -40,9 +40,7 @@ namespace tinyERP.Dal
 
         public IInvoiceRepository Invoices => _invoices ?? (_invoices = new InvoiceRepository(context));
 
-        public IOrderConfirmationRepository OrderConfirmations => _orderConfirmations ??
-                                                                  (_orderConfirmations =
-                                                                      new OrderConfirmationRepository(context));
+        public IOrderConfirmationRepository OrderConfirmations => _orderConfirmations ?? (_orderConfirmations = new OrderConfirmationRepository(context));
 
         public int Complete()
         {

@@ -17,111 +17,40 @@ namespace tinyERP.TestEnvrionment
         {
             using (TinyErpContext context = new TinyErpContext())
             {
-                var budget = context.Budgets.Add(new Budget { Year = 2017, Expenses = 1000.0, Revenue = 1200.0});
-                var category = context.Categories.Add(new Category { Name = "Aufrag" });
-                var transaction = context.Transactions.Add(
-                    new Transaction
-                    {
-                        Name = "First Transaction 2017",
-                        Amount = 200.0,
-                        IsRevenue = true,
-                        PrivatePart = 50,
-                        Date = new DateTime(2017, 2, 3),
-                        Comment = "Comment",
-                        BudgetId = budget.Id,
-                        CategoryId = category.Id
-                    });
-                var customer = context.Customers.Add(
-                    new Customer
-                    {
-                        FirstName = "Max",
-                        LastName = "Muster",
-                        City = "Zürich",
-                        Company = "HSR",
-                        Email = "max.muster@hsr.ch",
-                        Street = "Rappistr. 10",
-                        Zip = 8000
-                    });
-                var customerHistory = context.CustomerHistories.Add(
-                    new CustomerHistory
-                    {
-                        Text = "Kunde via Internet gefunden.",
-                        Date = new DateTime(2017,2,3),
-                        CustomerId = customer.Id
-
-                    });
-                var order = context.Orders.Add(new Order { Title = "Order", CustomerId = customer.Id});
-                var document = context.Documents.Add(new Document
-                {
-                    Name = "Quittung 1",
-                    RelativePath = "qu1.docx",
-                    IssueDate = new DateTime(2017, 2, 2)
-                });
-                var offer = context.Offers.Add(new Offer
-                {
-                    OfferNumber = "ONr",
-                    DocumentId = document.Id,
-                    OrderId = order.Id
-                });
-                var invoice = context.Invoices.Add(new Invoice
-                {
-                    Amount = 100.0,
-                    InvoiceNumber = "Invoice",
-                    DocumentId = document.Id,
-                    IsPayed = true,
-                    OrderId = order.Id
-                });
-
-                context.SaveChanges();
-            }
-
-            using (TinyErpContext context = new TinyErpContext())
-            {
                 var budgetTableName = context.GetTableName<Budget>();
-                var transactionTableName = context.GetTableName<Transaction>();
                 var categoryTableName = context.GetTableName<Category>();
                 var customerTableName = context.GetTableName<Customer>();
                 var customerHistoryTableName = context.GetTableName<CustomerHistory>();
                 var documentTableName = context.GetTableName<Document>();
-                var orderTableName = context.GetTableName<Order>();
-                var offerTableName = context.GetTableName<Offer>();
                 var invoiceTableName = context.GetTableName<Invoice>();
+                var offerTableName = context.GetTableName<Offer>();
+                var orderTableName = context.GetTableName<Order>();
                 var orderConfirmationTableName = context.GetTableName<OrderConfirmation>();
+                var transactionTableName = context.GetTableName<Transaction>();
 
                 try
                 {
                     context.DeleteAllRecords(offerTableName);
                     context.DeleteAllRecords(invoiceTableName);
                     context.DeleteAllRecords(orderConfirmationTableName);
-                    context.DeleteAllRecords(budgetTableName);
+                    context.DeleteAllRecords(orderTableName);
+                    context.DeleteAllRecords(customerHistoryTableName);
+                    context.DeleteAllRecords(customerTableName);
+                    context.DeleteAllRecords(documentTableName);
                     context.DeleteAllRecords(transactionTableName);
                     context.DeleteAllRecords(categoryTableName);
-                    context.DeleteAllRecords(orderTableName);
-                    context.DeleteAllRecords(customerTableName);
-                    context.DeleteAllRecords(customerHistoryTableName);
-                    context.DeleteAllRecords(documentTableName);
-                    
-                    context.SetAutoIncrementOnTable(budgetTableName, true);
-                    context.SetAutoIncrementOnTable(transactionTableName, true);
-                    context.SetAutoIncrementOnTable(categoryTableName, true);
-                    context.SetAutoIncrementOnTable(documentTableName, true);
-                    context.SetAutoIncrementOnTable(customerTableName,true);
-                    context.SetAutoIncrementOnTable(customerHistoryTableName, true);
-                    context.SetAutoIncrementOnTable(orderTableName, true);
-                    context.SetAutoIncrementOnTable(offerTableName, true);
-                    context.SetAutoIncrementOnTable(invoiceTableName, true);
-                    context.SetAutoIncrementOnTable(orderConfirmationTableName, true);
+                    context.DeleteAllRecords(budgetTableName);
 
                     context.ResetEntitySeed(budgetTableName);
-                    context.ResetEntitySeed(transactionTableName);
                     context.ResetEntitySeed(categoryTableName);
                     context.ResetEntitySeed(customerTableName);
                     context.ResetEntitySeed(customerHistoryTableName);
                     context.ResetEntitySeed(documentTableName);
-                    context.ResetEntitySeed(orderTableName);
-                    context.ResetEntitySeed(offerTableName);
                     context.ResetEntitySeed(invoiceTableName);
+                    context.ResetEntitySeed(offerTableName);
+                    context.ResetEntitySeed(orderTableName);
                     context.ResetEntitySeed(orderConfirmationTableName);
+                    context.ResetEntitySeed(transactionTableName);
 
                     context.Budgets.AddRange(Budgets);
                     context.Categories.AddRange(Categories);
@@ -140,18 +69,6 @@ namespace tinyERP.TestEnvrionment
                 {
                     throw new ApplicationException("Error while reinit database", e);
                 }
-                finally
-                {
-                    context.SetAutoIncrementOnTable(budgetTableName, false);
-                    context.SetAutoIncrementOnTable(transactionTableName, false);
-                    context.SetAutoIncrementOnTable(categoryTableName, false);
-                    context.SetAutoIncrementOnTable(customerTableName,false);
-                    context.SetAutoIncrementOnTable(customerHistoryTableName,false);
-                    context.SetAutoIncrementOnTable(documentTableName, false);
-                    context.SetAutoIncrementOnTable(orderTableName, false);
-                    context.SetAutoIncrementOnTable(offerTableName, false);
-                    context.SetAutoIncrementOnTable(orderConfirmationTableName, false);
-                }
             }
         }
 
@@ -161,16 +78,6 @@ namespace tinyERP.TestEnvrionment
                 new Budget {Id = 1, Year = 2017, Expenses = 1000.0, Revenue = 1500.0},
                 new Budget {Id = 2, Year = 2016, Expenses = 2000.0, Revenue = 2400.0},
                 new Budget {Id = 3, Year = 2015, Expenses = 3000.0, Revenue = 3800.0},
-           };
-
-        private static List<Transaction> Transactions =>
-           new List<Transaction>
-           {
-                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, IsRevenue = true, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
-                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, IsRevenue = false, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
-                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, IsRevenue = true, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
-                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, IsRevenue = true, PrivatePart = 10, Date = new DateTime(2016, 7, 3), Comment = "...", BudgetId = 2, CategoryId = 2},
-                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, IsRevenue = false, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
            };
 
         private static List<Category> Categories =>
@@ -184,16 +91,17 @@ namespace tinyERP.TestEnvrionment
         private static List<Customer> Customers =>
             new List<Customer>
             {
-                new Customer{FirstName = "Max", LastName = "Muster", City = "Zürich", Company = "HSR", Email = "max.muster@hsr.ch", Street = "Rappistr. 10", Zip = 8000},
-                new Customer{FirstName = "Peter", LastName = "Müller", City = "Uster", Street = "Usterstrasse 10", Zip = 5000},
-                new Customer{FirstName = "Hans", LastName = "Keller", City = "Pfäffikon ZH", Email = "hans.keller@gmail.com", Street = "Pfäffikerstr. 20", Zip = 7000}
+                new Customer{Id = 1, FirstName = "Max", LastName = "Muster", City = "Zürich", Company = "HSR", Email = "max.muster@hsr.ch", Street = "Rappistr. 10", Zip = 8000},
+                new Customer{Id = 2, FirstName = "Peter", LastName = "Müller", City = "Uster", Street = "Usterstrasse 10", Zip = 5000},
+                new Customer{Id = 3, FirstName = "Hans", LastName = "Keller", City = "Pfäffikon ZH", Email = "hans.keller@gmail.com", Street = "Pfäffikerstr. 20", Zip = 7000}
             };
+
         private static List<CustomerHistory> CustomerHistories =>
             new List<CustomerHistory>
             {
-                new CustomerHistory{Text = "Kunde via Internet gefunden.", Date = new DateTime(2017,2,3), CustomerId = 1},
-                new CustomerHistory{Text = "Kunde hat Rechnung zuspät bezahlt", Date = new DateTime(2017,3,3), CustomerId = 1},
-                new CustomerHistory{Text = "Kunde wurde durch Max vermittelt", Date = new DateTime(2017,2,3), CustomerId = 2}
+                new CustomerHistory{Id = 1, Text = "Kunde via Internet gefunden.", Date = new DateTime(2017,2,3), CustomerId = 1},
+                new CustomerHistory{Id = 2, Text = "Kunde hat Rechnung zuspät bezahlt", Date = new DateTime(2017,3,3), CustomerId = 1},
+                new CustomerHistory{Id = 3, Text = "Kunde wurde durch Max vermittelt", Date = new DateTime(2017,2,3), CustomerId = 2}
             };
 
         private static List<Document> Documents =>
@@ -229,8 +137,18 @@ namespace tinyERP.TestEnvrionment
         private static List<OrderConfirmation> OrderConfirmations =>
             new List<OrderConfirmation>
             {
-                new OrderConfirmation {OrderId = 1, DocumentId = 3, OrderConfNumber = "OrderConf"}
+                new OrderConfirmation {OrderConfNumber = "OrderConf 1", OrderId = 1, DocumentId = 3}
             };
+
+        private static List<Transaction> Transactions =>
+           new List<Transaction>
+           {
+                new Transaction {Id = 1, Name = "First Transaction 2017", Amount = 200.0, IsRevenue = true, PrivatePart = 50, Date = new DateTime(2017, 2, 3), Comment = "Comment", BudgetId = 1, CategoryId = 1},
+                new Transaction {Id = 2, Name = "Second Transaction 2017", Amount = 300.0, IsRevenue = false, PrivatePart = 60, Date = new DateTime(2017, 3, 3), BudgetId = 1, CategoryId = 2},
+                new Transaction {Id = 3, Name = "First Transaction 2016", Amount = 400.0, IsRevenue = true, PrivatePart = 20, Date = new DateTime(2016, 3, 3), BudgetId = 2, CategoryId = 3},
+                new Transaction {Id = 4, Name = "Second Transaction 2016", Amount = 10.0, IsRevenue = true, PrivatePart = 10, Date = new DateTime(2016, 7, 3), Comment = "...", BudgetId = 2, CategoryId = 2},
+                new Transaction {Id = 5, Name = "Third Transaction 2016", Amount = 1337.40, IsRevenue = false, PrivatePart = 40, Date = new DateTime(2016, 8, 2), BudgetId = 2, CategoryId = 2}
+           };
 
         private static string GetTableName<T>(this DbContext context)
         {

@@ -49,11 +49,11 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Auftragsnummer</Label>
-            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Auftragsnummer" Margin="10" VerticalAlignment="Bottom"
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding OrderNumber, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />
             <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Bezeichnung</Label>
-            <TextBox Grid.Row="0" Grid.Column="1" controls:TextBoxHelper.Watermark="Bezeichnung" Margin="10" VerticalAlignment="Bottom"
-                     Text="{Binding Title, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding Title}" />
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Kunde</Label>
             <ComboBox Grid.Row="1" Grid.Column="0" ToolTip="Kunde auswählen" Margin="10" VerticalAlignment="Bottom"
                       ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="FullName" />
@@ -67,10 +67,10 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Erstelldatum</Label>
-            <TextBox Grid.Row="2" Grid.Column="0" controls:TextBoxHelper.Watermark="Erstelldatum" Margin="10" VerticalAlignment="Bottom"
+            <TextBox Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />
             <Label Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Top">Letzte Statusänderung</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" controls:TextBoxHelper.Watermark="Letzte Statusänderung" Margin="10" VerticalAlignment="Bottom"
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding StateModificationDate, StringFormat={}{0:dd.MM.yyyy}, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />
 
             <TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" controls:TabControlHelper.IsUnderlined="True" controls:ControlsHelper.HeaderFontSize="24">

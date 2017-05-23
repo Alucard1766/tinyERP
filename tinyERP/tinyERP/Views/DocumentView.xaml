@@ -22,7 +22,7 @@
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewDocumentCommand}" ToolTip="Neues Dokument hinzufügen">
                     <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
                 </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding OpenDocumentCommand}" ToolTip="Dokument öffnen">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding OpenDocumentCommand}" ToolTip="Dokument mit dem Standardprogramm öffnen" BorderThickness="0">
                     <iconPacks:PackIconMaterial Kind="Folder" Width="40" Height="40" />
                 </Button>
             </StackPanel>

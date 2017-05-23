@@ -17,11 +17,16 @@ namespace tinyERP.Dal.Entities
         [Required]
         public double Amount { get; set; }
 
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        [Required]
         public int OrderId { get; set; }
 
         [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
 
+        [Required]
         public int DocumentId { get; set; }
 
         [ForeignKey("DocumentId")]
