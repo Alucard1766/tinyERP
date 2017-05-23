@@ -14,10 +14,5 @@
     <Color x:Key="AccentColor4">#008383</Color>
     <Color x:Key="IdealForegroundColor">White</Color>
     <!--End of MetroTheme-->
-    
-    <Color x:Key="BorderColor">Black</Color>
-    <Color x:Key="PopupWindowBackgroundColor">Aliceblue</Color>
-    <Color x:Key="DataGridBackgroundColor">#E6E6E6</Color>
-    <Color x:Key="TextBoxFocusBorderColor">#00AF00</Color>
 
 </ResourceDictionary>

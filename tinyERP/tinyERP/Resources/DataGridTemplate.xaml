@@ -4,7 +4,6 @@
     <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MetroDataGridColumnHeader}">
         <Setter Property="Background" Value="{StaticResource AccentColorBrush3}"/>
         <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush4}"/>
-
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -14,6 +13,6 @@
                 <Setter Property="Background" Value="{StaticResource HighlightBrush}" />
             </MultiTrigger>
         </Style.Triggers>
-
     </Style>
+    
 </ResourceDictionary>

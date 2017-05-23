@@ -7,18 +7,10 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     x:Class="tinyERP.UI.Views.EditDocumentView"
     mc:Ignorable="d"
-    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderBrush="{StaticResource AccentColorBrush}"
     BorderThickness="1"
     Title="Dokument bearbeiten"
     Width="550" MinWidth="550" Height="260" MinHeight="260" MaxHeight="260">
-
-    <controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </controls:MetroWindow.Resources>
 
     <DockPanel>
         <Grid Margin="10">
@@ -60,13 +52,11 @@
             </Grid>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern"
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
-                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
-                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
-                </Button>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Buchung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                        Content="{iconPacks:PackIconFontAwesome Check}"/>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Abbrechen" IsCancel="True"
+                        Content="{iconPacks:PackIconFontAwesome Times}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

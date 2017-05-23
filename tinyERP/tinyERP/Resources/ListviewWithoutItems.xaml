@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:tinyERP.UI.Resources">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
     <Style x:Key="ShowMessageWhenEmpty"  TargetType="ListView">
         <Style.Triggers>
             <Trigger Property="HasItems"
@@ -15,4 +15,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
 </ResourceDictionary>
