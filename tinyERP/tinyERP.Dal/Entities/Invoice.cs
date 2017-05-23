@@ -17,9 +17,6 @@ namespace tinyERP.Dal.Entities
         [Required]
         public double Amount { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
-
         [Required]
         public int OrderId { get; set; }
 
