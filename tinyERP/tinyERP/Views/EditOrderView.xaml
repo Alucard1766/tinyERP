@@ -13,7 +13,7 @@
     BorderThickness="1"
     Language="de-CH"
     Title="Auftrag bearbeiten"
-    Width="750" MinWidth="750" Height="600" MinHeight="600" MaxHeight="600">
+    Width="750" MinWidth="750" Height="600" MinHeight="600">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -131,6 +131,10 @@
                 </TabItem>
                 <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
+                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
+                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Rechnung" Command="{Binding NewInvoiceCommand}">
+                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
+                        </Button>
                         <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding InvoiceList}" BorderThickness="0"
                                   DockPanel.Dock="Top">
                             <ListView.Resources>
@@ -171,10 +175,7 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
-                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Rechnung" Command="{Binding NewInvoiceCommand}">
-                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
-                        </Button>
+                        
                     </DockPanel>
                 </TabItem>
             </TabControl>
