@@ -175,7 +175,7 @@ namespace tinyERP.UI.ViewModels
                 {
                     var invoiceNumber = vm.InvoiceNumber;
                     var amount = double.Parse(vm.Amount);
-                    var fileName = FileAccess.CreateInvoice(order.Customer, invoiceNumber);
+                    var fileName = FileAccess.CreateNewInvoice(order.Customer, invoiceNumber);
 
                     var document = new Document
                     {
@@ -290,7 +290,7 @@ namespace tinyERP.UI.ViewModels
                 if (windowView.ShowDialog() ?? false)
                 {
                     var offerNumber = vm.OfferNumber;
-                    var fileName = FileAccess.CreateInvoice(order.Customer, offerNumber); //TODO: Make Offer not invoice
+                    var fileName = FileAccess.CreateNewOffer(order.Customer, offerNumber);
 
                     var document = new Document
                     {
@@ -352,7 +352,7 @@ namespace tinyERP.UI.ViewModels
                 if (windowView.ShowDialog() ?? false)
                 {
                     var orderConfNumber = vm.OrderConfNumber;
-                    var fileName = FileAccess.CreateInvoice(order.Customer, orderConfNumber); //TODO: Make Offer not invoice
+                    var fileName = FileAccess.CreateNewOrderConfirmation(order.Customer, orderConfNumber);
 
                     var document = new Document
                     {
