@@ -48,11 +48,14 @@
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Belegdatum</Label>
             <DatePicker Grid.Row="2" Grid.Column="0" ToolTip="Belegdatum auswählen" Margin="10" VerticalAlignment="Bottom"
                         SelectedDate="{Binding Date,Mode=TwoWay}" />
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
-                <RadioButton GroupName="Mode" Content="Einnahme" IsChecked="{Binding IsRevenue}"/>
-                <RadioButton GroupName="Mode" Content="Ausgabe" Margin="40,0" IsChecked="{Binding IsExpense, Mode=OneWay}"/>
-            </StackPanel>
 
+            <ListBox Name="ReportingLevelRadioButtonList" Style="{StaticResource ListboxAsRadiobutton}" Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
+                <ListBox.Items>
+                    <ListBoxItem IsSelected="{Binding IsRevenue}">Einnahme</ListBoxItem>
+                    <ListBoxItem IsSelected="{Binding IsExpense, Mode=OneWay}" Margin="10,0,0,0">Ausgabe</ListBoxItem>
+                </ListBox.Items>
+            </ListBox>
+            
             <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Top">Bemerkungen</Label>
             <TextBox Grid.Row="3" Grid.Column="0" Margin="10,34,10,10"
                      Text="{Binding Comment}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
