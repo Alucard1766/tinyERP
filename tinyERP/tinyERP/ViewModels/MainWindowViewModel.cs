@@ -53,9 +53,23 @@ namespace tinyERP.UI.ViewModels
         private void SwitchTab(object tag)
         {
             SelectedTab = int.Parse((string)tag);
+            switch (SelectedTab)
+            {
+                case 0:
+                    BudgetViewModel.Load();
+                    break;
+                case 1:
+                    DocumentViewModel.Load();
+                    break;
+                case 2:
+                    CustomerViewModel.Load();
+                    break;
+                case 3:
+                    OrderViewModel.Load();
+                    break;
+            }
         }
 
         #endregion
-
     }
 }

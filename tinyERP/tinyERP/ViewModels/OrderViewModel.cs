@@ -14,6 +14,7 @@ namespace tinyERP.UI.ViewModels
     internal class OrderViewModel : ViewModelBase
     {
         private Order _selectedOrder;
+        private ObservableCollection<Order> _orderList;
 
         public OrderViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -25,7 +26,15 @@ namespace tinyERP.UI.ViewModels
             set { SetProperty(ref _selectedOrder, value, nameof(SelectedOrder)); }
         }
 
-        public ObservableCollection<Order> OrderList { get; set; }
+        public ObservableCollection<Order> OrderList
+        {
+            get { return _orderList; }
+            set
+            {
+                _orderList = value;
+                OnPropertyChanged(nameof(OrderList));
+            }
+        }
 
         public override void Load()
         {
