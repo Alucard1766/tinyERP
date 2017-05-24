@@ -12,14 +12,6 @@
     Title="Kunde bearbeiten"
     Width="550" MinWidth="550" Height="410" MinHeight="410" MaxHeight="410">
 
-    <controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </controls:MetroWindow.Resources>
-
     <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -60,13 +52,11 @@
             <TextBox Grid.Row="4" Grid.Column="0" controls:TextBoxHelper.Watermark="max.muster@suisse.ch" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding Email}" />
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Kunde speichern"
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
-                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-                </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
-                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
-                </Button>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Kunde speichern"
+                    Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                    Content="{iconPacks:PackIconFontAwesome Check}"/>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Abbrechen" IsCancel="True"
+                    Content="{iconPacks:PackIconFontAwesome Times}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

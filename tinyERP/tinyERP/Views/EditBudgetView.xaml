@@ -12,14 +12,6 @@
     Title="Budget bearbeiten"
     Width="275" MinWidth="275" Height="330" MinHeight="330" MaxHeight="330">
 
-    <controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </controls:MetroWindow.Resources>
-
     <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -45,13 +37,11 @@
                      Text="{Binding Expenses}" />
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Budget speichern"
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
-                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
-                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
-                </Button>
+                <Button Style="{DynamicResource HoverCircleButtonChildWindow}" ToolTip="Budget speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                        Content="{iconPacks:PackIconFontAwesome Check}"/>
+                <Button Style="{DynamicResource HoverCircleButtonChildWindow}" ToolTip="Abbrechen" IsCancel="True"
+                        Content="{iconPacks:PackIconFontAwesome Times}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

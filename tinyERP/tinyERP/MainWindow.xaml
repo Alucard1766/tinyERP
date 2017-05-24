@@ -35,7 +35,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Tag="0"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+            <Button Tag="0"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
@@ -45,7 +45,7 @@
                 </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="Cash" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="1" Tag="1"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+            <Button Grid.Row="1" Tag="1"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
                      CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
@@ -55,7 +55,7 @@
                 </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="Archive" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="2" Tag="2"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+            <Button Grid.Row="2" Tag="2"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
@@ -65,7 +65,7 @@
                 </Button.IsEnabled>
                 <iconPacks:PackIconMaterial Kind="AccountMultiple" Width="50" Height="50" />
             </Button>
-            <Button Grid.Row="3" Tag="3"  Style="{DynamicResource CircleButtonExtend}" Width="100" Height="100" Command="{Binding SwitchTabCommand}" 
+            <Button Grid.Row="3" Tag="3"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">

@@ -14,26 +14,9 @@ namespace tinyERP.Dal.Repositories
         {
         }
 
-        public IEnumerable<Transaction> GetTransactionsBetween(DateTime from, DateTime to)
-        {
-            return (from t in TinyErpContext.Transactions
-                    where @from <= t.Date && t.Date <= to
-                    select t)
-                    .ToList();
-        }
-
         public IEnumerable<Transaction> GetTransactionsWithCategories()
         {
             return TinyErpContext.Transactions.Include(t => t.Category).ToList();
-        }
-
-        public IEnumerable<Transaction> GetTransactionsWithCategoriesBetween(DateTime from, DateTime to)
-        {
-            return (from t in TinyErpContext.Transactions
-                    where @from <= to.Date && to.Date <= to
-                    select t)
-                    .Include(t => t.Category)
-                    .ToList();
         }
 
         public IEnumerable<Transaction> GetTransactionsWithCategoriesFilteredBy(string searchTerm)

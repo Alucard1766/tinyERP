@@ -8,14 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <DockPanel Background="White">
         <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Kundenverwaltung</TextBlock>
 
@@ -26,18 +18,15 @@
                         <KeyBinding Key="Return" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text}"></KeyBinding>
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
+                <Button Style="{StaticResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
                     <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                 </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen">
-                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten">
-                    <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteCustomersCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde löschen">
-                    <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
-                </Button>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen"
+                        Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten"
+                        Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteCustomersCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde löschen"
+                        Content="{iconPacks:PackIconFontAwesome Trash}"/>
             </StackPanel>
 
             <DataGrid x:Name="CustomersDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"

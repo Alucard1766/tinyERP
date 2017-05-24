@@ -12,15 +12,6 @@
     Title="Buchung bearbeiten"
     Width="550" MinWidth="550" Height="350" MinHeight="350" MaxHeight="350">
 
-    <controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
-    </controls:MetroWindow.Resources>
-
     <DockPanel>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -57,22 +48,23 @@
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Belegdatum</Label>
             <DatePicker Grid.Row="2" Grid.Column="0" ToolTip="Belegdatum auswählen" Margin="10" VerticalAlignment="Bottom"
                         SelectedDate="{Binding Date,Mode=TwoWay}" />
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
-                <RadioButton GroupName="Mode" Content="Einnahme" IsChecked="{Binding IsRevenue}"/>
-                <RadioButton GroupName="Mode" Content="Ausgabe" Margin="40,0" IsChecked="{Binding IsExpense, Mode=OneWay}"/>
-            </StackPanel>
 
+            <ListBox Name="ReportingLevelRadioButtonList" Style="{StaticResource ListboxAsRadiobutton}" Grid.Row="2" Grid.Column="1" Margin="10" VerticalAlignment="Bottom">
+                <ListBox.Items>
+                    <ListBoxItem IsSelected="{Binding IsRevenue}">Einnahme</ListBoxItem>
+                    <ListBoxItem IsSelected="{Binding IsExpense, Mode=OneWay}" Margin="10,0,0,0">Ausgabe</ListBoxItem>
+                </ListBox.Items>
+            </ListBox>
+            
             <Label Grid.Row="3" Grid.Column="0" Margin="10" VerticalAlignment="Top">Bemerkungen</Label>
             <TextBox Grid.Row="3" Grid.Column="0" Margin="10,34,10,10"
                      Text="{Binding Comment}" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Buchung speichern"
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
-                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
-                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
-                </Button>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Buchung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                        Content="{iconPacks:PackIconFontAwesome Check}"/>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Abbrechen" IsCancel="True"
+                        Content="{iconPacks:PackIconFontAwesome Times}"/>
             </StackPanel>
         </Grid>
     </DockPanel>

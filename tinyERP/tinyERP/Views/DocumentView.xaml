@@ -6,25 +6,16 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Brushes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
 
     <DockPanel Background="White">
         <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Dokumente</TextBlock>
 
         <DockPanel Margin="10">
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewDocumentCommand}" ToolTip="Neues Dokument hinzufügen">
-                    <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
-                </Button>
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding OpenDocumentCommand}" ToolTip="Dokument mit dem Standardprogramm öffnen" BorderThickness="0">
-                    <iconPacks:PackIconMaterial Kind="Folder" Width="40" Height="40" />
-                </Button>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewDocumentCommand}" ToolTip="Neues Dokument hinzufügen"
+                    Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding OpenDocumentCommand}" ToolTip="Dokument mit dem Standardprogramm öffnen"
+                    Content="{iconPacks:PackIconFontAwesome FolderOpen}"/>
             </StackPanel>
 
             <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding DocumentList}" SelectedItem="{Binding SelectedDocument}" IsReadOnly="True"

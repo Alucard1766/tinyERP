@@ -1,10 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
-    <SolidColorBrush x:Key="PopupWindowBrush" Color="{StaticResource PopupWindowBackgroundColor}" />
-    <SolidColorBrush x:Key="DataGridBackgroundBrush" Color="{StaticResource DataGridBackgroundColor}" />
-    <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="{StaticResource TextBoxFocusBorderColor}"/>
     
-
+    <!--Brushes for the MetroTheme, don't rename the keys-->
+    <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="{StaticResource AccentColor2}"/>
+    
 </ResourceDictionary>

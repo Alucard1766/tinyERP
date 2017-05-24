@@ -7,39 +7,38 @@
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
 
-    <DockPanel Margin="10" Background="White">
+    <DockPanel Background="White">
         <TextBlock DockPanel.Dock="Top" FontSize="40" Margin="10" Height="auto">Auftragsverwaltung</TextBlock>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding NewOrderCommand}" ToolTip="Neuen Auftrag hinzufügen">
-                <iconPacks:PackIconMaterial Kind="PlusCircle" Width="40" Height="40" />
-            </Button>
-            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding EditOrderCommand}" CommandParameter="{Binding ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten">
-                <iconPacks:PackIconMaterial Kind="PencilBox" Width="40" Height="40" />
-            </Button>
-            <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Command="{Binding DeleteOrdersCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag löschen">
-                <iconPacks:PackIconMaterial Kind="DeleteCircle" Width="40" Height="40" />
-            </Button>
-        </StackPanel>
+        <DockPanel Margin="10">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewOrderCommand}" ToolTip="Neuen Auftrag hinzufügen"
+                        Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditOrderCommand}" CommandParameter="{Binding ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten"
+                        Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteOrdersCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag löschen"
+                        Content="{iconPacks:PackIconFontAwesome Trash}"/>
+            </StackPanel>
 
-        <DataGrid x:Name="OrdersDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding OrderList}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True"
-                  CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
-            <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="80" Width="*" Header="Nr" Binding="{Binding OrderNumber}"/>
-                <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Title}"/>
-                <DataGridTextColumn MinWidth="140" Width="*" Header="Kunde" Binding="{Binding Customer.FullName}" />
+            <DataGrid x:Name="OrdersDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding OrderList}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True"
+                      CanUserReorderColumns="False"  CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="0,0,0,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="80" Width="*" Header="Nr" Binding="{Binding OrderNumber}"/>
+                    <DataGridTextColumn MinWidth="140" Width="*" Header="Bezeichnung" Binding="{Binding Title}"/>
+                    <DataGridTextColumn MinWidth="140" Width="*" Header="Kunde" Binding="{Binding Customer.FullName}" />
                     <DataGridTextColumn MinWidth="120" Width="*" Header="Status" Binding="{Binding State, Converter={StaticResource MyEnumToDescriptionConverter}}"/>
-                <DataGridTextColumn MinWidth="120" Width="*" Header="Erstellt am" Binding="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
-                <DataGridTextColumn MinWidth="120" Width="*" Header="Letzte Statusänderung" Binding="{Binding StateModificationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
-            </DataGrid.Columns>
-            <DataGrid.InputBindings>
-                <KeyBinding Key="Enter"
-                            Command="{Binding EditOrderCommand}"
-                            CommandParameter="{Binding ElementName=OrdersDataGrid}" />
-                <KeyBinding Key="Delete"
-                            Command="{Binding DeleteOrdersCommand}"
-                            CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" />
-            </DataGrid.InputBindings>
-        </DataGrid>
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Erstellt am" Binding="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
+                    <DataGridTextColumn MinWidth="120" Width="*" Header="Letzte Statusänderung" Binding="{Binding StateModificationDate, StringFormat={}{0:dd.MM.yyyy}}"/>
+                </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding EditOrderCommand}"
+                                CommandParameter="{Binding ElementName=OrdersDataGrid}" />
+                    <KeyBinding Key="Delete"
+                                Command="{Binding DeleteOrdersCommand}"
+                                CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" />
+                </DataGrid.InputBindings>
+            </DataGrid>
+        </DockPanel>
     </DockPanel>
 </UserControl>
