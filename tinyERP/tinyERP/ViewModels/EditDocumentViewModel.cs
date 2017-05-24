@@ -73,7 +73,7 @@ namespace tinyERP.UI.ViewModels
             Validator.AddRequiredRule(() => RelativePath, "Dateiname ist notwendig");
             Validator.AddRule(nameof(RelativePath),
                 () => RuleResult.Assert(
-                    File.Exists(_relativePath) || File.Exists(Path.Combine(FileAccess.FilesDirectory, _relativePath)),
+                    File.Exists(_relativePath) || File.Exists(Path.Combine(FileType.Document.ToString(), _relativePath)),
                     "File does not exist anymore"));
             Validator.AddRequiredRule(() => IssueDate, "Das Ausstellungsdatum muss angegeben sein");
         }

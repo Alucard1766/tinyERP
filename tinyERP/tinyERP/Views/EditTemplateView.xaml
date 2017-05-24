@@ -43,7 +43,7 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="0,0,5,0"
+                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}"
                         BorderThickness="0" ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
@@ -78,11 +78,11 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}"    
+                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}"    
                         BorderThickness="0" ToolTip="Vorlage hochladen" 
                         Command="{Binding OpenTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                    <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
+                    <iconPacks:PackIconMaterial Kind="Upload" />
                 </Button>
                 <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage öffnen"
@@ -113,11 +113,11 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
+                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                    <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
+                    <iconPacks:PackIconMaterial Kind="Upload" />
                 </Button>
                 <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
                         BorderThickness="0" ToolTip="Vorlage öffnen"
