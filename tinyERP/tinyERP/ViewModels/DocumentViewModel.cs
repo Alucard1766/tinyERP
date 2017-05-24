@@ -14,6 +14,7 @@ namespace tinyERP.UI.ViewModels
     internal class DocumentViewModel : ViewModelBase
     {
         private Document _selectedDocument;
+        private ObservableCollection<Document> _documentList;
 
         public DocumentViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -25,7 +26,15 @@ namespace tinyERP.UI.ViewModels
             set { SetProperty(ref _selectedDocument, value, nameof(SelectedDocument)); }
         }
 
-        public ObservableCollection<Document> DocumentList { get; set; }
+        public ObservableCollection<Document> DocumentList
+        {
+            get { return _documentList; }
+            set
+            {
+                _documentList = value;
+                OnPropertyChanged(nameof(DocumentList));
+            }
+        }
 
         public override void Load()
         {

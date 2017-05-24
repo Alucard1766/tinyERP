@@ -18,6 +18,8 @@ namespace tinyERP.UI.ViewModels
     internal class BudgetViewModel : ViewModelBase
     {
         private Budget _budget;
+        private ObservableCollection<Transaction> _transactionList;
+        private ObservableCollection<Budget> _budgetList;
         private DateTime _fromDate, _toDate, _yearStart, _yearEnd;
         private ChartValues<double> _budgetChartValues;
 
@@ -27,7 +29,25 @@ namespace tinyERP.UI.ViewModels
 
         public Transaction SelectedTransaction { get; set; }
 
-        public ObservableCollection<Transaction> TransactionList { get; set; }
+        public ObservableCollection<Transaction> TransactionList
+        {
+            get { return _transactionList; }
+            set
+            {
+                _transactionList = value;
+                OnPropertyChanged(nameof(TransactionList));
+            }
+        }
+
+        public ObservableCollection<Budget> BudgetList
+        {
+            get { return _budgetList; }
+            set
+            {
+                _budgetList = value;
+                OnPropertyChanged(nameof(BudgetList));
+            }
+        }
 
         public Budget Budget
         {
@@ -41,7 +61,6 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        public ObservableCollection<Budget> BudgetList { get; set; }
 
         private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
         

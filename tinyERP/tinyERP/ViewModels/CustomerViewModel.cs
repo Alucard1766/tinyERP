@@ -13,13 +13,23 @@ namespace tinyERP.UI.ViewModels
 {
     internal class CustomerViewModel : ViewModelBase
     {
-        public Customer SelectedCustomer { get; set; }
+        private ObservableCollection<Customer> _customerList;
 
         public CustomerViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
         }
 
-        public ObservableCollection<Customer> CustomerList { get; set; }
+        public Customer SelectedCustomer { get; set; }
+
+        public ObservableCollection<Customer> CustomerList
+        {
+            get { return _customerList; }
+            set
+            {
+                _customerList = value;
+                OnPropertyChanged(nameof(CustomerList));
+            }
+        }
 
         public override void Load()
         {
