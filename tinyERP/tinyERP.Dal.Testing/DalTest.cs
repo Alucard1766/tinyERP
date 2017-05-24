@@ -19,8 +19,8 @@ namespace tinyERP.Dal.Testing
         public static void InitializeBeforeAllTests(TestContext context)
         {
             File.Create(FileToAdd);
-            Directory.CreateDirectory(FileAccess.FilesDirectory);
-            File.Create(Path.Combine(FileAccess.FilesDirectory, FileToDelete));
+            Directory.CreateDirectory(FileType.Document.ToString());
+            File.Create(Path.Combine(FileType.Document.ToString(), FileToDelete));
         }
         [ClassCleanup]
         public static void CleanUpAfterAllTests()
@@ -28,9 +28,9 @@ namespace tinyERP.Dal.Testing
             TestEnvironmentHelper.InitializeTestData();
             File.Delete(FileToAdd);
             File.Delete(FileToDelete);
-            File.Delete(Path.Combine(FileAccess.FilesDirectory, FileToAdd));
-            File.Delete(Path.Combine(FileAccess.FilesDirectory, FileToDelete));
-            Directory.Delete(FileAccess.FilesDirectory);
+            File.Delete(Path.Combine(FileType.Document.ToString(), FileToAdd));
+            File.Delete(Path.Combine(FileType.Document.ToString(), FileToDelete));
+            Directory.Delete(FileType.Document.ToString());
         }
 
         [TestInitialize]
@@ -374,14 +374,14 @@ namespace tinyERP.Dal.Testing
         [TestMethod]
         public void AddFileTest()
         {
-            var fileName = FileAccess.Add(FileToAdd, FileAccess.FilesDirectory);
-            Assert.IsTrue(File.Exists(Path.Combine(FileAccess.FilesDirectory, fileName)));
+            var fileName = FileAccess.Add(FileToAdd, FileType.Document);
+            Assert.IsTrue(File.Exists(Path.Combine(FileType.Document.ToString(), fileName)));
         }
 
         [TestMethod]
         public void DeleteFileTest()
         {
-            var file = Path.Combine(FileAccess.FilesDirectory, FileToDelete);
+            var file = Path.Combine(FileType.Document.ToString(), FileToDelete);
             Assert.IsTrue(File.Exists(file));
             FileAccess.Delete(FileToDelete);
             Assert.IsFalse(File.Exists(file));

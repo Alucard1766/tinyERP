@@ -28,6 +28,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage auswählen"
                          Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
@@ -42,11 +43,17 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
+                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" Margin="0,0,5,0"
                         BorderThickness="0" ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
-                    <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
+                    <iconPacks:PackIconMaterial Kind="Upload" />
+                </Button>
+                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
+                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                        Command="{Binding OpenTemplateCommand}"
+                        CommandParameter="{x:Static resources:TemplateType.Offer}">
+                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
             
@@ -54,6 +61,7 @@
             <Grid Grid.Row="1" Margin="10" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -70,11 +78,17 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}" 
+                <Button Grid.Column="2" Style="{DynamicResource MetroCircleButtonStyle}"    
                         BorderThickness="0" ToolTip="Vorlage hochladen" 
-                        Command="{Binding UploadTemplateCommand}"
+                        Command="{Binding OpenTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                     <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
+                </Button>
+                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
+                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                        Command="{Binding OpenTemplateCommand}"
+                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
+                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
             
@@ -82,6 +96,7 @@
             <Grid Grid.Row="2" Margin="10" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -103,6 +118,12 @@
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
                     <iconPacks:PackIconMaterial Kind="Upload" Height="27"/>
+                </Button>
+                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
+                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                        Command="{Binding OpenTemplateCommand}"
+                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
+                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
         </Grid>

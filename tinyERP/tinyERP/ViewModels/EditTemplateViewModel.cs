@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
+using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Resources;
 using FileAccess = tinyERP.Dal.FileAccess;
@@ -40,7 +42,9 @@ namespace tinyERP.UI.ViewModels
 
         public override void Load()
         {
-
+            Offer = Properties.Settings.Default.OfferTemplatePath;
+            Confirmation = Properties.Settings.Default.ConfirmationTemplatePath;
+            Invoice = Properties.Settings.Default.InvoiceTemplatePath;
         }
 
         #region Upload-Template-Command
@@ -64,18 +68,18 @@ namespace tinyERP.UI.ViewModels
                 {
                     case TemplateType.Offer:
                         Properties.Settings.Default.OfferTemplatePath =
-                            FileAccess.Add(Offer, FileAccess.TemplatesDirectory);
+                            FileAccess.Add(Offer, FileType.Template);
                         break;
                     case TemplateType.Confirmation:
                         Properties.Settings.Default.ConfirmationTemplatePath =
-                            FileAccess.Add(Confirmation, FileAccess.TemplatesDirectory);
+                            FileAccess.Add(Confirmation, FileType.Template);
                         break;
                     case TemplateType.Invoice:
                         Properties.Settings.Default.InvoiceTemplatePath =
-                            FileAccess.Add(Invoice, FileAccess.TemplatesDirectory);
+                            FileAccess.Add(Invoice, FileType.Template);
                         break;
                     default:
-                        throw new ArgumentException("Invalid Template Instance");
+                        throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
                 }
                 Properties.Settings.Default.Save();
                 MessageBox.Show("Vorlage erfolgreich hochgeladen.");
@@ -164,6 +168,66 @@ namespace tinyERP.UI.ViewModels
 
         #endregion
 
+        #region Open-Template-Command
 
+        private RelayCommand _openTemplateCommand;
+
+        public ICommand OpenTemplateCommand
+        {
+            get { return _openTemplateCommand ?? (_openTemplateCommand = new RelayCommand(OpenTemplate, CanOpenTemplate)); }
+        }
+
+        private void OpenTemplate(object templateType)
+        {
+            const string fnfMessage = "Das gesuchte Dokument konnte nicht gefunden werden.";
+            const string title = "Ein Fehler ist aufgetreten";
+            try
+            {
+                switch ((TemplateType)templateType)
+                {
+                    case TemplateType.Offer:
+                        FileAccess.Open(Properties.Settings.Default.OfferTemplatePath, FileType.Template);
+                        break;
+                    case TemplateType.Confirmation:
+                        FileAccess.Open(Properties.Settings.Default.ConfirmationTemplatePath, FileType.Template);
+                        break;
+                    case TemplateType.Invoice:
+                        FileAccess.Open(Properties.Settings.Default.InvoiceTemplatePath, FileType.Template);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                MessageBox.Show(fnfMessage, title);
+            }
+            catch (Win32Exception e)
+            {
+                MessageBox.Show($"{fnfMessage}\nWindows-Fehlercode: {e.ErrorCode}", title);
+            }
+        }
+
+        private bool CanOpenTemplate(object templateType)
+        {
+            string storedPath;
+            switch ((TemplateType)templateType)
+            {
+                case TemplateType.Offer:
+                    storedPath = Properties.Settings.Default.OfferTemplatePath;
+                    break;
+                case TemplateType.Confirmation:
+                    storedPath = Properties.Settings.Default.ConfirmationTemplatePath;
+                    break;
+                case TemplateType.Invoice:
+                    storedPath = Properties.Settings.Default.InvoiceTemplatePath;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
+            }
+            return storedPath != null;
+        }
+
+        #endregion
     }
 }

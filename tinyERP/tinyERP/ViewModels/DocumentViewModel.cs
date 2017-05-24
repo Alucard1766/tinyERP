@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Views;
 using FileAccess = tinyERP.Dal.FileAccess;
@@ -72,7 +73,7 @@ namespace tinyERP.UI.ViewModels
             const string title = "Ein Fehler ist aufgetreten";
             try
             {
-                FileAccess.Open(SelectedDocument.RelativePath);
+                FileAccess.Open(SelectedDocument.RelativePath, FileType.Document);
             }
             catch (FileNotFoundException e)
             {

@@ -3,27 +3,26 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using tinyERP.Dal.Types;
 
 namespace tinyERP.Dal
 {
     public static class FileAccess
     {
-        public const string FilesDirectory = "Files";
-        public const string TemplatesDirectory = "Templates";
         private static readonly Random Rng = new Random();
         //Rng is defined here to prevent too many instantiations in rapid succession, which would potentially lead to same numbers generated
 
-        public static string Add(string sourceFile, string targetDirectory)
+        public static string Add(string sourceFile, FileType fileType)
         {
             if (sourceFile == null)
             {
                 throw new ArgumentNullException($"Keinen Pfad angegeben");
             }
             var destinationFileName = Path.GetFileName(sourceFile);
-            var destination = Path.Combine(targetDirectory, destinationFileName);
+            var destination = Path.Combine(fileType.ToString(), destinationFileName);
 
-            Directory.CreateDirectory(targetDirectory);
-            if (targetDirectory.Equals(FilesDirectory))
+            Directory.CreateDirectory(fileType.ToString());
+            if (fileType.Equals(FileType.Document))
             {
                 if (File.Exists(destination))
                 {
@@ -31,7 +30,7 @@ namespace tinyERP.Dal
                 }
                 File.Copy(sourceFile, destination);
             }
-            else if (targetDirectory.Equals(TemplatesDirectory))
+            else if (fileType.Equals(FileType.Template))
             {
                 File.Copy(sourceFile, destination, true);
             }
@@ -44,20 +43,20 @@ namespace tinyERP.Dal
 
         public static void Delete(string fileName)
         {
-            var file = Path.Combine(FilesDirectory, fileName);
+            var file = Path.Combine(FileType.Document.ToString(), fileName);
             File.Delete(file);
         }
 
-        public static void Open(string fileName)
+        public static void Open(string fileName, FileType fileType)
         {
-            var file = Path.Combine(FilesDirectory, fileName);
+            var file = Path.Combine(fileType.ToString(), fileName);
             Process.Start(file);
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method
         private static void MakePathUnique(ref string destination)
         {
-            var pathWithoutExtension  = Path.Combine(FilesDirectory, Path.GetFileNameWithoutExtension(destination));
+            var pathWithoutExtension  = Path.Combine(Path.GetDirectoryName(destination), Path.GetFileNameWithoutExtension(destination));
             var extension = Path.GetExtension(destination);
             do
             {
