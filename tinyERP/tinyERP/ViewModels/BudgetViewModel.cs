@@ -243,7 +243,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditTransactionCommand
         {
-            get { return _editTransactionCommand ?? (_editTransactionCommand = new RelayCommand(EditTransaction, param => CanEditTransaction())); }
+            get { return _editTransactionCommand ?? (_editTransactionCommand = new RelayCommand(EditTransaction, CanEditTransaction)); }
         }
 
         private void EditTransaction(object dataGrid)
@@ -259,9 +259,9 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanEditTransaction()
+        private bool CanEditTransaction(object dataGrid)
         {
-            return SelectedTransaction != null;
+            return (dataGrid as DataGrid)?.SelectedItems.Count == 1;
         }
 
         #endregion

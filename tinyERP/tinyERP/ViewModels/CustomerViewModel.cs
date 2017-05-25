@@ -67,7 +67,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditCustomerCommand
         {
-            get { return _editCustomerCommand ?? (_editCustomerCommand = new RelayCommand(EditCustomer, param => CanEditCustomer())); }
+            get { return _editCustomerCommand ?? (_editCustomerCommand = new RelayCommand(EditCustomer, CanEditCustomer)); }
         }
 
         private void EditCustomer(object dataGrid)
@@ -82,9 +82,9 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanEditCustomer()
+        private bool CanEditCustomer(object dataGrid)
         {
-            return SelectedCustomer != null;
+            return (dataGrid as DataGrid)?.SelectedItems.Count == 1;
         }
 
         #endregion

@@ -14,11 +14,11 @@
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewDocumentCommand}" ToolTip="Neues Dokument hinzufügen"
                     Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding OpenDocumentCommand}" ToolTip="Dokument mit dem Standardprogramm öffnen"
-                    Content="{iconPacks:PackIconFontAwesome FolderOpen}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding OpenDocumentCommand}" CommandParameter="{Binding ElementName=DocumentsDataGrid}"
+                        ToolTip="Dokument mit dem Standardprogramm öffnen" Content="{iconPacks:PackIconFontAwesome FolderOpen}"/>
             </StackPanel>
 
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding DocumentList}" SelectedItem="{Binding SelectedDocument}" IsReadOnly="True"
+            <DataGrid x:Name="DocumentsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding DocumentList}" SelectedItem="{Binding SelectedDocument}" IsReadOnly="True"
                       CanUserReorderColumns="False" CanUserResizeRows="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,10">
                 <DataGrid.Columns>

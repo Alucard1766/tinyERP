@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -72,7 +73,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand OpenDocumentCommand
         {
-            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(param => OpenDocument(), param => CanOpenDocument())); }
+            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(param => OpenDocument(), CanOpenDocument)); }
         }
 
         private void OpenDocument()
@@ -93,9 +94,9 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanOpenDocument()
+        private bool CanOpenDocument(object dataGrid)
         {
-            return SelectedDocument != null;
+            return (dataGrid as DataGrid)?.SelectedItems.Count == 1;
         }
 
         #endregion
