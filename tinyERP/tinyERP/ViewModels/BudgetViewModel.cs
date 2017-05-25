@@ -71,7 +71,7 @@ namespace tinyERP.UI.ViewModels
             get { return _fromDate; }
             set
             {
-                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues));
+                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
             }
         }
         
@@ -80,7 +80,7 @@ namespace tinyERP.UI.ViewModels
             get { return _toDate; }
             set
             {
-                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues));
+                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
             }
         }
 
@@ -129,6 +129,7 @@ namespace tinyERP.UI.ViewModels
             {
                 return (Budget?.Transactions ?? new Collection<Transaction>())
                     .Where(transaction => !transaction.IsRevenue)
+                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
@@ -139,6 +140,7 @@ namespace tinyERP.UI.ViewModels
             {
                 return (Budget?.Transactions ?? new Collection<Transaction>())
                     .Where(transaction => transaction.IsRevenue)
+                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount);
             }
         }
