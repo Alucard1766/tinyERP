@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -35,6 +37,7 @@ namespace tinyERP.UI.ViewModels
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
+            CollectionViewSource.GetDefaultView(CustomerList).SortDescriptions.Add(new SortDescription("LastName", ListSortDirection.Ascending));
         }
 
         #region New-Customer-Command

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -41,6 +42,7 @@ namespace tinyERP.UI.ViewModels
         {
             var documents = UnitOfWork.Documents.GetAll();
             DocumentList = new ObservableCollection<Document>(documents);
+            CollectionViewSource.GetDefaultView(DocumentList).SortDescriptions.Add(new SortDescription("IssueDate", ListSortDirection.Descending));
         }
 
         #region New-Document-Command

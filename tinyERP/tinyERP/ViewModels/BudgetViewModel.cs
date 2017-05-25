@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using LiveCharts;
 using tinyERP.Dal.Entities;
@@ -150,6 +152,7 @@ namespace tinyERP.UI.ViewModels
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             BudgetChartValues = new ChartValues<double>();
+            CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
         }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -40,6 +42,7 @@ namespace tinyERP.UI.ViewModels
         {
             var orders = UnitOfWork.Orders.GetOrdersWithCustomers();
             OrderList = new ObservableCollection<Order>(orders);
+            CollectionViewSource.GetDefaultView(OrderList).SortDescriptions.Add(new SortDescription("StateModificationDate", ListSortDirection.Descending));
         }
 
         #region New-Order-Command
