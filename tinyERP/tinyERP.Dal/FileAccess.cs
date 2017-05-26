@@ -41,7 +41,7 @@ namespace tinyERP.Dal
             {
                 throw new ArgumentException("Unzulässiger Pfad");
             }
-            return destinationFileName;
+            return Path.GetFileName(destination);
         }
 
         public static void Delete(string fileName)
