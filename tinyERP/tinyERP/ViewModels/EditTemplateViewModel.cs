@@ -47,6 +47,16 @@ namespace tinyERP.UI.ViewModels
             Invoice = Properties.Settings.Default.InvoiceTemplatePath;
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] // argument null exception is caught in calling method
+        private void CheckIfWordFile(string filePath)
+        {
+            if (!(Path.GetExtension(filePath).ToLower().Equals(".docx") ||
+                  Path.GetExtension(filePath).ToLower().Equals(".doc")))
+            {
+                throw new ArgumentException("Ungültiger Dateityp, nur Word-Dokumente werden akzeptiert.");
+            }
+        }
+
         #region Upload-Template-Command
 
         private RelayCommand _uploadTemplateCommand;
@@ -100,19 +110,24 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        [SuppressMessage("ReSharper", "PossibleNullReferenceException")] // argument null exception is caught in calling method
-        private void CheckIfWordFile(string filePath)
+        private bool CanUploadTemplate(object templateType)
         {
-            if (!(Path.GetExtension(filePath).ToLower().Equals(".docx") ||
-                  Path.GetExtension(filePath).ToLower().Equals(".doc")))
+            bool canUpload;
+            switch ((TemplateType)templateType)
             {
-                throw new ArgumentException("Ungültiger Dateityp, nur Word-Dokumente werden akzeptiert.");
+                case TemplateType.Offer:
+                    canUpload = Offer != null && !Offer.Equals(Properties.Settings.Default.OfferTemplatePath);
+                    break;
+                case TemplateType.Confirmation:
+                    canUpload = Confirmation != null && !Confirmation.Equals(Properties.Settings.Default.ConfirmationTemplatePath);
+                    break;
+                case TemplateType.Invoice:
+                    canUpload = Invoice != null && !Invoice.Equals(Properties.Settings.Default.InvoiceTemplatePath);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
             }
-        }
-
-        private bool CanUploadTemplate(object filePath)
-        {
-            return filePath != null;
+            return canUpload;
         }
 
         #endregion
@@ -225,7 +240,7 @@ namespace tinyERP.UI.ViewModels
                 default:
                     throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
             }
-            return storedPath != null;
+            return storedPath?.Length > 0;
         }
 
         #endregion
