@@ -17,12 +17,14 @@
 
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBox x:Name="SearchBox" Width="200" Height="20" controls:TextBoxHelper.Watermark="Suchbegriff eingeben..." ToolTip="Suche nach Vor- oder Nachname">
+                <TextBox Width="250" Height="20" controls:TextBoxHelper.Watermark="Suche nach Vor- oder Nachname" ToolTip="Suche nach Vor- oder Nachname"
+                         Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=TextBox}, Path=Text}"></KeyBinding>
+                        <KeyBinding Key="Return" Command="{Binding SearchCustomersCommand}"></KeyBinding>
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button Style="{StaticResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,130,0" BorderThickness="0" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding ElementName=SearchBox, Path=Text}" ToolTip="Suche starten">
+                <Button Style="{StaticResource MetroCircleButtonStyle}" Width="50" Height="50" Margin="0,0,100,0" BorderThickness="0"
+                        Command="{Binding SearchCustomersCommand}" ToolTip="Suche starten">
                     <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                 </Button>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen"

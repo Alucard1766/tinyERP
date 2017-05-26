@@ -31,11 +31,7 @@ namespace tinyERP.UI.ViewModels
         public ObservableCollection<Order> OrderList
         {
             get { return _orderList; }
-            set
-            {
-                _orderList = value;
-                OnPropertyChanged(nameof(OrderList));
-            }
+            set { SetProperty(ref _orderList, value, nameof(OrderList)); }
         }
 
         public override void Load()

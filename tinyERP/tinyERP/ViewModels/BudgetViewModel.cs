@@ -20,8 +20,9 @@ namespace tinyERP.UI.ViewModels
     internal class BudgetViewModel : ViewModelBase
     {
         private Budget _budget;
-        private ObservableCollection<Transaction> _transactionList;
         private ObservableCollection<Budget> _budgetList;
+        private ObservableCollection<Transaction> _transactionList;
+        private string _searchTerm;
         private DateTime _fromDate, _toDate, _yearStart, _yearEnd;
         private ChartValues<double> _budgetChartValues;
 
@@ -29,27 +30,6 @@ namespace tinyERP.UI.ViewModels
         {
         }
 
-        public Transaction SelectedTransaction { get; set; }
-
-        public ObservableCollection<Transaction> TransactionList
-        {
-            get { return _transactionList; }
-            set
-            {
-                _transactionList = value;
-                OnPropertyChanged(nameof(TransactionList));
-            }
-        }
-
-        public ObservableCollection<Budget> BudgetList
-        {
-            get { return _budgetList; }
-            set
-            {
-                _budgetList = value;
-                OnPropertyChanged(nameof(BudgetList));
-            }
-        }
 
         public Budget Budget
         {
@@ -63,8 +43,27 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public ObservableCollection<Budget> BudgetList
+        {
+            get { return _budgetList; }
+            set { SetProperty(ref _budgetList, value, nameof(BudgetList)); }
+        }
 
-        private List<Category> CategoryList => new List<Category>(UnitOfWork.Categories.GetAll());
+        public Transaction SelectedTransaction { get; set; }
+
+        public ObservableCollection<Transaction> TransactionList
+        {
+            get { return _transactionList; }
+            set { SetProperty(ref _transactionList, value, nameof(TransactionList)); }
+        }
+
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set { SetProperty(ref _searchTerm, value, nameof(SearchTerm)); }
+        }
+
+        private List<Category> CategoryList { get; set; }
         
         public DateTime FromDate
         {
@@ -147,12 +146,14 @@ namespace tinyERP.UI.ViewModels
 
         public override void Load()
         {
+            SearchTerm = string.Empty;
+            CategoryList = new List<Category>(UnitOfWork.Categories.GetAll());
             var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
             TransactionList = new ObservableCollection<Transaction>(transactions);
             TransactionList.CollectionChanged += ContentCollectionChanged;
             var budgets = UnitOfWork.Budgets.GetAll();
             BudgetList = new ObservableCollection<Budget>(budgets);
-            Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
+            Budget = BudgetList.Count > 0 ? BudgetList.First(b => b.Year == BudgetList.Max(b2 => b2.Year)) : null;
             BudgetChartValues = new ChartValues<double>();
             CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
             CollectionViewSource.GetDefaultView(BudgetList).SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
@@ -308,12 +309,12 @@ namespace tinyERP.UI.ViewModels
         private RelayCommand _searchTransactionsCommand;
 
         public ICommand SearchTransactionsCommand {
-            get { return _searchTransactionsCommand ?? (_searchTransactionsCommand = new RelayCommand(SearchTransactions)); }
+            get { return _searchTransactionsCommand ?? (_searchTransactionsCommand = new RelayCommand(param => SearchTransactions())); }
         }
 
-        private void SearchTransactions(object searchTerm)
+        private void SearchTransactions()
         {
-            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(searchTerm as string);
+            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(SearchTerm);
             TransactionList.Clear();
             foreach (var item in transactions) { TransactionList.Add(item); }
         }

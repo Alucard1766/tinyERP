@@ -33,11 +33,7 @@ namespace tinyERP.UI.ViewModels
         public ObservableCollection<Document> DocumentList
         {
             get { return _documentList; }
-            set
-            {
-                _documentList = value;
-                OnPropertyChanged(nameof(DocumentList));
-            }
+            set { SetProperty(ref _documentList, value, nameof(DocumentList)); }
         }
 
         public override void Load()

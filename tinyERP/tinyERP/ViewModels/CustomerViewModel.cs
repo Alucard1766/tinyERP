@@ -16,6 +16,7 @@ namespace tinyERP.UI.ViewModels
     internal class CustomerViewModel : ViewModelBase
     {
         private ObservableCollection<Customer> _customerList;
+        private string _searchTerm;
 
         public CustomerViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -26,15 +27,18 @@ namespace tinyERP.UI.ViewModels
         public ObservableCollection<Customer> CustomerList
         {
             get { return _customerList; }
-            set
-            {
-                _customerList = value;
-                OnPropertyChanged(nameof(CustomerList));
-            }
+            set { SetProperty(ref _customerList, value, nameof(CustomerList)); }
+        }
+
+        public string SearchTerm
+        {
+            get { return _searchTerm; }
+            set { SetProperty(ref _searchTerm, value, nameof(SearchTerm)); }
         }
 
         public override void Load()
         {
+            SearchTerm = string.Empty;
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
             CollectionViewSource.GetDefaultView(CustomerList).SortDescriptions.Add(new SortDescription("LastName", ListSortDirection.Ascending));
@@ -129,13 +133,12 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand SearchCustomersCommand
         {
-            get { return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(SearchCustomers)); }
+            get { return _searchCustomersCommand ?? (_searchCustomersCommand = new RelayCommand(param => SearchCustomers())); }
         }
 
-        private void SearchCustomers(object searchTerm)
+        private void SearchCustomers()
         {
-            var st = searchTerm as string;
-            var customers = UnitOfWork.Customers.Find(c => c.FirstName.Contains(st) || c.LastName.Contains(st));
+            var customers = UnitOfWork.Customers.Find(c => c.FirstName.Contains(SearchTerm) || c.LastName.Contains(SearchTerm));
             CustomerList.Clear();
             foreach (var item in customers) { CustomerList.Add(item); }
         }
