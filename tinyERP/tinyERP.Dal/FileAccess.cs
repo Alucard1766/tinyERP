@@ -12,8 +12,6 @@ namespace tinyERP.Dal
 {
     public static class FileAccess
     {
-        public const string RepositoryPath = "Files";
-        public const string TemplatePath = "Templates";
         private static readonly Random Rng = new Random();
         //Rng is defined here to prevent too many instantiations in rapid succession, which would potentially lead to same numbers generated
 
@@ -75,9 +73,9 @@ namespace tinyERP.Dal
 
         private static string CreateDocumentFromTemplate(Customer customer, string documentNumber, string templateName)
         {
-            var destination = Add(Path.Combine(TemplatePath, templateName), FileType.Document);
+            var destination = Add(Path.Combine(FileType.Template.ToString(), templateName), FileType.Document);
 
-            using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(Path.Combine(RepositoryPath,destination), true))
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(Path.Combine(FileType.Document.ToString(), destination), true))
             {
                 string documentText;
 
