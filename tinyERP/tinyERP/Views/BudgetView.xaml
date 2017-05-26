@@ -95,7 +95,7 @@
                         </Button>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen"
                                 Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                        <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten" 
+                        <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten" 
                                 Content="{iconPacks:PackIconFontAwesome Pencil}"/>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen"
                                 Content="{iconPacks:PackIconFontAwesome Trash}"/>
@@ -116,7 +116,7 @@
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Enter"
                                         Command="{Binding EditTransactionCommand}"
-                                        CommandParameter="{Binding ElementName=TransactionsDataGrid}" />
+                                        CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
                             <KeyBinding Key="Delete"
                                         Command="{Binding DeleteTransactionsCommand}"
                                         CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" />
