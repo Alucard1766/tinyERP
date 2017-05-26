@@ -59,6 +59,10 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<OrderConfirmation> OrderConfirmationList { get; set; }
 
+        public string OrderConfToolTip => OrderConfirmationList.Count <= 0
+            ? "Neue Auftragsbestätigung"
+            : "Es kann nur eine Auftragsbestätigung erfasst werden";
+
         public override void Load()
         {
             var customers = UnitOfWork.Customers.GetAll();
@@ -175,7 +179,17 @@ namespace tinyERP.UI.ViewModels
                 {
                     var invoiceNumber = vm.InvoiceNumber;
                     var amount = double.Parse(vm.Amount);
-                    var fileName = FileAccess.CreateNewInvoice(order.Customer, invoiceNumber);
+                    string fileName;
+                    try
+                    {
+                        fileName = FileAccess.CreateNewInvoice(order.Customer, invoiceNumber);
+                    }
+                    catch (Win32Exception)
+                    {
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        return;
+                    }
+                    
 
                     var document = new Document
                     {
@@ -232,10 +246,10 @@ namespace tinyERP.UI.ViewModels
             vm.Init();
             var windowView = new CategorySelectionView(vm);
 
-            Category category;
+
             if (windowView.ShowDialog() ?? false)
             {
-                category = vm.SelectedCategory;
+                var category = vm.SelectedCategory;
                 Invoice invoice = (Invoice)invoiceItem;
                 invoice.IsPayed = true;
                 CollectionViewSource.GetDefaultView(InvoiceList).Refresh();
@@ -290,8 +304,17 @@ namespace tinyERP.UI.ViewModels
                 if (windowView.ShowDialog() ?? false)
                 {
                     var offerNumber = vm.OfferNumber;
-                    var fileName = FileAccess.CreateNewOffer(order.Customer, offerNumber);
-
+                    string fileName;
+                    try
+                    {
+                        fileName = FileAccess.CreateNewOffer(order.Customer, offerNumber);
+                    }
+                    catch (Win32Exception)
+                    {
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        return;
+                    }
+                    
                     var document = new Document
                     {
                         IssueDate = DateTime.Now,
@@ -352,8 +375,18 @@ namespace tinyERP.UI.ViewModels
                 if (windowView.ShowDialog() ?? false)
                 {
                     var orderConfNumber = vm.OrderConfNumber;
-                    var fileName = FileAccess.CreateNewOrderConfirmation(order.Customer, orderConfNumber);
+                    string fileName;
 
+                    try
+                    {
+                        fileName = FileAccess.CreateNewOrderConfirmation(order.Customer, orderConfNumber);
+                    }
+                    catch (Win32Exception)
+                    {
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        return;
+                    }
+                    
                     var document = new Document
                     {
                         IssueDate = DateTime.Now,

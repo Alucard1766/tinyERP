@@ -70,6 +70,10 @@
             <TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" controls:TabControlHelper.IsUnderlined="True" controls:ControlsHelper.HeaderFontSize="24">
                 <TabItem Header="Offerten" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
+                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
+                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Offerte" Command="{Binding NewOfferCommand}">
+                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
+                        </Button>
                         <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OfferList}" BorderThickness="0" DockPanel.Dock="Top">
                             <ListView.Resources>
                                 <Style TargetType="GridViewColumnHeader">
@@ -92,14 +96,15 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
-                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Offerte" Command="{Binding NewOfferCommand}">
-                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
-                        </Button>
                     </DockPanel>
                 </TabItem>
                 <TabItem Header="Auftragsbestätigung" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
+                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
+                                Width="40" Height="40" BorderThickness="0" ToolTip="{Binding OrderConfToolTip}" 
+                                Command="{Binding NewOrderConfirmationCommand}" ToolTipService.ShowOnDisabled="True">
+                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
+                        </Button>
                         <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OrderConfirmationList}" BorderThickness="0"
                                   DockPanel.Dock="Top">
                             <ListView.Resources>
@@ -123,10 +128,6 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
-                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Auftragsbestätigung" Command="{Binding NewOrderConfirmationCommand}">
-                            <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
-                        </Button>
                     </DockPanel>
                 </TabItem>
                 <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">

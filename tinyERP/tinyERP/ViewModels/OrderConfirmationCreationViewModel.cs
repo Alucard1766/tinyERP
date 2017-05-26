@@ -45,8 +45,7 @@ namespace tinyERP.UI.ViewModels
 
         private void Save(object window)
         {
-            var validationResult = Validator.ValidateAll();
-            if (validationResult.IsValid)
+            if (Validator.ValidateAll().IsValid)
             {
                 if (UnitOfWork.Complete() >= 0)
                     ((Window)window).DialogResult = true;
