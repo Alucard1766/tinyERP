@@ -75,7 +75,7 @@ namespace tinyERP.Dal
 
         private static string CreateDocumentFromTemplate(Customer customer, string documentNumber, string templateName)
         {
-            var destination = Add(Path.Combine(TemplatePath, templateName));
+            var destination = Add(Path.Combine(TemplatePath, templateName), FileType.Document);
 
             using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(Path.Combine(RepositoryPath,destination), true))
             {
