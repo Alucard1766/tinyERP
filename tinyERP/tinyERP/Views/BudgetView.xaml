@@ -10,9 +10,10 @@
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
-        <ResourceDictionary>
-
-        </ResourceDictionary>
+        <Style TargetType="DatePickerTextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
     </UserControl.Resources>
 
     <DockPanel Background="White">
