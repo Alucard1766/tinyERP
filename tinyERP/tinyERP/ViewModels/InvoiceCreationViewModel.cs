@@ -16,7 +16,7 @@ namespace tinyERP.UI.ViewModels
     {
         private double? _amount;
         private string _invoiceNumber;
-
+        private bool? _openAfterSave;
 
         public InvoiceCreationViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -52,9 +52,20 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public bool? OpenAfterSave
+        {
+            get { return _openAfterSave ?? false; }
+            set
+            {
+                _openAfterSave = value;
+                OnPropertyChanged(nameof(OpenAfterSave));
+            }
+        }
+
 
         public override void Load()
         {
+            OpenAfterSave = true;
             AddRules();
         }
 

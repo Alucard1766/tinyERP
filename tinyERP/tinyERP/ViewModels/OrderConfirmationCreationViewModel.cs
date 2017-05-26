@@ -8,6 +8,7 @@ namespace tinyERP.UI.ViewModels
     internal class OrderConfirmationCreationViewModel : ViewModelBase
     {
         private string _orderConfNumber;
+        private bool? _openAfterSave;
 
         public OrderConfirmationCreationViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -23,8 +24,19 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public bool? OpenAfterSave
+        {
+            get { return _openAfterSave ?? false; }
+            set
+            {
+                _openAfterSave = value;
+                OnPropertyChanged(nameof(OpenAfterSave));
+            }
+        }
+
         public override void Load()
         {
+            OpenAfterSave = true;
             AddRules();
         }
 

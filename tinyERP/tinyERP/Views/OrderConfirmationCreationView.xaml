@@ -13,7 +13,7 @@
     BorderThickness="1"
     Language="de-CH"
     Title="Auftragsbestätigung hinzufügen"
-    Width="250" MinWidth="250" Height="200" MinHeight="200" MaxHeight="200">
+    Width="270" MinWidth="270" Height="200" MinHeight="200" MaxHeight="200">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -28,6 +28,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="70" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -36,8 +37,8 @@
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Auftragsbestätigungsnummer</Label>
             <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Auftragsbestätigungsnummer" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding OrderConfNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
-
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <CheckBox Grid.Row="1" Grid.Column="0" Margin="10" Content="Dokument nach Erstellung öffnen" IsChecked="{Binding OpenAfterSave}"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Auftragsbestätigung speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
                     <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />

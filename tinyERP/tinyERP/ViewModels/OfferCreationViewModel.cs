@@ -8,6 +8,7 @@ namespace tinyERP.UI.ViewModels
     internal class OfferCreationViewModel : ViewModelBase
     {
         private string _offerNumber;
+        private bool? _openAfterSave;
 
         public OfferCreationViewModel(IUnitOfWorkFactory factory) : base(factory)
         {
@@ -23,8 +24,19 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public bool? OpenAfterSave
+        {
+            get { return _openAfterSave ?? false; }
+            set
+            {
+                _openAfterSave = value;
+                OnPropertyChanged(nameof(OpenAfterSave));
+            }
+        }
+
         public override void Load()
         {
+            OpenAfterSave = true;
             AddRules();
         }
 

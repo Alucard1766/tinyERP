@@ -215,6 +215,11 @@ namespace tinyERP.UI.ViewModels
                     UnitOfWork.Complete();
 
                     InvoiceList.Add(invoice);
+
+                    if (vm.OpenAfterSave ?? false)
+                    {
+                        Open(fileName);
+                    }
                 }
             }
         }
@@ -337,6 +342,11 @@ namespace tinyERP.UI.ViewModels
                     UnitOfWork.Complete();
 
                     OfferList.Add(offer);
+
+                    if (vm.OpenAfterSave ?? false)
+                    {
+                        Open(fileName);
+                    }
                 }
             }
         }
@@ -409,6 +419,11 @@ namespace tinyERP.UI.ViewModels
                     UnitOfWork.Complete();
 
                     OrderConfirmationList.Add(orderConfirmation);
+
+                    if (vm.OpenAfterSave ?? false)
+                    {
+                        Open(fileName);
+                    }
                 }
             }
         }
