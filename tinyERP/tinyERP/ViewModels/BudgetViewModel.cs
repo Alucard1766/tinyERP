@@ -30,13 +30,12 @@ namespace tinyERP.UI.ViewModels
         {
         }
 
-
         public Budget Budget
         {
             get { return _budget; }
             set
             {
-                SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues));
+                SetProperty(ref _budget, value, nameof(Budget), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(BudgetChartValues), nameof(TransactionList));
 
                 if (Budget != null)
                     SetDatePickersToSelectedYear();
@@ -53,7 +52,18 @@ namespace tinyERP.UI.ViewModels
 
         public ObservableCollection<Transaction> TransactionList
         {
-            get { return _transactionList; }
+            get
+            {
+                _transactionList.Clear();
+                var transactions = GetTransactionsWithinDateRange().Where(t => t.Name.Contains(SearchTerm) || t.Category.Name.Contains(SearchTerm));
+
+                foreach (var item in transactions)
+                {
+                    _transactionList.Add(item);
+                }
+
+                return _transactionList;
+            }
             set { SetProperty(ref _transactionList, value, nameof(TransactionList)); }
         }
 
@@ -68,19 +78,13 @@ namespace tinyERP.UI.ViewModels
         public DateTime FromDate
         {
             get { return _fromDate; }
-            set
-            {
-                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
-            }
+            set { SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(TransactionList)); }
         }
         
         public DateTime ToDate
         {
             get { return _toDate; }
-            set
-            {
-                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
-            }
+            set { SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal), nameof(TransactionList)); }
         }
 
         public DateTime YearStart
@@ -126,9 +130,8 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                return (Budget?.Transactions ?? new Collection<Transaction>())
+                return GetTransactionsWithinDateRange()
                     .Where(transaction => !transaction.IsRevenue)
-                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
@@ -137,9 +140,8 @@ namespace tinyERP.UI.ViewModels
         {
             get
             {
-                return (Budget?.Transactions ?? new Collection<Transaction>())
+                return GetTransactionsWithinDateRange()
                     .Where(transaction => transaction.IsRevenue)
-                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount);
             }
         }
@@ -148,22 +150,15 @@ namespace tinyERP.UI.ViewModels
         {
             SearchTerm = string.Empty;
             CategoryList = new List<Category>(UnitOfWork.Categories.GetAll());
-            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategories();
-            TransactionList = new ObservableCollection<Transaction>(transactions);
-            TransactionList.CollectionChanged += ContentCollectionChanged;
-            var budgets = UnitOfWork.Budgets.GetAll();
+            BudgetChartValues = new ChartValues<double>();
+            TransactionList = new ObservableCollection<Transaction>();
+
+            var budgets = UnitOfWork.Budgets.GetBudgetsWithTransactions();
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList.Count > 0 ? BudgetList.First(b => b.Year == BudgetList.Max(b2 => b2.Year)) : null;
-            BudgetChartValues = new ChartValues<double>();
-            CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
-            CollectionViewSource.GetDefaultView(BudgetList).SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
-        }
 
-        public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(AllRevenuesTotal));
-            OnPropertyChanged(nameof(AllExpensesTotal));
-            OnPropertyChanged(nameof(BudgetChartValues));
+            CollectionViewSource.GetDefaultView(BudgetList).SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
+            CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
         }
 
         private void SetDatePickersToSelectedYear()
@@ -215,6 +210,11 @@ namespace tinyERP.UI.ViewModels
             return sums.Values.ToArray();
         }
 
+        private IEnumerable<Transaction> GetTransactionsWithinDateRange()
+        {
+            return (Budget?.Transactions ?? new Collection<Transaction>()).Where(t => FromDate <= t.Date && t.Date <= ToDate);
+        }
+
         #region New-Transaction-Command
 
         private RelayCommand _newTransactionCommand;
@@ -233,7 +233,7 @@ namespace tinyERP.UI.ViewModels
 
             if (window.ShowDialog() ?? false)
             {
-                TransactionList.Add(transaction);
+                OnPropertyChanged(nameof(TransactionList));
             }
         }
 
@@ -262,7 +262,9 @@ namespace tinyERP.UI.ViewModels
             if (window.ShowDialog() ?? false)
             {
                 CollectionViewSource.GetDefaultView(TransactionList).Refresh();
-                ContentCollectionChanged(this, null);
+                OnPropertyChanged(nameof(AllRevenuesTotal));
+                OnPropertyChanged(nameof(AllExpensesTotal));
+                OnPropertyChanged(nameof(BudgetChartValues));
             }
         }
 
@@ -292,8 +294,7 @@ namespace tinyERP.UI.ViewModels
                 UnitOfWork.Transactions.RemoveRange(selectedTransactions);
                 UnitOfWork.Complete();
 
-                foreach (var t in selectedTransactions)
-                    TransactionList.Remove(t);
+                OnPropertyChanged(nameof(TransactionList));
             }
         }
 
@@ -314,9 +315,7 @@ namespace tinyERP.UI.ViewModels
 
         private void SearchTransactions()
         {
-            var transactions = UnitOfWork.Transactions.GetTransactionsWithCategoriesFilteredBy(SearchTerm);
-            TransactionList.Clear();
-            foreach (var item in transactions) { TransactionList.Add(item); }
+            OnPropertyChanged(nameof(TransactionList));
         }
 
         #endregion

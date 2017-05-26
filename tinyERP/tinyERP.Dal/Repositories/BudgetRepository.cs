@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using tinyERP.Dal.Entities;
 
@@ -18,6 +20,11 @@ namespace tinyERP.Dal.Repositories
                     where t.Year == date.Year
                     select t)
                     .SingleOrDefault();
+        }
+
+        public IEnumerable<Budget> GetBudgetsWithTransactions()
+        {
+            return TinyErpContext.Budgets.Include(b => b.Transactions).ToList();
         }
     }
 }
