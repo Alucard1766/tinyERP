@@ -30,7 +30,7 @@
                      Text="{Binding Name}" />
             <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Kategorie</Label>
             <ComboBox Grid.Row="0" Grid.Column="1" ToolTip="Kategorie auswählen" Margin="10" VerticalAlignment="Bottom"
-                      ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" SelectedIndex="0">
+                      ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Margin="{Binding ParentCategoryId, Converter={StaticResource MyLevelToMarginConverter}}" Text="{Binding Name}"/>
