@@ -1,15 +1,4 @@
-﻿/*
-EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
-GO 
-
-EXEC sp_MSForEachTable 'DELETE FROM ?' 
-GO 
-
-EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL' 
-GO
-*/
-
-EXEC sp_MSForEachTable 'ALTER TABLE dbo.Budgets NOCHECK CONSTRAINT ALL' 
+﻿EXEC sp_MSForEachTable 'ALTER TABLE dbo.Budgets NOCHECK CONSTRAINT ALL' 
 EXEC sp_MSForEachTable 'ALTER TABLE dbo.Customers NOCHECK CONSTRAINT ALL' 
 EXEC sp_MSForEachTable 'ALTER TABLE dbo.Categories NOCHECK CONSTRAINT ALL' 
 EXEC sp_MSForEachTable 'ALTER TABLE dbo.Transactions NOCHECK CONSTRAINT ALL' 
@@ -183,6 +172,7 @@ insert into dbo.Customers (Id, LastName, FirstName, Company, Street, Zip, City, 
 insert into dbo.Customers (Id, LastName, FirstName, Company, Street, Zip, City, Email) values (13, 'Scintsbury', 'Renato', 'Trantow, Hoeger and Wyman', '0953 Gateway Way', 4084, 'Paris 07', 'rscintsburyc@google.de');
 insert into dbo.Customers (Id, LastName, FirstName, Company, Street, Zip, City, Email) values (14, 'Jarville', 'Abe', 'Lowe, Nikolaus and Kreiger', '5571 La Follette Junction', 4452, 'Cereté', 'ajarvilled@google.co.jp');
 insert into dbo.Customers (Id, LastName, FirstName, Company, Street, Zip, City, Email) values (15, 'MacLardie', 'Malissia', 'Smith and Sons', '00 Russell Junction', 5625, 'As Sab‘ Biyār', 'mmaclardiee@fema.gov');
+insert into dbo.Customers (Id, LastName, FirstName, Company, Street, Zip, City, Email) values (16, 'Meier', 'Samuel', 'Meier Engineering AG', 'Holzweg 4', 1234, 'Musterort', 'smeier@meier.ch');
 SET IDENTITY_INSERT dbo.Customers OFF
 GO
 
@@ -202,6 +192,7 @@ insert into dbo.Orders (Id, Title, State, CreationDate, StateModificationDate, C
 insert into dbo.Orders (Id, Title, State, CreationDate, StateModificationDate, CustomerId) values (13, 'Order 01048', 2, '12/16/2014', '03/21/2016', 8);
 insert into dbo.Orders (Id, Title, State, CreationDate, StateModificationDate, CustomerId) values (14, 'Order 05143', 0, '06/05/2015', '07/19/2015', 9);
 insert into dbo.Orders (Id, Title, State, CreationDate, StateModificationDate, CustomerId) values (15, 'Order 16592', 0, '05/05/2014', '10/22/2016', 10);
+insert into dbo.Orders (Id, Title, State, CreationDate, StateModificationDate, CustomerId) values (16, 'Serverbestellung', 1, '05/05/2017', '05/22/2017', 16);
 SET IDENTITY_INSERT dbo.Orders OFF
 GO
 
@@ -281,6 +272,9 @@ insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (72, '
 insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (73, 'Document 49506', 'Nicht physisch vorhanden', '07/18/2016', 'EstRisus.ppt');
 insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (74, 'Document 55176', null, '07/14/2015', 'Porttitor.ppt');
 insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (75, 'Document 45667', null, '04/18/2014', 'APede.ppt');
+insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (76, 'Offerte Server', null, '05/20/2017', 'Offer_AZ0.docx');
+insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (77, 'Offerte Server 2', null, '05/22/2017', 'Offer_XCV.docx');
+insert into dbo.Documents (Id, Name, Tag, IssueDate, RelativePath) values (78, 'Auftragsbestätigung S2', null, '05/22/2017', 'OrderConfirmation_EFS.docx');
 SET IDENTITY_INSERT dbo.Documents OFF
 GO
 
@@ -315,6 +309,8 @@ insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (27, 'ON-80
 insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (28, 'ON-13030', 13, 17);
 insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (29, 'ON-07176', 3, 25);
 insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (30, 'ON-38186', 5, 21);
+insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (31, 'ON-38157', 16, 76);
+insert into dbo.Offers (Id, OfferNumber, OrderId, DocumentId) values (32, 'ON-84757', 16, 77);
 SET IDENTITY_INSERT dbo.Offers OFF
 GO
 
@@ -328,6 +324,7 @@ insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values
 insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values (8, 'OCN-30051', 6);
 insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values (9, 'OCN-61544', 42);
 insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values (10, 'OCN-09924', 38);
+insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values (16, 'OCN-07234', 78);
 GO
 
 SET IDENTITY_INSERT dbo.Invoices ON
