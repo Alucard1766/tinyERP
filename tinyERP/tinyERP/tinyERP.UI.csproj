@@ -89,12 +89,14 @@
     <Compile Include="Resources\EnumToDescriptionConverter.cs" />
     <Compile Include="Resources\BooleanToRevenueConverter.cs" />
     <Compile Include="Resources\SelectedTabToActiveButtonMultiConverter.cs" />
+    <Compile Include="Resources\TemplateType.cs" />
     <Compile Include="ViewModels\CategorySelectionViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\EditCustomerViewModel.cs" />
     <Compile Include="ViewModels\EditDocumentViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
+    <Compile Include="ViewModels\EditTemplateViewModel.cs" />
     <Compile Include="ViewModels\InvoiceCreationViewModel.cs" />
     <Compile Include="ViewModels\OfferCreationViewModel.cs" />
     <Compile Include="ViewModels\OrderConfirmationCreationViewModel.cs" />
@@ -121,6 +123,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\ListboxAsRadiobutton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\ListviewWithoutItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +144,10 @@
     </Page>
     <Page Include="Views\EditOrderView.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditTemplateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditTransactionView.xaml">
       <SubType>Designer</SubType>
@@ -177,6 +187,9 @@
     </Compile>
     <Compile Include="Views\EditOrderView.xaml.cs">
       <DependentUpon>EditOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTemplateView.xaml.cs">
+      <DependentUpon>EditTemplateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditTransactionView.xaml.cs">
       <DependentUpon>EditTransactionView.xaml</DependentUpon>

@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.IconPacks;component/Themes/PackIconFontAwesome.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Buttons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro.IconPacks;component/Themes/PackIconFontAwesome.xaml" />
 
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="Resources/CustomMetroTheme.xaml"/>
@@ -26,6 +27,7 @@
                 <ResourceDictionary Source="Resources/HoverCircleButton.xaml"/>
                 <ResourceDictionary Source="Resources/ListviewWithoutItems.xaml"/>
                 <ResourceDictionary Source="Resources/ButtonAsLink.xaml"/>
+                <ResourceDictionary Source="Resources/ListboxAsRadiobutton.xaml"/>
 
                 <ResourceDictionary>
                     <converter:BooleanToRevenueConverter x:Key="MyBooleanToRevenueConverter"/>

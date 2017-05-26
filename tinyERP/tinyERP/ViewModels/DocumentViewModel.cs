@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
 using tinyERP.UI.Views;
 using FileAccess = tinyERP.Dal.FileAccess;
@@ -40,6 +44,7 @@ namespace tinyERP.UI.ViewModels
         {
             var documents = UnitOfWork.Documents.GetAll();
             DocumentList = new ObservableCollection<Document>(documents);
+            CollectionViewSource.GetDefaultView(DocumentList).SortDescriptions.Add(new SortDescription("IssueDate", ListSortDirection.Descending));
         }
 
         #region New-Document-Command
@@ -72,7 +77,7 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand OpenDocumentCommand
         {
-            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(param => OpenDocument(), param => CanOpenDocument())); }
+            get { return _openDocumentCommand ?? (_openDocumentCommand = new RelayCommand(param => OpenDocument(), CanOpenDocument)); }
         }
 
         private void OpenDocument()
@@ -81,21 +86,21 @@ namespace tinyERP.UI.ViewModels
             const string title = "Ein Fehler ist aufgetreten";
             try
             {
-                FileAccess.Open(SelectedDocument.RelativePath);
+                FileAccess.Open(SelectedDocument.RelativePath, FileType.Document);
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 MessageBox.Show(fnfMessage, title);
             }
-            catch (Win32Exception e)
+            catch (Win32Exception)
             {
-                MessageBox.Show($"{fnfMessage}\nWindows-Fehlercode: {e.ErrorCode}", title);
+                MessageBox.Show(fnfMessage, title);
             }
         }
 
-        private bool CanOpenDocument()
+        private bool CanOpenDocument(object selectedItems)
         {
-            return SelectedDocument != null;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

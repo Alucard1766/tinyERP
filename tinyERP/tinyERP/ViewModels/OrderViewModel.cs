@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -40,6 +42,7 @@ namespace tinyERP.UI.ViewModels
         {
             var orders = UnitOfWork.Orders.GetOrdersWithCustomers();
             OrderList = new ObservableCollection<Order>(orders);
+            CollectionViewSource.GetDefaultView(OrderList).SortDescriptions.Add(new SortDescription("StateModificationDate", ListSortDirection.Descending));
         }
 
         #region New-Order-Command
@@ -72,10 +75,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditOrderCommand
         {
-            get { return _editOrderCommand ?? (_editOrderCommand = new RelayCommand(EditOrder, param => CanEditOrder())); }
+            get { return _editOrderCommand ?? (_editOrderCommand = new RelayCommand(param => EditOrder(), CanEditOrder)); }
         }
 
-        private void EditOrder(object dataGrid)
+        private void EditOrder()
         {
             var vm = new EditOrderViewModel(new UnitOfWorkFactory(), SelectedOrder);
             vm.Init();
@@ -83,13 +86,13 @@ namespace tinyERP.UI.ViewModels
 
             if (window.ShowDialog() ?? false)
             {
-                (dataGrid as DataGrid)?.Items.Refresh();
+                CollectionViewSource.GetDefaultView(OrderList).Refresh();
             }
         }
 
-        private bool CanEditOrder()
+        private bool CanEditOrder(object selectedItems)
         {
-            return SelectedOrder != null;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

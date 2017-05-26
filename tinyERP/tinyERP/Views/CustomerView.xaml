@@ -9,7 +9,11 @@
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <DockPanel Background="White">
-        <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Kundenverwaltung</TextBlock>
+        <DockPanel DockPanel.Dock="Top">
+            <Image Source="../Resources/tinyERP_Logo.png" Width="80" Height="80" DockPanel.Dock="Right" />
+            <TextBlock FontSize="40" Margin="10" Height="auto">Kundenverwaltung</TextBlock>
+        </DockPanel>
+      
 
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -22,11 +26,11 @@
                     <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                 </Button>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen"
-                        Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten"
-                        Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                        Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten"
+                        Content="{iconPacks:PackIconFontAwesome Pencil, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteCustomersCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde löschen"
-                        Content="{iconPacks:PackIconFontAwesome Trash}"/>
+                        Content="{iconPacks:PackIconFontAwesome Trash, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
             </StackPanel>
 
             <DataGrid x:Name="CustomersDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" IsReadOnly="True"
@@ -41,6 +45,11 @@
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Stadt" Binding="{Binding City}"/>
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Email" Binding="{Binding Email}"/>
                 </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding EditCustomerCommand}"
+                                CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" />
+                </DataGrid.InputBindings>
             </DataGrid>
         </DockPanel>
     </DockPanel>

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
@@ -35,6 +37,7 @@ namespace tinyERP.UI.ViewModels
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
+            CollectionViewSource.GetDefaultView(CustomerList).SortDescriptions.Add(new SortDescription("LastName", ListSortDirection.Ascending));
         }
 
         #region New-Customer-Command
@@ -67,10 +70,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditCustomerCommand
         {
-            get { return _editCustomerCommand ?? (_editCustomerCommand = new RelayCommand(EditCustomer, param => CanEditCustomer())); }
+            get { return _editCustomerCommand ?? (_editCustomerCommand = new RelayCommand(param => EditCustomer(), CanEditCustomer)); }
         }
 
-        private void EditCustomer(object dataGrid)
+        private void EditCustomer()
         {
             var vm = new EditCustomerViewModel(new UnitOfWorkFactory(), SelectedCustomer);
             vm.Init();
@@ -78,13 +81,13 @@ namespace tinyERP.UI.ViewModels
 
             if (window.ShowDialog() ?? false)
             {
-                (dataGrid as DataGrid)?.Items.Refresh();
+                CollectionViewSource.GetDefaultView(CustomerList).Refresh();
             }
         }
 
-        private bool CanEditCustomer()
+        private bool CanEditCustomer(object selectedItems)
         {
-            return SelectedCustomer != null;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

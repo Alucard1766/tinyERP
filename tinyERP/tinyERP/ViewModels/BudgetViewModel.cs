@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using LiveCharts;
 using tinyERP.Dal.Entities;
@@ -69,7 +71,7 @@ namespace tinyERP.UI.ViewModels
             get { return _fromDate; }
             set
             {
-                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues));
+                SetProperty(ref _fromDate, value, nameof(FromDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
             }
         }
         
@@ -78,7 +80,7 @@ namespace tinyERP.UI.ViewModels
             get { return _toDate; }
             set
             {
-                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues));
+                SetProperty(ref _toDate, value, nameof(ToDate), nameof(BudgetChartValues), nameof(AllExpensesTotal), nameof(AllRevenuesTotal));
             }
         }
 
@@ -127,6 +129,7 @@ namespace tinyERP.UI.ViewModels
             {
                 return (Budget?.Transactions ?? new Collection<Transaction>())
                     .Where(transaction => !transaction.IsRevenue)
+                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount * ((100.0 - transaction.PrivatePart) / 100));
             }
         }
@@ -137,6 +140,7 @@ namespace tinyERP.UI.ViewModels
             {
                 return (Budget?.Transactions ?? new Collection<Transaction>())
                     .Where(transaction => transaction.IsRevenue)
+                    .Where(transaction => DateTime.Compare(transaction.Date, FromDate) >= 0 && DateTime.Compare(transaction.Date, ToDate) <= 0)
                     .Sum(transaction => transaction.Amount);
             }
         }
@@ -150,6 +154,8 @@ namespace tinyERP.UI.ViewModels
             BudgetList = new ObservableCollection<Budget>(budgets);
             Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             BudgetChartValues = new ChartValues<double>();
+            CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+            CollectionViewSource.GetDefaultView(BudgetList).SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
         }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -243,10 +249,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditTransactionCommand
         {
-            get { return _editTransactionCommand ?? (_editTransactionCommand = new RelayCommand(EditTransaction, param => CanEditTransaction())); }
+            get { return _editTransactionCommand ?? (_editTransactionCommand = new RelayCommand(param => EditTransaction(), CanEditTransaction)); }
         }
 
-        private void EditTransaction(object dataGrid)
+        private void EditTransaction()
         {
             var vm = new EditTransactionViewModel(new UnitOfWorkFactory(), SelectedTransaction);
             vm.Init();
@@ -254,14 +260,14 @@ namespace tinyERP.UI.ViewModels
 
             if (window.ShowDialog() ?? false)
             {
-                (dataGrid as DataGrid)?.Items.Refresh();
+                CollectionViewSource.GetDefaultView(TransactionList).Refresh();
                 ContentCollectionChanged(this, null);
             }
         }
 
-        private bool CanEditTransaction()
+        private bool CanEditTransaction(object selectedItems)
         {
-            return SelectedTransaction != null;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

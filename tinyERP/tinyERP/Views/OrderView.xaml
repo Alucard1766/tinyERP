@@ -8,15 +8,18 @@
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <DockPanel Background="White">
-        <TextBlock DockPanel.Dock="Top" FontSize="40" Margin="10" Height="auto">Auftragsverwaltung</TextBlock>
+        <DockPanel DockPanel.Dock="Top">
+            <Image Source="../Resources/tinyERP_Logo.png" Width="80" Height="80" DockPanel.Dock="Right" />
+            <TextBlock FontSize="40" Margin="10" Height="auto">Auftragsverwaltung</TextBlock>
+        </DockPanel>
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewOrderCommand}" ToolTip="Neuen Auftrag hinzufügen"
-                        Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditOrderCommand}" CommandParameter="{Binding ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten"
-                        Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                        Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten"
+                        Content="{iconPacks:PackIconFontAwesome Pencil, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteOrdersCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag löschen"
-                        Content="{iconPacks:PackIconFontAwesome Trash}"/>
+                        Content="{iconPacks:PackIconFontAwesome Trash, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
             </StackPanel>
 
             <DataGrid x:Name="OrdersDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding OrderList}" SelectedItem="{Binding SelectedOrder}" IsReadOnly="True"
@@ -33,7 +36,7 @@
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Enter"
                                 Command="{Binding EditOrderCommand}"
-                                CommandParameter="{Binding ElementName=OrdersDataGrid}" />
+                                CommandParameter="{Binding SelectedItems ,ElementName=OrdersDataGrid}" />
                     <KeyBinding Key="Delete"
                                 Command="{Binding DeleteOrdersCommand}"
                                 CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" />

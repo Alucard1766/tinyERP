@@ -28,7 +28,7 @@ namespace tinyERP.UI.ViewModels
             Name = this.transaction.Name;
             Amount = (this.transaction.Amount.CompareTo(0) == 0) ? null : this.transaction.Amount.ToString(CultureInfo.InvariantCulture);
             IsRevenue = this.transaction.IsRevenue;
-            PrivatPart = (this.transaction.PrivatePart.CompareTo(0) == 0) ? null : this.transaction.PrivatePart.ToString();
+            PrivatPart = this.transaction.PrivatePart.ToString();
             Date = this.transaction.Date;
             Comment = this.transaction.Comment;
             budget = this.transaction.Budget;
@@ -123,7 +123,7 @@ namespace tinyERP.UI.ViewModels
         {
             Validator.AddRequiredRule(() => Name, "Bezeichnung ist notwendig");
             Validator.AddRule(nameof(PrivatPart),
-                () => RuleResult.Assert(_privatPart >= 0 && _privatPart <= 100,
+                () => RuleResult.Assert(IsRevenue || _privatPart >= 0 && _privatPart <= 100,
                     "Privatanteil muss zwischen 0 und 100 Prozent liegen"));
             Validator.AddRule(nameof(Amount),
                 () => RuleResult.Assert(_amount > 0, "Betrag muss grösser als 0 sein"));
