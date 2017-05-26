@@ -94,13 +94,13 @@ namespace tinyERP.UI.ViewModels
                 Properties.Settings.Default.Save();
                 MessageBox.Show("Vorlage erfolgreich hochgeladen.");
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 MessageBox.Show(
                     "Ein Fehler ist aufgetreten. Bitte vergewissern Sie sich, dass das Dokument " +
                     "nicht von einem anderen Programm geöffnet ist und Sie die Leserechte dafür besitzen.");
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
                 MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
             }
@@ -175,7 +175,7 @@ namespace tinyERP.UI.ViewModels
             {
                 MessageBox.Show(e.Message);
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Bitte wählen Sie eine Word-Datei aus.");
             }
@@ -213,7 +213,7 @@ namespace tinyERP.UI.ViewModels
                         throw new ArgumentOutOfRangeException(nameof(templateType), templateType, null);
                 }
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
                 MessageBox.Show(fnfMessage, title);
             }

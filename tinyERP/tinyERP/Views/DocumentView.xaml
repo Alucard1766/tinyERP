@@ -8,14 +8,17 @@
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <DockPanel Background="White">
-        <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Dokumente</TextBlock>
+        <DockPanel DockPanel.Dock="Top">
+            <Image Source="../Resources/tinyERP_Logo.png" Width="80" Height="80" DockPanel.Dock="Right" />
+            <TextBlock FontSize="40" Margin="10" Height="auto">Dokumentenverwaltung</TextBlock>
+        </DockPanel>
 
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewDocumentCommand}" ToolTip="Neues Dokument hinzufügen"
-                    Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                    Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding OpenDocumentCommand}" CommandParameter="{Binding SelectedItems, ElementName=DocumentsDataGrid}"
-                        ToolTip="Dokument mit dem Standardprogramm öffnen" Content="{iconPacks:PackIconFontAwesome FolderOpen}"/>
+                        ToolTip="Dokument mit dem Standardprogramm öffnen" Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
             </StackPanel>
 
             <DataGrid x:Name="DocumentsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding DocumentList}" SelectedItem="{Binding SelectedDocument}" IsReadOnly="True"

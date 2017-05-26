@@ -16,7 +16,10 @@
     </UserControl.Resources>
 
     <DockPanel Background="White">
-        <TextBlock FontSize="40" Margin="10" Height="auto" DockPanel.Dock="Top">Budgetverwaltung</TextBlock>
+        <DockPanel DockPanel.Dock="Top">
+            <Image Source="../Resources/tinyERP_Logo.png" Width="80" Height="80" DockPanel.Dock="Right" />
+            <TextBlock FontSize="40" Margin="10" Height="auto">Budgetverwaltung</TextBlock>
+        </DockPanel>
         <StackPanel DockPanel.Dock="Top" Margin="10,0">
             <Label Content="Wählen Sie die gewünschte Budgetperiode aus" Margin="0,10,0,0" Style="{StaticResource HeaderLabel}"/>
             <Border BorderBrush="{StaticResource AccentColorBrush2}" BorderThickness="2px" Padding="5,10">
@@ -56,11 +59,11 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Bottom">
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewBudgetCommand}" ToolTip="Neues Budget hinzufügen"
-                                Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                                Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditBudgetCommand}" ToolTip="Budget bearbeiten"
-                            Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                            Content="{iconPacks:PackIconFontAwesome Pencil, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteBudgetCommand}" ToolTip="Budget löschen"
-                            Content="{iconPacks:PackIconFontAwesome Trash}"/>
+                            Content="{iconPacks:PackIconFontAwesome Trash, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                     </StackPanel>
                     <Border>
 
@@ -94,11 +97,11 @@
                             <iconPacks:PackIconMaterial Kind="Magnify" Width="20" Height="20" />
                         </Button>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewTransactionCommand}" ToolTip="Neue Buchung hinzufügen"
-                                Content="{iconPacks:PackIconFontAwesome Plus}"/>
+                                Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditTransactionCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Auftrag bearbeiten" 
-                                Content="{iconPacks:PackIconFontAwesome Pencil}"/>
+                                Content="{iconPacks:PackIconFontAwesome Pencil, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                         <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteTransactionsCommand}" CommandParameter="{Binding SelectedItems, ElementName=TransactionsDataGrid}" ToolTip="Buchung löschen"
-                                Content="{iconPacks:PackIconFontAwesome Trash}"/>
+                                Content="{iconPacks:PackIconFontAwesome Trash, Width={StaticResource IconSizeBig}, Height={StaticResource IconSizeBig}}"/>
                     </StackPanel>
 
                     <DataGrid x:Name="TransactionsDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding TransactionList}" SelectedItem="{Binding SelectedTransaction}" IsReadOnly="True"

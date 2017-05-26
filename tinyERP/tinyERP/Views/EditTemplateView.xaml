@@ -14,6 +14,7 @@
     Title="Vorlagen bearbeiten"
     Height="280"
     Width="400">
+    
     <Grid Background="White">
         <Grid Margin="10,10,10,0" VerticalAlignment="Top">
             <Grid.RowDefinitions>
@@ -43,17 +44,17 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}"
-                        BorderThickness="0" ToolTip="Vorlage hochladen"
+                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
-                    <iconPacks:PackIconMaterial Kind="Upload" />
                 </Button>
-                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
-                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}" 
+                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage öffnen"
                         Command="{Binding OpenTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Offer}">
-                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
             
@@ -78,17 +79,17 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}"    
-                        BorderThickness="0" ToolTip="Vorlage hochladen" 
+                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage hochladen" 
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                    <iconPacks:PackIconMaterial Kind="Upload" />
                 </Button>
-                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
-                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
+                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage öffnen"
                         Command="{Binding OpenTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
             
@@ -113,17 +114,17 @@
                         Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
                 </Button>
-                <Button Grid.Column="2" Style="{DynamicResource SquareButtonStyle}" 
-                        BorderThickness="0" ToolTip="Vorlage hochladen"
+                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage hochladen"
                         Command="{Binding UploadTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                    <iconPacks:PackIconMaterial Kind="Upload" />
                 </Button>
-                <Button Grid.Column="3" Style="{DynamicResource SquareButtonStyle}" 
-                        BorderThickness="0" ToolTip="Vorlage öffnen"
+                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
+                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                        ToolTip="Vorlage öffnen"
                         Command="{Binding OpenTemplateCommand}"
                         CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                    <iconPacks:PackIconMaterial Kind="Folder" />
                 </Button>
             </Grid>
         </Grid>
