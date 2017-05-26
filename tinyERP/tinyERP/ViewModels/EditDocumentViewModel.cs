@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using MvvmValidation;
 using tinyERP.Dal.Entities;
+using tinyERP.Dal.Types;
 using tinyERP.UI.Factories;
 using FileAccess = tinyERP.Dal.FileAccess;
 
@@ -72,7 +73,7 @@ namespace tinyERP.UI.ViewModels
             Validator.AddRequiredRule(() => RelativePath, "Dateiname ist notwendig");
             Validator.AddRule(nameof(RelativePath),
                 () => RuleResult.Assert(
-                    File.Exists(_relativePath) || File.Exists(Path.Combine(FileAccess.RepositoryPath, _relativePath)),
+                    File.Exists(_relativePath) || File.Exists(Path.Combine(FileType.Document.ToString(), _relativePath)),
                     "File does not exist anymore"));
             Validator.AddRequiredRule(() => IssueDate, "Das Ausstellungsdatum muss angegeben sein");
         }
@@ -96,12 +97,12 @@ namespace tinyERP.UI.ViewModels
                 document.IssueDate = IssueDate;
                 if (document.RelativePath == null)
                 {
-                    document.RelativePath = FileAccess.Add(RelativePath);
+                    document.RelativePath = FileAccess.Add(RelativePath, FileType.Document);
                 }
                 else if (document.RelativePath != RelativePath)
                 {
                     FileAccess.Delete(document.RelativePath);
-                    document.RelativePath = FileAccess.Add(RelativePath);
+                    document.RelativePath = FileAccess.Add(RelativePath, FileType.Document);
                 }
 
                 if (document.Id == 0)

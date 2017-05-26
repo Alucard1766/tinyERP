@@ -125,7 +125,7 @@ namespace tinyERP.UI.ViewModels
             const string title = "Ein Fehler ist aufgetreten";
             try
             {
-                FileAccess.Open((string)fileName);
+                FileAccess.Open((string)fileName, FileType.Document);
             }
             catch (FileNotFoundException)
             {

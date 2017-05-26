@@ -86,6 +86,7 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="TinyErpContext.cs" />
+    <Compile Include="Types\FileType.cs" />
     <Compile Include="Types\State.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

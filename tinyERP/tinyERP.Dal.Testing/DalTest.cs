@@ -20,8 +20,8 @@ namespace tinyERP.Dal.Testing
         public static void InitializeBeforeAllTests(TestContext context)
         {
             File.Create(FileToAdd);
-            Directory.CreateDirectory(FileAccess.RepositoryPath);
-            File.Create(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
+            Directory.CreateDirectory(FileType.Document.ToString());
+            File.Create(Path.Combine(FileType.Document.ToString(), FileToDelete));
         }
 
         [ClassCleanup]
@@ -30,9 +30,9 @@ namespace tinyERP.Dal.Testing
             TestEnvironmentHelper.InitializeTestData();
             File.Delete(FileToAdd);
             File.Delete(FileToDelete);
-            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToAdd));
-            File.Delete(Path.Combine(FileAccess.RepositoryPath, FileToDelete));
-            Directory.Delete(FileAccess.RepositoryPath);
+            File.Delete(Path.Combine(FileType.Document.ToString(), FileToAdd));
+            File.Delete(Path.Combine(FileType.Document.ToString(), FileToDelete));
+            Directory.Delete(FileType.Document.ToString());
         }
 
         [TestInitialize]
@@ -326,14 +326,14 @@ namespace tinyERP.Dal.Testing
         [TestMethod]
         public void AddFileTest()
         {
-            var fileName = FileAccess.Add(FileToAdd);
-            Assert.IsTrue(File.Exists(Path.Combine(FileAccess.RepositoryPath, fileName)));
+            var fileName = FileAccess.Add(FileToAdd, FileType.Document);
+            Assert.IsTrue(File.Exists(Path.Combine(FileType.Document.ToString(), fileName)));
         }
 
         [TestMethod]
         public void DeleteFileTest()
         {
-            var file = Path.Combine(FileAccess.RepositoryPath, FileToDelete);
+            var file = Path.Combine(FileType.Document.ToString(), FileToDelete);
             Assert.IsTrue(File.Exists(file));
             FileAccess.Delete(FileToDelete);
             Assert.IsFalse(File.Exists(file));

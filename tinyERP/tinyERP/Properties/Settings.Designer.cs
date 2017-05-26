@@ -22,5 +22,41 @@ namespace tinyERP.UI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConfirmationTemplatePath {
+            get {
+                return ((string)(this["ConfirmationTemplatePath"]));
+            }
+            set {
+                this["ConfirmationTemplatePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InvoiceTemplatePath {
+            get {
+                return ((string)(this["InvoiceTemplatePath"]));
+            }
+            set {
+                this["InvoiceTemplatePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OfferTemplatePath {
+            get {
+                return ((string)(this["OfferTemplatePath"]));
+            }
+            set {
+                this["OfferTemplatePath"] = value;
+            }
+        }
     }
 }

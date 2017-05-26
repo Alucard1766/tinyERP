@@ -1,5 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
+using tinyERP.UI.Views;
 
 namespace tinyERP.UI.ViewModels
 {
@@ -67,6 +70,29 @@ namespace tinyERP.UI.ViewModels
                 case 3:
                     OrderViewModel.Load();
                     break;
+            }
+        }
+
+        #endregion
+
+        #region Edit-Templates-Command
+
+        private RelayCommand _editTemplatesCommand;
+
+        public ICommand EditTemplatesCommand
+        {
+            get { return _editTemplatesCommand ?? (_editTemplatesCommand = new RelayCommand(param => EditTemplates())); }
+        }
+
+        private void EditTemplates()
+        {
+            var document = new Document { IssueDate = DateTime.Today };
+            var vm = new EditTemplateViewModel(null);
+            vm.Load();
+            var window = new EditTemplateView(vm);
+
+            if (window.ShowDialog() ?? false)
+            {
             }
         }
 
