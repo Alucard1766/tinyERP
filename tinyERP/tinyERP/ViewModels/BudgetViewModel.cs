@@ -155,6 +155,7 @@ namespace tinyERP.UI.ViewModels
             Budget = BudgetList.Count > 0 ? BudgetList[0] : null;
             BudgetChartValues = new ChartValues<double>();
             CollectionViewSource.GetDefaultView(TransactionList).SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
+            CollectionViewSource.GetDefaultView(BudgetList).SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
         }
 
         public void ContentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
