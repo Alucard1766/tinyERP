@@ -1,0 +1,52 @@
+﻿<controls:MetroWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
+    x:Class="tinyERP.UI.Views.OrderConfirmationCreationView"
+    mc:Ignorable="d"
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    Language="de-CH"
+    Title="Auftragsbestätigung hinzufügen"
+    Width="250" MinWidth="250" Height="200" MinHeight="200" MaxHeight="200">
+
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Brushes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+
+    <DockPanel>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Auftragsbestätigungsnummer</Label>
+            <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Auftragsbestätigungsnummer" Margin="10" VerticalAlignment="Bottom"
+                     Text="{Binding OrderConfNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Auftragsbestätigung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
+                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
+                </Button>
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
+                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+
+</controls:MetroWindow>

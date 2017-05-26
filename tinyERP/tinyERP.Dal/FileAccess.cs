@@ -3,12 +3,17 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using DocumentFormat.OpenXml.Packaging;
+using tinyERP.Dal.Entities;
 using tinyERP.Dal.Types;
 
 namespace tinyERP.Dal
 {
     public static class FileAccess
     {
+        public const string RepositoryPath = "Files";
+        public const string TemplatePath = "Templates";
         private static readonly Random Rng = new Random();
         //Rng is defined here to prevent too many instantiations in rapid succession, which would potentially lead to same numbers generated
 
@@ -51,6 +56,68 @@ namespace tinyERP.Dal
         {
             var file = Path.Combine(fileType.ToString(), fileName);
             Process.Start(file);
+        }
+
+        public static string CreateNewInvoice(Customer customer, string documentNumber)
+        {
+            return CreateDocumentFromTemplate(customer, documentNumber,"Rechnung.docx");
+        }
+
+        public static string CreateNewOffer(Customer customer, string documentNumber)
+        {
+            return CreateDocumentFromTemplate(customer, documentNumber, "Offerte.docx");
+        }
+
+        public static string CreateNewOrderConfirmation(Customer customer, string documentNumber)
+        {
+            return CreateDocumentFromTemplate(customer, documentNumber, "Auftragsbestätigung.docx");
+        }
+
+        private static string CreateDocumentFromTemplate(Customer customer, string documentNumber, string templateName)
+        {
+            var destination = Add(Path.Combine(TemplatePath, templateName), FileType.Document);
+
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(Path.Combine(RepositoryPath,destination), true))
+            {
+                string documentText;
+
+                using (StreamReader sr = new StreamReader(wordDocument.MainDocumentPart.GetStream()))
+                {
+                    documentText = sr.ReadToEnd();
+                }
+
+                Regex companyRegex = new Regex("\\[Firma\\]");
+                Regex streetRegex = new Regex("\\[Strasse\\]");
+                Regex zipRegex = new Regex("\\[Postleitzahl\\]");
+                Regex cityRegex = new Regex("\\[Ort\\]");
+                Regex firstNameRegex = new Regex("\\[Vorname\\]");
+                Regex lastNameRegex = new Regex("\\[Nachname\\]");
+                Regex dateRegex = new Regex("\\[(?:Rechnungs|Offerten|Auftrags)datum\\]");
+                Regex documentNumberRegex = new Regex("\\[(?:Rechnungs|Offerten|Auftrags)nummer\\]");
+
+                if (customer.Company != null)
+                {
+                    documentText = companyRegex.Replace(documentText, customer.Company);
+                }
+                else
+                {
+                    documentText = companyRegex.Replace(documentText, "");
+                }
+                documentText = streetRegex.Replace(documentText, customer.Street);
+                documentText = zipRegex.Replace(documentText, customer.Zip.ToString());
+                documentText = cityRegex.Replace(documentText, customer.City);
+                documentText = firstNameRegex.Replace(documentText, customer.FirstName);
+                documentText = lastNameRegex.Replace(documentText, customer.LastName);
+                documentText = dateRegex.Replace(documentText, DateTime.Today.ToShortDateString());
+                documentText = documentNumberRegex.Replace(documentText, documentNumber);
+
+                using (StreamWriter sw = new StreamWriter(wordDocument.MainDocumentPart.GetStream(FileMode.Create)))
+                {
+                    sw.Write(documentText);
+                }
+            }
+
+            return destination;
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")] //null-value is tested in Add method
