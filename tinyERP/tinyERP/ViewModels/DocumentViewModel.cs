@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -96,9 +97,9 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanOpenDocument(object dataGrid)
+        private bool CanOpenDocument(object selectedItems)
         {
-            return (dataGrid as DataGrid)?.SelectedItems.Count == 1;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

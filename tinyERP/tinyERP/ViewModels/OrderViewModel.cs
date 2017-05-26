@@ -75,10 +75,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand EditOrderCommand
         {
-            get { return _editOrderCommand ?? (_editOrderCommand = new RelayCommand(EditOrder, CanEditOrder)); }
+            get { return _editOrderCommand ?? (_editOrderCommand = new RelayCommand(param => EditOrder(), CanEditOrder)); }
         }
 
-        private void EditOrder(object dataGrid)
+        private void EditOrder()
         {
             var vm = new EditOrderViewModel(new UnitOfWorkFactory(), SelectedOrder);
             vm.Init();
@@ -86,13 +86,13 @@ namespace tinyERP.UI.ViewModels
 
             if (window.ShowDialog() ?? false)
             {
-                (dataGrid as DataGrid)?.Items.Refresh();
+                CollectionViewSource.GetDefaultView(OrderList).Refresh();
             }
         }
 
-        private bool CanEditOrder(object dataGrid)
+        private bool CanEditOrder(object selectedItems)
         {
-            return (dataGrid as DataGrid)?.SelectedItems.Count == 1;
+            return (selectedItems as ICollection)?.Count == 1;
         }
 
         #endregion

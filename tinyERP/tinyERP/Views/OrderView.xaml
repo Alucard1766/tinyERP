@@ -13,7 +13,7 @@
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewOrderCommand}" ToolTip="Neuen Auftrag hinzufügen"
                         Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditOrderCommand}" CommandParameter="{Binding ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten"
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditOrderCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag bearbeiten"
                         Content="{iconPacks:PackIconFontAwesome Pencil}"/>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteOrdersCommand}" CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" ToolTip="Auftrag löschen"
                         Content="{iconPacks:PackIconFontAwesome Trash}"/>
@@ -33,7 +33,7 @@
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Enter"
                                 Command="{Binding EditOrderCommand}"
-                                CommandParameter="{Binding ElementName=OrdersDataGrid}" />
+                                CommandParameter="{Binding SelectedItems ,ElementName=OrdersDataGrid}" />
                     <KeyBinding Key="Delete"
                                 Command="{Binding DeleteOrdersCommand}"
                                 CommandParameter="{Binding SelectedItems, ElementName=OrdersDataGrid}" />

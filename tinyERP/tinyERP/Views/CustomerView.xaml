@@ -23,7 +23,7 @@
                 </Button>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding NewCustomerCommand}" ToolTip="Neuen Kunden hinzufügen"
                         Content="{iconPacks:PackIconFontAwesome Plus}"/>
-                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten"
+                <Button Style="{StaticResource HoverCircleButton}" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde bearbeiten"
                         Content="{iconPacks:PackIconFontAwesome Pencil}"/>
                 <Button Style="{StaticResource HoverCircleButton}" Command="{Binding DeleteCustomersCommand}" CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" ToolTip="Kunde löschen"
                         Content="{iconPacks:PackIconFontAwesome Trash}"/>
@@ -41,6 +41,11 @@
                     <DataGridTextColumn MinWidth="100" Width="*" Header="Stadt" Binding="{Binding City}"/>
                     <DataGridTextColumn MinWidth="140" Width="*" Header="Email" Binding="{Binding Email}"/>
                 </DataGrid.Columns>
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Enter"
+                                Command="{Binding EditCustomerCommand}"
+                                CommandParameter="{Binding SelectedItems, ElementName=CustomersDataGrid}" />
+                </DataGrid.InputBindings>
             </DataGrid>
         </DockPanel>
     </DockPanel>
