@@ -196,7 +196,7 @@ namespace tinyERP.UI.ViewModels
                     {
                         Amount = amount,
                         InvoiceNumber = invoiceNumber,
-                        IsPayed = false,
+                        IsPaid = false,
                         Order = order,
                         Document = document
                     };
@@ -247,7 +247,7 @@ namespace tinyERP.UI.ViewModels
             {
                 var category = vm.SelectedCategory;
                 Invoice invoice = (Invoice)invoiceItem;
-                invoice.IsPayed = true;
+                invoice.IsPaid = true;
                 CollectionViewSource.GetDefaultView(InvoiceList).Refresh();
 
                 var transaction = new Transaction

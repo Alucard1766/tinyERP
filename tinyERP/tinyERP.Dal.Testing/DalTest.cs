@@ -229,7 +229,7 @@ namespace tinyERP.Dal.Testing
             {
                 Amount = 15,
                 InvoiceNumber = "InvX",
-                IsPayed = false,
+                IsPaid = false,
                 Order = context.Orders.First(),
                 Document = context.Documents.First()
             });

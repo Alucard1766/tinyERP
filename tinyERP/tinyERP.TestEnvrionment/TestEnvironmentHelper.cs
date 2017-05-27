@@ -131,9 +131,9 @@ namespace tinyERP.TestEnvrionment
         private static List<Invoice> Invoices =>
             new List<Invoice>
             {
-                new Invoice {Id = 1, InvoiceNumber= "Invoice 1", Amount = 150.0, IsPayed = true, OrderId = 2, DocumentId = 1},
-                new Invoice {Id = 2, InvoiceNumber= "Invoice 2", Amount = 30.0, IsPayed = false, OrderId = 1, DocumentId = 2},
-                new Invoice {Id = 3, InvoiceNumber= "Invoice 3", Amount = 705.0, IsPayed = true, OrderId = 1, DocumentId = 3}
+                new Invoice {Id = 1, InvoiceNumber= "Invoice 1", Amount = 150.0, IsPaid = true, OrderId = 2, DocumentId = 1},
+                new Invoice {Id = 2, InvoiceNumber= "Invoice 2", Amount = 30.0, IsPaid = false, OrderId = 1, DocumentId = 2},
+                new Invoice {Id = 3, InvoiceNumber= "Invoice 3", Amount = 705.0, IsPaid = true, OrderId = 1, DocumentId = 3}
             };
 
         private static List<OrderConfirmation> OrderConfirmations =>

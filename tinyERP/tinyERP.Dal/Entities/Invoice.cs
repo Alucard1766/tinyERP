@@ -12,7 +12,7 @@ namespace tinyERP.Dal.Entities
         public string InvoiceNumber { get; set; }
 
         [Required]
-        public bool IsPayed { get; set; }
+        public bool IsPaid { get; set; }
 
         [Required]
         public double Amount { get; set; }
@@ -33,6 +33,6 @@ namespace tinyERP.Dal.Entities
         public byte[] RowVersion { get; set; }
 
         [NotMapped]
-        public bool IsNotPayed => !IsPayed;
+        public bool IsNotPaid => !IsPaid;
     }
 }
