@@ -36,7 +36,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Button Tag="0"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
-                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                    ToolTip="Budgetverwaltung">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
                         <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
@@ -46,7 +47,8 @@
                 <iconPacks:PackIconMaterial Kind="Cash" Width="50" Height="50" />
             </Button>
             <Button Grid.Row="1" Tag="1"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
-                     CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                    ToolTip="Dokumentenverwaltung">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
                         <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
@@ -56,7 +58,8 @@
                 <iconPacks:PackIconMaterial Kind="Archive" Width="50" Height="50" />
             </Button>
             <Button Grid.Row="2" Tag="2"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
-                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                    ToolTip="Kundenverwaltung">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
                         <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>
@@ -66,7 +69,8 @@
                 <iconPacks:PackIconMaterial Kind="AccountMultiple" Width="50" Height="50" />
             </Button>
             <Button Grid.Row="3" Tag="3"  Style="{DynamicResource CircleButtonNavigation}" Command="{Binding SwitchTabCommand}" 
-                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+                    CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}"
+                    ToolTip="Auftragsverwaltung">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource SelectedTabConverter}">
                         <Binding RelativeSource="{RelativeSource Self}" Path="Tag"></Binding>

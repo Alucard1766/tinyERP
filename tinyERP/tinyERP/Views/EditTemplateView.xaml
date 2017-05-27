@@ -12,8 +12,7 @@
     BorderBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
     Title="Vorlagen bearbeiten"
-    Height="280"
-    Width="400">
+    Height="280" Width="400" MinHeight="280" MinWidth="400">
     
     <Grid Background="White">
         <Grid Margin="10,10,10,0" VerticalAlignment="Top">
@@ -23,110 +22,116 @@
                 <RowDefinition Height="75" />
             </Grid.RowDefinitions>
             
-            <Label Grid.Row="0" Margin="10,10,10,0" VerticalAlignment="Top" Content="Offertenvorlage"/>
-            <Grid Grid.Row="0" Margin="10" VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage auswählen"
-                         Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
-                         IsReadOnly="True">
-                    <TextBox.InputBindings>
-                        <MouseBinding 
-                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
-                            CommandParameter="{x:Static resources:TemplateType.Offer}" />
-                    </TextBox.InputBindings>
-                </TextBox>
-                <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
-                        CommandParameter="{x:Static resources:TemplateType.Offer}">
-                </Button>
-                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
-                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage hochladen"
-                        Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Offer}">
-                </Button>
-                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}" 
-                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage öffnen"
-                        Command="{Binding OpenTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Offer}">
-                </Button>
-            </Grid>
-            
-            <Label Grid.Row="1" Margin="10,10,10,0" VerticalAlignment="Top" Content="Bestätigungsvorlage"/>
-            <Grid Grid.Row="1" Margin="10" VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage auswählen"
-                         Text="{Binding Confirmation, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
-                         IsReadOnly="True">
-                    <TextBox.InputBindings>
-                        <MouseBinding 
-                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
-                            CommandParameter="{x:Static resources:TemplateType.Confirmation}" />
-                    </TextBox.InputBindings>
-                </TextBox>
-                <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
-                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                </Button>
-                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
-                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage hochladen" 
-                        Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                </Button>
-                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
-                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage öffnen"
-                        Command="{Binding OpenTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Confirmation}">
-                </Button>
-            </Grid>
-            
-            <Label Grid.Row="2" Margin="10,10,10,0" VerticalAlignment="Top" Content="Rechnungsvorlage"/>
-            <Grid Grid.Row="2" Margin="10" VerticalAlignment="Bottom">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage auswählen"
-                         Text="{Binding Invoice, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
-                         IsReadOnly="True">
-                    <TextBox.InputBindings>
-                        <MouseBinding 
-                            Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
-                            CommandParameter="{x:Static resources:TemplateType.Invoice}" />
-                    </TextBox.InputBindings>
-                </TextBox>
-                <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
-                        Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
-                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                </Button>
-                <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
-                        Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage hochladen"
-                        Command="{Binding UploadTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                </Button>
-                <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
-                        Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
-                        ToolTip="Vorlage öffnen"
-                        Command="{Binding OpenTemplateCommand}"
-                        CommandParameter="{x:Static resources:TemplateType.Invoice}">
-                </Button>
-            </Grid>
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <Label Content="Offertenvorlage"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage auswählen"
+                             Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                             IsReadOnly="True">
+                        <TextBox.InputBindings>
+                            <MouseBinding 
+                                Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                                CommandParameter="{x:Static resources:TemplateType.Offer}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
+                            Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                            CommandParameter="{x:Static resources:TemplateType.Offer}">
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                            Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage hochladen"
+                            Command="{Binding UploadTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Offer}">
+                    </Button>
+                    <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}" 
+                            Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage öffnen"
+                            Command="{Binding OpenTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Offer}">
+                    </Button>
+                </Grid>
+            </StackPanel>
+          
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <Label Content="Bestätigungsvorlage"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage auswählen"
+                             Text="{Binding Confirmation, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                             IsReadOnly="True">
+                        <TextBox.InputBindings>
+                            <MouseBinding 
+                                Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                                CommandParameter="{x:Static resources:TemplateType.Confirmation}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
+                            Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                            CommandParameter="{x:Static resources:TemplateType.Confirmation}">
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                            Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage hochladen" 
+                            Command="{Binding UploadTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Confirmation}">
+                    </Button>
+                    <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
+                            Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage öffnen"
+                            Command="{Binding OpenTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Confirmation}">
+                    </Button>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <Label VerticalAlignment="Top" Content="Rechnungsvorlage"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage auswählen"
+                             Text="{Binding Invoice, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
+                             IsReadOnly="True">
+                        <TextBox.InputBindings>
+                            <MouseBinding 
+                                Command="{Binding ChooseFileCommand}" MouseAction="LeftClick"
+                                CommandParameter="{x:Static resources:TemplateType.Invoice}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" Content="..." Margin="5,0,5,0"
+                            Command="{Binding ChooseFileCommand}" ToolTip="Datei auswählen"
+                            CommandParameter="{x:Static resources:TemplateType.Invoice}">
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource HoverCircleButtonChildWindow}"
+                            Content="{iconPacks:PackIconFontAwesome Upload, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage hochladen"
+                            Command="{Binding UploadTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Invoice}">
+                    </Button>
+                    <Button Grid.Column="3" Style="{StaticResource HoverCircleButtonChildWindow}"
+                            Content="{iconPacks:PackIconFontAwesome FolderOpen, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"
+                            ToolTip="Vorlage öffnen"
+                            Command="{Binding OpenTemplateCommand}"
+                            CommandParameter="{x:Static resources:TemplateType.Invoice}">
+                    </Button>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </controls:MetroWindow>
