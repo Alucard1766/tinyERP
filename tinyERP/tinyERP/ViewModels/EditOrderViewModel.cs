@@ -67,11 +67,11 @@ namespace tinyERP.UI.ViewModels
         {
             var customers = UnitOfWork.Customers.GetAll();
             CustomerList = new ObservableCollection<Customer>(customers);
-            var offers = UnitOfWork.Orders.GetOffersAndDocumentsByOrderId(order.Id);
+            var offers = UnitOfWork.Offers.GetOffersWithDocumentsByOrderId(order.Id);
             OfferList = new ObservableCollection<Offer>(offers);
-            var invoices = UnitOfWork.Orders.GetInvoicesAndDocumentsByOrderId(order.Id);
+            var invoices = UnitOfWork.Invoices.GetInvoicesWithDocumentsByOrderId(order.Id);
             InvoiceList = new ObservableCollection<Invoice>(invoices);
-            var orderConfirmations = UnitOfWork.Orders.GetOrderConfirmationWithDocumentByOrderId(order.Id);
+            var orderConfirmations = UnitOfWork.OrderConfirmations.GetOrderConfirmationWithDocumentByOrderId(order.Id);
             OrderConfirmationList = new ObservableCollection<OrderConfirmation>(orderConfirmations);
             AddRules();
         }
@@ -159,15 +159,6 @@ namespace tinyERP.UI.ViewModels
         {
             if (Validator.ValidateAll().IsValid)
             {
-                if (order.State != SelectedState)
-                {
-                    order.StateModificationDate = DateTime.Today;
-                    order.State = SelectedState;
-                }
-
-                order.Title = Title;
-                order.Customer = SelectedCustomer;
-
                 if (order.Id == 0)
                     order = UnitOfWork.Orders.Add(order);
 
@@ -290,15 +281,6 @@ namespace tinyERP.UI.ViewModels
         {
             if (Validator.ValidateAll().IsValid)
             {
-                if (order.State != SelectedState)
-                {
-                    order.StateModificationDate = DateTime.Today;
-                    order.State = SelectedState;
-                }
-
-                order.Title = Title;
-                order.Customer = SelectedCustomer;
-
                 if (order.Id == 0)
                     order = UnitOfWork.Orders.Add(order);
 
@@ -366,15 +348,6 @@ namespace tinyERP.UI.ViewModels
         {
             if (Validator.ValidateAll().IsValid)
             {
-                if (order.State != SelectedState)
-                {
-                    order.StateModificationDate = DateTime.Today;
-                    order.State = SelectedState;
-                }
-
-                order.Title = Title;
-                order.Customer = SelectedCustomer;
-
                 if (order.Id == 0)
                     order = UnitOfWork.Orders.Add(order);
 

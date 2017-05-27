@@ -215,13 +215,81 @@ namespace tinyERP.Dal.Testing
 
         #region Invoice-Tests
 
+        [TestMethod]
+        public void GetInvoicesTest()
+        {
+            var invoices = unitOfWork.Invoices.GetAll();
+            Assert.AreEqual(3, invoices.Count());
+        }
 
+        [TestMethod]
+        public void InsertInvoiceTest()
+        {
+            var invoice = unitOfWork.Invoices.Add(new Invoice
+            {
+                Amount = 15,
+                InvoiceNumber = "InvX",
+                IsPayed = false,
+                Order = context.Orders.First(),
+                Document = context.Documents.First()
+            });
+            unitOfWork.Complete();
+            Assert.AreEqual(invoice, context.Invoices.OrderByDescending(i => i.Id).First());
+        }
+
+        [TestMethod]
+        public void DeleteInvoiceTest()
+        {
+            unitOfWork.Invoices.Remove(context.Invoices.First());
+            unitOfWork.Complete();
+            Assert.AreEqual(2, context.Invoices.Count());
+        }
+
+        [TestMethod]
+        public void GetInvoicesWithDocumentsByOrderIdTest()
+        {
+            var invoices = unitOfWork.Invoices.GetInvoicesWithDocumentsByOrderId(context.Orders.First().Id);
+            Assert.AreEqual(2, invoices.Count(i => i.Document != null));
+        }
 
         #endregion
 
         #region Offer-Tests
 
+        [TestMethod]
+        public void GetOffersTest()
+        {
+            var offers = unitOfWork.Offers.GetAll();
+            Assert.AreEqual(3, offers.Count());
+        }
 
+        [TestMethod]
+        public void InsertOfferTest()
+        {
+            var offer = unitOfWork.Offers.Add(new Offer
+            {
+                OfferNumber = "OffX",
+                Order = context.Orders.First(),
+                Document = context.Documents.First()
+            });
+            unitOfWork.Complete();
+            Assert.AreEqual(offer, context.Offers.OrderByDescending(o => o.Id).First());
+        }
+
+        [TestMethod]
+        public void DeleteOfferTest()
+        {
+            unitOfWork.Offers.Remove(context.Offers.First());
+            unitOfWork.Complete();
+            Assert.AreEqual(2, context.Offers.Count());
+        }
+
+        [TestMethod]
+        public void GetOffersWithDocumentsByOrderIdTest()
+        {
+            var offers = unitOfWork.Offers.GetOffersWithDocumentsByOrderId(context.Orders.First().Id);
+            Assert.AreEqual(1, offers.Count(o => o.Document != null));
+        }
 
         #endregion
 
@@ -268,7 +336,41 @@ namespace tinyERP.Dal.Testing
 
         #region OrderConfirmation-Tests
 
+        [TestMethod]
+        public void GetOrderConfirmationsTest()
+        {
+            var orderConfirmations = unitOfWork.OrderConfirmations.GetAll();
+            Assert.AreEqual(1, orderConfirmations.Count());
+        }
 
+        [TestMethod]
+        public void InsertOrderConfirmationTest()
+        {
+            var order = context.Orders.First(o => o.OrderConfirmation == null);
+            var orderConfirmation = unitOfWork.OrderConfirmations.Add(new OrderConfirmation
+            {
+                OrderConfNumber = "OrConfX",
+                Order = order,
+                Document = context.Documents.First()
+            });
+            unitOfWork.Complete();
+            Assert.AreEqual(orderConfirmation, context.OrderConfirmations.First(o => o.OrderId == order.Id));
+        }
+
+        [TestMethod]
+        public void DeleteOrderConfirmationTest()
+        {
+            unitOfWork.OrderConfirmations.Remove(context.OrderConfirmations.First());
+            unitOfWork.Complete();
+            Assert.AreEqual(0, context.OrderConfirmations.Count());
+        }
+
+        [TestMethod]
+        public void GetOrderConfirmationWithDocumentByOrderIdTest()
+        {
+            var orderConfirmation = unitOfWork.OrderConfirmations.GetOrderConfirmationWithDocumentByOrderId(context.Orders.First().Id);
+            Assert.AreEqual(1, orderConfirmation.Count(o => o.Document != null));
+        }
 
         #endregion
 
