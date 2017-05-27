@@ -19,7 +19,7 @@ namespace tinyERP.Dal
         {
             if (sourceFile == null)
             {
-                throw new ArgumentNullException($"Keinen Pfad angegeben");
+                throw new ArgumentNullException(nameof(sourceFile), "Keinen Pfad angegeben");
             }
             var destinationFileName = Path.GetFileName(sourceFile);
             var destination = Path.Combine(fileType.ToString(), destinationFileName);
