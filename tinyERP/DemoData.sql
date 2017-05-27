@@ -328,21 +328,21 @@ insert into dbo.OrderConfirmations (OrderId, OrderConfNumber, DocumentId) values
 GO
 
 SET IDENTITY_INSERT dbo.Invoices ON
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (1, 'IN-23415', 'true', 449.2, 3, 61);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (2, 'IN-39617', 'false', 612.0, 13, 62);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (3, 'IN-30460', 'false', 460.7, 11, 63);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (4, 'IN-86719', 'true', 611.8, 2, 64);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (5, 'IN-31315', 'true', 653.7, 10, 65);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (6, 'IN-86570', 'true', 873.5, 15, 66);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (7, 'IN-52153', 'false', 824.6, 2, 67);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (8, 'IN-49576', 'true', 256.9, 3, 68);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (9, 'IN-06643', 'false', 854.6, 7, 69);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (10, 'IN-17174', 'false', 724.5, 4, 70);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (11, 'IN-27457', 'true', 445.6, 10, 71);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (12, 'IN-55195', 'true', 753.5, 6, 72);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (13, 'IN-08986', 'false', 662.6, 11, 73);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (14, 'IN-95305', 'true', 583.2, 11, 74);
-insert into dbo.Invoices (Id, InvoiceNumber, IsPayed, Amount, OrderId, DocumentId) values (15, 'IN-37064', 'true', 662.6, 12, 75);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (1, 'IN-23415', 'true', 449.2, 3, 61);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (2, 'IN-39617', 'false', 612.0, 13, 62);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (3, 'IN-30460', 'false', 460.7, 11, 63);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (4, 'IN-86719', 'true', 611.8, 2, 64);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (5, 'IN-31315', 'true', 653.7, 10, 65);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (6, 'IN-86570', 'true', 873.5, 15, 66);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (7, 'IN-52153', 'false', 824.6, 2, 67);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (8, 'IN-49576', 'true', 256.9, 3, 68);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (9, 'IN-06643', 'false', 854.6, 7, 69);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (10, 'IN-17174', 'false', 724.5, 4, 70);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (11, 'IN-27457', 'true', 445.6, 10, 71);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (12, 'IN-55195', 'true', 753.5, 6, 72);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (13, 'IN-08986', 'false', 662.6, 11, 73);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (14, 'IN-95305', 'true', 583.2, 11, 74);
+insert into dbo.Invoices (Id, InvoiceNumber, IsPaid, Amount, OrderId, DocumentId) values (15, 'IN-37064', 'true', 662.6, 12, 75);
 SET IDENTITY_INSERT dbo.Invoices OFF
 GO
 

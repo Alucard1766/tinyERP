@@ -161,11 +161,11 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel>
-                                                    <Button Visibility="{Binding IsNotPayed, Converter={StaticResource BoolToVisConverter}}"
+                                                    <Button Visibility="{Binding IsNotPaid, Converter={StaticResource BoolToVisConverter}}"
                                                             HorizontalAlignment="Center" Content="Als bezahlt markieren" 
                                                             Command="{Binding DataContext.InvoicePayedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
                                                             CommandParameter="{Binding}"/>
-                                                    <Canvas Visibility="{Binding IsPayed, Converter={StaticResource BoolToVisConverter}}" Margin="0,-9,0,0"
+                                                    <Canvas Visibility="{Binding IsPaid, Converter={StaticResource BoolToVisConverter}}" Margin="0,-9,0,0"
                                                             HorizontalAlignment="Center">
                                                         <iconPacks:PackIconMaterial Kind="Check" Height="18" Width="18" />
                                                     </Canvas>
