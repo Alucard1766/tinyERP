@@ -71,7 +71,8 @@
                 <TabItem Header="Offerten" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
                         <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
-                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Offerte" Command="{Binding NewOfferCommand}">
+                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Offerte"
+                                Command="{Binding NewOfferCommand}" ToolTipService.ShowOnDisabled="True">
                             <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
                         </Button>
                         <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OfferList}" BorderThickness="0" DockPanel.Dock="Top">
@@ -133,7 +134,8 @@
                 <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
                         <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}"
-                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Rechnung" Command="{Binding NewInvoiceCommand}">
+                                Width="40" Height="40" BorderThickness="0" ToolTip="Neue Rechnung"
+                                Command="{Binding NewInvoiceCommand}" ToolTipService.ShowOnDisabled="True">
                             <iconPacks:PackIconMaterial Kind="PlusCircle" Width="30" Height="30" />
                         </Button>
                         <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding InvoiceList}" BorderThickness="0"
@@ -180,7 +182,15 @@
                     </DockPanel>
                 </TabItem>
             </TabControl>
-            
+
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Background="{StaticResource GrayBrush7}"
+                    Opacity="0.7" Visibility="{Binding IsNewOrder, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24">
+                    Sie müssen den Auftrag speichern,<LineBreak/>
+                    um ihm Dokumente hinzuzufügen.
+                </TextBlock>
+            </Border>
+
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{DynamicResource HoverCircleButtonChildWindow}" ToolTip="Auftrag speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"

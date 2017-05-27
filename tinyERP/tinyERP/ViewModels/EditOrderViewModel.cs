@@ -43,6 +43,8 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
+        public bool IsNewOrder => order.Id == 0;
+
         public State SelectedState { get; set; }
 
         public DateTime CreationDate { get; }
@@ -152,10 +154,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewInvoiceCommand
         {
-            get { return _newInvoiceCommand ?? (_newInvoiceCommand = new RelayCommand(NewInvoice)); }
+            get { return _newInvoiceCommand ?? (_newInvoiceCommand = new RelayCommand(param => NewInvoice())); }
         }
 
-        private void NewInvoice(object window)
+        private void NewInvoice()
         {
             if (Validator.ValidateAll().IsValid)
             {
@@ -180,7 +182,6 @@ namespace tinyERP.UI.ViewModels
                         MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
                         return;
                     }
-                    
 
                     var document = new Document
                     {
@@ -274,10 +275,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewOfferCommand
         {
-            get { return _newOfferCommand ?? (_newOfferCommand = new RelayCommand(NewOffer)); }
+            get { return _newOfferCommand ?? (_newOfferCommand = new RelayCommand(param => NewOffer())); }
         }
 
-        private void NewOffer(object window)
+        private void NewOffer()
         {
             if (Validator.ValidateAll().IsValid)
             {
@@ -341,10 +342,10 @@ namespace tinyERP.UI.ViewModels
 
         public ICommand NewOrderConfirmationCommand
         {
-            get { return _newOrderConfirmationCommand ?? (_newOrderConfirmationCommand = new RelayCommand(NewOrderConfirmation, CanMakeNewOrder)); }
+            get { return _newOrderConfirmationCommand ?? (_newOrderConfirmationCommand = new RelayCommand(param => NewOrderConfirmation(), param => CanMakeNewOrder())); }
         }
 
-        private void NewOrderConfirmation(object window)
+        private void NewOrderConfirmation()
         {
             if (Validator.ValidateAll().IsValid)
             {
@@ -401,7 +402,7 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private bool CanMakeNewOrder(object window)
+        private bool CanMakeNewOrder()
         {
             return OrderConfirmationList.Count <= 0;
         }

@@ -24,7 +24,7 @@ namespace tinyERP.UI.ViewModels
             Expenses = (this.budget.Expenses.CompareTo(0) == 0) ? null : this.budget.Expenses.ToString(CultureInfo.CurrentCulture);
         }
 
-        public bool IsNewBudget => this.budget.Id == 0;
+        public bool IsNewBudget => budget.Id == 0;
 
         public string Year
         {
