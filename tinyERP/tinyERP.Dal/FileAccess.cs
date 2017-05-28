@@ -56,22 +56,7 @@ namespace tinyERP.Dal
             Process.Start(file);
         }
 
-        public static string CreateNewInvoice(Customer customer, string documentNumber)
-        {
-            return CreateDocumentFromTemplate(customer, documentNumber,"Rechnung.docx");
-        }
-
-        public static string CreateNewOffer(Customer customer, string documentNumber)
-        {
-            return CreateDocumentFromTemplate(customer, documentNumber, "Offerte.docx");
-        }
-
-        public static string CreateNewOrderConfirmation(Customer customer, string documentNumber)
-        {
-            return CreateDocumentFromTemplate(customer, documentNumber, "Auftragsbestätigung.docx");
-        }
-
-        private static string CreateDocumentFromTemplate(Customer customer, string documentNumber, string templateName)
+        public static string CreateDocumentFromTemplate(Customer customer, string documentNumber, string templateName)
         {
             var destination = Add(Path.Combine(FileType.Template.ToString(), templateName), FileType.Document);
 

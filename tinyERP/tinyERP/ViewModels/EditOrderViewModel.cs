@@ -175,11 +175,11 @@ namespace tinyERP.UI.ViewModels
                     string fileName;
                     try
                     {
-                        fileName = FileAccess.CreateNewInvoice(order.Customer, invoiceNumber);
+                        fileName = FileAccess.CreateDocumentFromTemplate(order.Customer, invoiceNumber, Properties.Settings.Default.InvoiceTemplatePath);
                     }
                     catch (Win32Exception)
                     {
-                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie die Vorlage noch geöffnet.", "Ein Fehler ist aufgetreten");
                         return;
                     }
 
@@ -295,11 +295,11 @@ namespace tinyERP.UI.ViewModels
                     string fileName;
                     try
                     {
-                        fileName = FileAccess.CreateNewOffer(order.Customer, offerNumber);
+                        fileName = FileAccess.CreateDocumentFromTemplate(order.Customer, offerNumber, Properties.Settings.Default.OfferTemplatePath);
                     }
                     catch (Win32Exception)
                     {
-                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie die Vorlage noch geöffnet.", "Ein Fehler ist aufgetreten");
                         return;
                     }
                     
@@ -363,11 +363,11 @@ namespace tinyERP.UI.ViewModels
 
                     try
                     {
-                        fileName = FileAccess.CreateNewOrderConfirmation(order.Customer, orderConfNumber);
+                        fileName = FileAccess.CreateDocumentFromTemplate(order.Customer, orderConfNumber, Properties.Settings.Default.ConfirmationTemplatePath);
                     }
                     catch (Win32Exception)
                     {
-                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie das Template noch geöffnet.", "Ein Fehler ist aufgetreten");
+                        MessageBox.Show("Das Dokument konnte nicht erstellt werden. Eventuell haben Sie die Vorlage noch geöffnet.", "Ein Fehler ist aufgetreten");
                         return;
                     }
                     
