@@ -39,13 +39,11 @@
                      Text="{Binding OrderConfNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
             <CheckBox Grid.Row="1" Grid.Column="0" Margin="10" Content="Dokument nach Erstellung öffnen" IsChecked="{Binding OpenAfterSave}"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Auftragsbestätigung speichern"
-                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}">
-                    <iconPacks:PackIconMaterial Kind="CheckCircle" Width="30" Height="30" />
-                </Button>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" Height="40" BorderThickness="0" ToolTip="Abbrechen" IsCancel="True">
-                    <iconPacks:PackIconMaterial Kind="CloseCircle" Width="30" Height="30" />
-                </Button>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Auftragsbestätigung speichern"
+                        Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                        Content="{iconPacks:PackIconFontAwesome Check, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"/>
+                <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Abbrechen" IsCancel="True"
+                    Content="{iconPacks:PackIconFontAwesome Times, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"/>
             </StackPanel>
         </Grid>
     </DockPanel>
