@@ -73,106 +73,94 @@
                         <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource HoverCircleButtonChildWindow}"
                                 ToolTip="Neue Offerte" Command="{Binding NewOfferCommand}" ToolTipService.ShowOnDisabled="True"
                                 Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"/>
-                        <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OfferList}" BorderThickness="0" DockPanel.Dock="Top">
-                            <ListView.Resources>
-                                <Style TargetType="GridViewColumnHeader">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Offerten Nummer" DisplayMemberBinding="{Binding OfferNumber}" />
-                                    <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
-                                    <GridViewColumn Header="Dokumentenlink">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
-                                                            Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
-                                                            CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                        <DataGrid ItemsSource="{Binding OfferList}" DockPanel.Dock="Top" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True"
+                                  CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                                  CanUserSortColumns="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nummer" Binding="{Binding OfferNumber}" Width="Auto"/>
+                                <DataGridTextColumn Header="Datum" Binding="{Binding Document.IssueDate, StringFormat=d}" Width="Auto"/>
+                                <DataGridTemplateColumn Header="Dokument" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                 </TabItem>
+                
                 <TabItem Header="Auftragsbestätigung" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
                         <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource HoverCircleButtonChildWindow}"
                                 ToolTip="{Binding OrderConfToolTip}" Command="{Binding NewOrderConfirmationCommand}" ToolTipService.ShowOnDisabled="True"
                                 Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"/>
-                        <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding OrderConfirmationList}" BorderThickness="0"
-                                  DockPanel.Dock="Top">
-                            <ListView.Resources>
-                                <Style TargetType="GridViewColumnHeader">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Auftragsbestätigungsnummer" DisplayMemberBinding="{Binding OrderConfNumber}" />
-                                    <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}" />
-                                    <GridViewColumn Header="Dokumentenlink">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
-                                                        Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
-                                                        CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </DockPanel>
+                        <DataGrid ItemsSource="{Binding OrderConfirmationList}" DockPanel.Dock="Top" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True"
+                                  CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                                  CanUserSortColumns="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nummer" Binding="{Binding OrderConfNumber}" Width="Auto"/>
+                                <DataGridTextColumn Header="Datum" Binding="{Binding Document.IssueDate, StringFormat=d}" Width="Auto"/>
+                                <DataGridTemplateColumn Header="Dokument" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        </DockPanel>
                 </TabItem>
+                
                 <TabItem Header="Rechnungen" controls:ControlsHelper.HeaderFontSize="24">
                     <DockPanel>
                         <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource HoverCircleButtonChildWindow}"
                                 ToolTip="Neue Rechnung" Command="{Binding NewInvoiceCommand}" ToolTipService.ShowOnDisabled="True"
                                 Content="{iconPacks:PackIconFontAwesome Plus, Width={StaticResource IconSizeSmall}, Height={StaticResource IconSizeSmall}}"/>
-                        <ListView Style="{StaticResource ShowMessageWhenEmpty}" ItemsSource="{Binding InvoiceList}" BorderThickness="0"
-                                  DockPanel.Dock="Top">
-                            <ListView.Resources>
-                                <Style TargetType="GridViewColumnHeader">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </Style>
-                            </ListView.Resources>
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Rechnungsnummer" DisplayMemberBinding="{Binding InvoiceNumber}"/>
-                                    <GridViewColumn Header="Ausstellungsdatum" DisplayMemberBinding="{Binding Document.IssueDate, StringFormat=d}"/>
-                                    <GridViewColumn Header="Betrag" DisplayMemberBinding="{Binding Amount, StringFormat=C}"/>
-                                    <GridViewColumn Header="Dokumentenlink">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}" Margin="0,2"
-                                                        Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
-                                                        CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen" />
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Ist bezahlt">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <Button Visibility="{Binding IsNotPaid, Converter={StaticResource BoolToVisConverter}}"
-                                                            HorizontalAlignment="Center" Content="Als bezahlt markieren" 
-                                                            Command="{Binding DataContext.InvoicePayedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
-                                                            CommandParameter="{Binding}"/>
-                                                    <Canvas Visibility="{Binding IsPaid, Converter={StaticResource BoolToVisConverter}}" Margin="0,-9,0,0"
-                                                            HorizontalAlignment="Center">
-                                                        <iconPacks:PackIconMaterial Kind="Check" Height="18" Width="18" />
-                                                    </Canvas>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        
+
+                        <DataGrid ItemsSource="{Binding InvoiceList}" DockPanel.Dock="Top" AutoGenerateColumns="False" CanUserAddRows="False"
+                                  HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" ColumnWidth="*" IsReadOnly="True"
+                                  CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False"
+                                  CanUserSortColumns="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nummer" Binding="{Binding InvoiceNumber}" Width="Auto"/>
+                                <DataGridTextColumn Header="Datum" Binding="{Binding Document.IssueDate, StringFormat=d}" Width="Auto"/>
+                                <DataGridTextColumn Header="Betrag" Binding="{Binding Amount, StringFormat=C}" Width="Auto"/>
+                                <DataGridTemplateColumn Header="Dokument" Width="Auto" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource LinkButton}" Content="{Binding Document.RelativePath}" Margin="0,2"
+                                                    Command="{Binding DataContext.OpenDocumentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                    CommandParameter="{Binding Document.RelativePath}" ToolTip="Dokument öffnen" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Ist bezahlt" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Button Visibility="{Binding IsNotPaid, Converter={StaticResource BoolToVisConverter}}"
+                                                        HorizontalAlignment="Center" Content="Als bezahlt markieren" Margin="5,0,0,0"
+                                                        Command="{Binding DataContext.InvoicePayedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
+                                                        CommandParameter="{Binding}"/>
+                                                <Canvas Visibility="{Binding IsPaid, Converter={StaticResource BoolToVisConverter}}" Margin="0,-9,0,0"
+                                                        HorizontalAlignment="Center">
+                                                    <iconPacks:PackIconMaterial Kind="Check" Height="18" Width="18" />
+                                                </Canvas>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </DockPanel>
                 </TabItem>
             </TabControl>
