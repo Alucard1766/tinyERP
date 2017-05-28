@@ -106,7 +106,7 @@ namespace tinyERP.UI.ViewModels
                 _budgetChartValues.Clear();
 
                 if (Budget != null)
-                    _budgetChartValues.AddRange(CalculateCategorySums(CategoryList, Budget));
+                    _budgetChartValues.AddRange(CalculateCategorySums().Values);
 
                 return _budgetChartValues;
             }
@@ -115,15 +115,7 @@ namespace tinyERP.UI.ViewModels
 
         public string[] Labels
         {
-            get
-            {
-                List<string> categoryNames = new List<string>();
-                foreach (var category in CategoryList)
-                {
-                    categoryNames.Add(category.Name);
-                }
-                return categoryNames.ToArray();
-            }
+            get { return CalculateCategorySums().Keys.ToArray(); }
         }
 
         public double AllExpensesTotal
@@ -143,6 +135,15 @@ namespace tinyERP.UI.ViewModels
                 return GetTransactionsWithinDateRange()
                     .Where(transaction => transaction.IsRevenue)
                     .Sum(transaction => transaction.Amount);
+            }
+        }
+
+        private Dictionary<string, double> ChartDict
+        {
+            get
+            {
+
+                return CalculateCategorySums();
             }
         }
 
@@ -171,43 +172,44 @@ namespace tinyERP.UI.ViewModels
             YearEnd = yearEnd;
         }
 
-        public double[] CalculateCategorySums(IEnumerable<Category> categories, Budget budget)
+        private Dictionary<string, double> CalculateCategorySums()
         {
-            var sums = new Dictionary<Category, double>();
+            var sums = new Dictionary<string, double>();
 
-            foreach (var category in categories)
+            foreach (var category in CategoryList)
             {
                 if (category.Transactions != null)
                 {
                     var sum = category.Transactions
-                        .Where(t => t.Budget.Id == budget.Id && t.Date >= FromDate && t.Date <= ToDate)
+                        .Where(t => t.Budget.Id == Budget.Id && t.Date >= FromDate && t.Date <= ToDate)
                         .Sum(t => (t.IsRevenue) ? t.Amount : -(t.Amount * (100.0 - t.PrivatePart) / 100));
+
                     if (category.ParentCategory == null)
                     {
-                        if (sums.ContainsKey(category))
+                        if (sums.ContainsKey(category.Name))
                         {
-                            sums[category] += sum;
+                            sums[category.Name] += sum;
                         }
                         else
                         {
-                            sums.Add(category, sum);
+                            sums.Add(category.Name, sum);
                         }
                     }
                     else
                     {
-                        if (sums.ContainsKey(category.ParentCategory))
+                        if (sums.ContainsKey(category.ParentCategory.Name))
                         {
-                            sums[category.ParentCategory] += sum;
+                            sums[category.ParentCategory.Name] += sum;
                         }
                         else
                         {
-                            sums.Add(category.ParentCategory, sum);
+                            sums.Add(category.ParentCategory.Name, sum);
                         }
                     }
                 }
             }
 
-            return sums.Values.ToArray();
+            return sums;
         }
 
         private IEnumerable<Transaction> GetTransactionsWithinDateRange()
@@ -234,6 +236,9 @@ namespace tinyERP.UI.ViewModels
             if (window.ShowDialog() ?? false)
             {
                 OnPropertyChanged(nameof(TransactionList));
+                OnPropertyChanged(nameof(AllRevenuesTotal));
+                OnPropertyChanged(nameof(AllExpensesTotal));
+                OnPropertyChanged(nameof(BudgetChartValues));
             }
         }
 
@@ -295,6 +300,9 @@ namespace tinyERP.UI.ViewModels
                 UnitOfWork.Complete();
 
                 OnPropertyChanged(nameof(TransactionList));
+                OnPropertyChanged(nameof(AllRevenuesTotal));
+                OnPropertyChanged(nameof(AllExpensesTotal));
+                OnPropertyChanged(nameof(BudgetChartValues));
             }
         }
 
