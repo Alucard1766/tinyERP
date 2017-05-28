@@ -138,15 +138,6 @@ namespace tinyERP.UI.ViewModels
             }
         }
 
-        private Dictionary<string, double> ChartDict
-        {
-            get
-            {
-
-                return CalculateCategorySums();
-            }
-        }
-
         public override void Load()
         {
             SearchTerm = string.Empty;
