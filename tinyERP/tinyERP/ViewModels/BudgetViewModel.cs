@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using LiveCharts;
@@ -21,6 +19,7 @@ namespace tinyERP.UI.ViewModels
     {
         private Budget _budget;
         private ObservableCollection<Budget> _budgetList;
+        private Transaction _selectedTransaction;
         private ObservableCollection<Transaction> _transactionList;
         private string _searchTerm;
         private DateTime _fromDate, _toDate, _yearStart, _yearEnd;
@@ -48,7 +47,11 @@ namespace tinyERP.UI.ViewModels
             set { SetProperty(ref _budgetList, value, nameof(BudgetList)); }
         }
 
-        public Transaction SelectedTransaction { get; set; }
+        public Transaction SelectedTransaction
+        {
+            get { return _selectedTransaction; }
+            set { SetProperty(ref _selectedTransaction, value, nameof(SelectedTransaction)); }
+        }
 
         public ObservableCollection<Transaction> TransactionList
         {

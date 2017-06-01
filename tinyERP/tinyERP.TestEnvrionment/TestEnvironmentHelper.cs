@@ -77,7 +77,7 @@ namespace tinyERP.TestEnvrionment
            {
                 new Budget {Id = 1, Year = 2017, Expenses = 1000.0, Revenue = 1500.0},
                 new Budget {Id = 2, Year = 2016, Expenses = 2000.0, Revenue = 2400.0},
-                new Budget {Id = 3, Year = 2015, Expenses = 3000.0, Revenue = 3800.0},
+                new Budget {Id = 3, Year = 2015, Expenses = 3000.0, Revenue = 3800.0}
            };
 
         private static List<Category> Categories =>
@@ -117,7 +117,7 @@ namespace tinyERP.TestEnvrionment
             {
                 new Order {Id = 1, Title = "Order 1", State = State.New, CreationDate = new DateTime(2017, 2, 3), StateModificationDate = new DateTime(2017, 2, 3), CustomerId = 2},
                 new Order {Id = 2, Title = "Order 2", State = State.InProgress, CreationDate = new DateTime(2017, 1, 23), StateModificationDate = new DateTime(2017, 2, 15), CustomerId = 1},
-                new Order {Id = 3, Title = "Order 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3},
+                new Order {Id = 3, Title = "Order 3", State = State.Completed, CreationDate = new DateTime(2016, 7, 13), StateModificationDate = new DateTime(2016, 12, 20), CustomerId = 3}
             };
 
         private static List<Offer> Offers =>

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using tinyERP.Dal.Entities;
@@ -15,6 +14,7 @@ namespace tinyERP.UI.ViewModels
 {
     internal class CustomerViewModel : ViewModelBase
     {
+        private Customer _selectedCustomer;
         private ObservableCollection<Customer> _customerList;
         private string _searchTerm;
 
@@ -22,7 +22,10 @@ namespace tinyERP.UI.ViewModels
         {
         }
 
-        public Customer SelectedCustomer { get; set; }
+        public Customer SelectedCustomer {
+            get { return _selectedCustomer; }
+            set { SetProperty(ref _selectedCustomer, value, nameof(SelectedCustomer)); }
+        }
 
         public ObservableCollection<Customer> CustomerList
         {

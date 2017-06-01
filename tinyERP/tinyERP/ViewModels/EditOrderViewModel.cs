@@ -187,7 +187,7 @@ namespace tinyERP.UI.ViewModels
                     {
                         IssueDate = DateTime.Now,
                         Name = invoiceNumber,
-                        Tag = OrderNumber,
+                        Tag = "Rechnung",
                         RelativePath = fileName
                     };
 
@@ -307,7 +307,7 @@ namespace tinyERP.UI.ViewModels
                     {
                         IssueDate = DateTime.Now,
                         Name = offerNumber,
-                        Tag = OrderNumber,
+                        Tag = "Offerte",
                         RelativePath = fileName
                     };
 
@@ -375,7 +375,7 @@ namespace tinyERP.UI.ViewModels
                     {
                         IssueDate = DateTime.Now,
                         Name = orderConfNumber,
-                        Tag = OrderNumber,
+                        Tag = "Auftragsbestätigung",
                         RelativePath = fileName
                     };
 
@@ -393,6 +393,7 @@ namespace tinyERP.UI.ViewModels
                     UnitOfWork.Complete();
 
                     OrderConfirmationList.Add(orderConfirmation);
+                    OnPropertyChanged(nameof(OrderConfToolTip));
 
                     if (vm.OpenAfterSave ?? false)
                     {

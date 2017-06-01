@@ -17,7 +17,7 @@
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>
-                <ObjectDataProvider x:Key="StateEnum" MethodName="GetValues"
+            <ObjectDataProvider x:Key="StateEnum" MethodName="GetValues"
                                 ObjectType="{x:Type system:Enum}">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="types:State"/>
@@ -25,7 +25,6 @@
             </ObjectDataProvider>
             <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
         </ResourceDictionary>
-        
     </controls:MetroWindow.Resources>
 
     <DockPanel>
@@ -48,6 +47,7 @@
             <Label Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Top">Bezeichnung</Label>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding Title}" />
+            
             <Label Grid.Row="1" Grid.Column="0" Margin="10" VerticalAlignment="Top">Kunde</Label>
             <ComboBox Grid.Row="1" Grid.Column="0" ToolTip="Kunde auswählen" Margin="10" VerticalAlignment="Bottom"
                       ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" DisplayMemberPath="FullName" />
@@ -60,6 +60,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            
             <Label Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Top">Erstelldatum</Label>
             <TextBox Grid.Row="2" Grid.Column="0" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding CreationDate, StringFormat={}{0:dd.MM.yyyy}, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" />

@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace tinyERP.UI.Resources
 {
-    class BooleanToRevenueConverter : IValueConverter
+    internal class BooleanToRevenueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

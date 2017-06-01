@@ -10,6 +10,14 @@ namespace tinyERP.UI.ViewModels
     {
         private int _selectedTab;
 
+        public MainWindowViewModel(IUnitOfWorkFactory factory) : base(factory)
+        {
+            BudgetViewModel = new BudgetViewModel(factory);
+            CustomerViewModel = new CustomerViewModel(factory);
+            OrderViewModel = new OrderViewModel(factory);
+            DocumentViewModel = new DocumentViewModel(factory);
+        }
+
         public int SelectedTab
         {
             get { return _selectedTab; }
@@ -18,14 +26,6 @@ namespace tinyERP.UI.ViewModels
                 _selectedTab = value;
                 OnPropertyChanged(nameof(SelectedTab));
             }
-        }
-
-        public MainWindowViewModel(IUnitOfWorkFactory factory) : base(factory)
-        {
-            BudgetViewModel = new BudgetViewModel(factory);
-            CustomerViewModel = new CustomerViewModel(factory);
-            OrderViewModel = new OrderViewModel(factory);
-            DocumentViewModel = new DocumentViewModel(factory);
         }
 
         public BudgetViewModel BudgetViewModel { get; }

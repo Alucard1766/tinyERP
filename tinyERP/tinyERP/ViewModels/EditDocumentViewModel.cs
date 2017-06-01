@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -136,6 +135,5 @@ namespace tinyERP.UI.ViewModels
         }
 
         #endregion
-
     }
 }

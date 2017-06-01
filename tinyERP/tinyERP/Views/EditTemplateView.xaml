@@ -31,6 +31,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Offertenvorlage auswählen"
                              Text="{Binding Offer, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                              IsReadOnly="True">
@@ -68,6 +69,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Bestätigungsvorlage auswählen"
                              Text="{Binding Confirmation, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                              IsReadOnly="True">
@@ -105,6 +107,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+                    
                     <TextBox Grid.Column="0" controls:TextBoxHelper.Watermark="Rechnungsvorlage auswählen"
                              Text="{Binding Invoice, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" 
                              IsReadOnly="True">

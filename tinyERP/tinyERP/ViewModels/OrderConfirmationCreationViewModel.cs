@@ -45,7 +45,6 @@ namespace tinyERP.UI.ViewModels
             Validator.AddRequiredRule(() => OrderConfNumber, "Es muss eine Auftragsbestätigungsnummer eingegeben werden");
         }
 
-
         #region Save-Command
 
         private RelayCommand _saveCommand;

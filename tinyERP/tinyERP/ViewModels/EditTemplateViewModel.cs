@@ -12,7 +12,7 @@ using FileAccess = tinyERP.Dal.FileAccess;
 
 namespace tinyERP.UI.ViewModels
 {
-    class EditTemplateViewModel : ViewModelBase
+    internal class EditTemplateViewModel : ViewModelBase
     {
         private string _offer;
         private string _confirmation;
@@ -219,7 +219,7 @@ namespace tinyERP.UI.ViewModels
             }
             catch (Win32Exception e)
             {
-                MessageBox.Show($"{fnfMessage}\nWindows-Fehlercode: {e.ErrorCode}", title);
+                MessageBox.Show(fnfMessage, title);
             }
         }
 

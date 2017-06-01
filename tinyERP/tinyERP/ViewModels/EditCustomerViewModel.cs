@@ -54,8 +54,7 @@ namespace tinyERP.UI.ViewModels
                 else
                 {
                     int local;
-                    bool parse;
-                    parse = int.TryParse(value, out local);
+                    bool parse = int.TryParse(value, out local);
                     _zip = (int?) (parse ? local : (ValueType)null);
                 }
 

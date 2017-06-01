@@ -10,18 +10,12 @@ namespace tinyERP.UI.Resources
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-                return DependencyProperty.UnsetValue;
-
-            return GetDescription((Enum) value);
+            return value == null ? DependencyProperty.UnsetValue : GetDescription((Enum) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-                return DependencyProperty.UnsetValue;
-
-            return value;
+            return value ?? DependencyProperty.UnsetValue;
         }
 
         public static string GetDescription(Enum en)

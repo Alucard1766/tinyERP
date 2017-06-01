@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using LiveCharts.Helpers;
 using MvvmValidation;
-using tinyERP.Dal.Entities;
 using tinyERP.UI.Factories;
 
 namespace tinyERP.UI.ViewModels

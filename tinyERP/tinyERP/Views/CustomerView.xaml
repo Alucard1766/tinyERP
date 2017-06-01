@@ -13,7 +13,6 @@
             <Image Source="../Resources/tinyERP_Logo.png" Width="80" Height="80" DockPanel.Dock="Right" />
             <TextBlock FontSize="40" Margin="10" Height="auto">Kundenverwaltung</TextBlock>
         </DockPanel>
-      
 
         <DockPanel Margin="10">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">

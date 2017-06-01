@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace tinyERP.UI.Resources
 {
-    class LevelToMarginConverter : IValueConverter
+    internal class LevelToMarginConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

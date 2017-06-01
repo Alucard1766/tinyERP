@@ -5,8 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
     x:Class="tinyERP.UI.Views.CategorySelectionView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
@@ -35,13 +33,14 @@
 
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Kategorie</Label>
             <ComboBox Grid.Row="0" Grid.Column="0" ToolTip="Kategorie auswählen" Margin="10" VerticalAlignment="Bottom"
-                      ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}" SelectedIndex="0">
+                      ItemsSource="{Binding CategoryList}" SelectedItem="{Binding SelectedCategory}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Margin="{Binding ParentCategoryId, Converter={StaticResource MyLevelToMarginConverter}}" Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Kategorie bestätigen"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
@@ -51,5 +50,4 @@
             </StackPanel>
         </Grid>
     </DockPanel>
-
 </controls:MetroWindow>

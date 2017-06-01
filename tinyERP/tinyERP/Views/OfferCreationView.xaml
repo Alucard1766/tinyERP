@@ -5,8 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
-    xmlns:types="clr-namespace:tinyERP.Dal.Types;assembly=tinyERP.Dal"
     x:Class="tinyERP.UI.Views.OfferCreationView"
     mc:Ignorable="d"
     BorderBrush="{DynamicResource AccentColorBrush}"
@@ -37,7 +35,9 @@
             <Label Grid.Row="0" Grid.Column="0" Margin="10" VerticalAlignment="Top">Offertennummer</Label>
             <TextBox Grid.Row="0" Grid.Column="0" controls:TextBoxHelper.Watermark="Offertennummer" Margin="10" VerticalAlignment="Bottom"
                      Text="{Binding OfferNumber, UpdateSourceTrigger=LostFocus, TargetNullValue='', ValidatesOnNotifyDataErrors=True}" />
+
             <CheckBox Grid.Row="1" Grid.Column="0" Margin="10" Content="Dokument nach Erstellung öffnen" IsChecked="{Binding OpenAfterSave}"/>
+
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Style="{StaticResource HoverCircleButtonChildWindow}" ToolTip="Offerte speichern"
                         Command="{Binding SaveCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MetroWindow}}"
@@ -47,5 +47,4 @@
             </StackPanel>
         </Grid>
     </DockPanel>
-
 </controls:MetroWindow>

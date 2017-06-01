@@ -78,14 +78,7 @@ namespace tinyERP.Dal
                 Regex dateRegex = new Regex("\\[(?:Rechnungs|Offerten|Auftrags)datum\\]");
                 Regex documentNumberRegex = new Regex("\\[(?:Rechnungs|Offerten|Auftrags)nummer\\]");
 
-                if (customer.Company != null)
-                {
-                    documentText = companyRegex.Replace(documentText, customer.Company);
-                }
-                else
-                {
-                    documentText = companyRegex.Replace(documentText, "");
-                }
+                documentText = companyRegex.Replace(documentText, customer.Company ?? "");
                 documentText = streetRegex.Replace(documentText, customer.Street);
                 documentText = zipRegex.Replace(documentText, customer.Zip.ToString());
                 documentText = cityRegex.Replace(documentText, customer.City);
