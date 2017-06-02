@@ -217,7 +217,7 @@ namespace tinyERP.UI.ViewModels
             {
                 MessageBox.Show(fnfMessage, title);
             }
-            catch (Win32Exception e)
+            catch (Win32Exception)
             {
                 MessageBox.Show(fnfMessage, title);
             }
